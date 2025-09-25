@@ -1,0 +1,34 @@
+{
+  "placeholderImages": [
+    {
+      "id": "profile",
+      "description": "Profile picture of Kanish K",
+      "imageUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxtYWxlJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzU4NjczNzA1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "male portrait"
+    },
+    {
+      "id": "chatbot",
+      "description": "Abstract image representing a chatbot",
+      "imageUrl": "https://images.unsplash.com/photo-1587334274328-64186a80aeee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxncmVlbiUyMGxlYWZ8ZW58MHx8fHwxNzU4NzE5NDU4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "green leaf"
+    },
+    {
+      "id": "ml-pipeline",
+      "description": "Abstract image representing a machine learning pipeline",
+      "imageUrl": "https://images.unsplash.com/photo-1580596090683-f4711170117b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx3aGl0ZSUyMGZsb3dlcnN8ZW58MHx8fHwxNzU4NzI3NDM4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "white flowers"
+    },
+    {
+      "id": "sentiment-analysis",
+      "description": "Abstract image representing sentiment analysis",
+      "imageUrl": "https://images.unsplash.com/photo-1641305286305-9f267722fd0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxib29rcyUyMHZhc2V8ZW58MHx8fHwxNzU4NzI3NDM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "books vase"
+    },
+    {
+      "id": "task-scheduler",
+      "description": "Abstract image representing a task scheduler",
+      "imageUrl": "https://images.unsplash.com/photo-1595208599319-c1dcf5776170?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxnZWFycyUyMGNsb2Nrd29ya3xlbnwwfHx8fDE3NTg3Mjc0Mzh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gears clockwork"
+    }
+  ]
+}
