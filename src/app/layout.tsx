@@ -4,6 +4,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Footer } from '@/components/footer';
 import { ScriptProps } from 'next/script';
 import { DevToolsBlocker } from '@/components/devtools-blocker';
+import { ThemeProvider } from "@/components/theme-provider";
+import { FloatingCTA } from "@/components/floating-cta";
 
 export const metadata: Metadata = {
   title: 'KanishK.ai | AI Engineer Portfolio',
@@ -43,14 +45,22 @@ export default function RootLayout({
         className="font-body antialiased bg-background selection:bg-accent/30"
         style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/noisy.png')" }}
       >
-        <DevToolsBlocker />
-        <div className="flex flex-col min-h-dvh">
-          <main className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </div>
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <DevToolsBlocker />
+          <div className="flex flex-col min-h-dvh">
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
+          <Toaster />
+          <FloatingCTA />
+        </ThemeProvider>
       </body>
     </html>
   );

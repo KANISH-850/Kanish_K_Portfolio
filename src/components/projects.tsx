@@ -3,81 +3,83 @@ import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { Github } from "lucide-react";
+import { ArrowRight, Activity, Zap } from "lucide-react";
 import MotionWrap from "./motion-wrap";
-
-const projects = [
-  {
-    id: "suvidha",
-    title: "Suvidha – Multilingual Grievance Platform",
-    description: "Built a multilingual grievance management platform enabling users to submit complaints and service requests in regional languages. Integrated IndicTrans2 for translation between Indian languages and English, improving accessibility and administrative efficiency.",
-    href: "#",
-    githubUrl: "#",
-  },
-  {
-    id: "course-booking-bot",
-    title: "Automated Course Slot Booking Bot",
-    description: "Developed a Selenium-based automation bot that automatically reserves course slots by selecting predefined courses and preferred timings.",
-    href: "#",
-    githubUrl: "#",
-  },
-  {
-    id: "smart-patrol-robot",
-    title: "Smart Patrol Robot",
-    description: "Designed an intelligent patrol robot in CoppeliaSim with zone-based object detection and automated response generation for smart surveillance.",
-    href: "#",
-    githubUrl: "#",
-  },
-  {
-    id: "digital-twin-ehv",
-    title: "Digital Twin of EHV Substation",
-    description: "Developed a Digital Twin framework for Extra High Voltage substations featuring asset monitoring, anomaly detection, predictive maintenance, and visualization.",
-    href: "#",
-    githubUrl: "#",
-  },
-];
+import { projectsData } from "@/data/projects";
 
 export function Projects() {
+  const projectList = Object.values(projectsData);
+
   return (
-    <section id="projects" className="py-20 md:py-28">
+    <section id="projects" className="py-20 md:py-32 relative">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="container">
         <MotionWrap>
-          <div className="max-w-2xl mx-auto text-center mb-12">
-            <h2 className="font-headline text-3xl md:text-4xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-[#030303] to-[#575956] bg-clip-text text-transparent">Projects</span>
+          <div className="max-w-3xl mx-auto text-center mb-16 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+              Featured Work
+            </div>
+            <h2 className="font-headline text-4xl md:text-5xl font-bold">
+              Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Impact</span>
             </h2>
+            <p className="text-muted-foreground text-lg">Deep dives into the architecture, challenges, and outcomes of my most significant ML & Full-Stack systems.</p>
           </div>
-          <div className="max-w-4xl mx-auto space-y-16">
-            {projects.map((project) => {
-              const projectImage = PlaceHolderImages.find(p => p.id === project.id);
+          
+          <div className="max-w-5xl mx-auto space-y-16">
+            {projectList.map((project) => {
+              // Map to placeholders (aazhi-suvidhaa -> suvidha, etc.)
+              const imageId = project.id === 'aazhi-suvidhaa' ? 'suvidha' : project.id === 'digital-twin-ehv' ? 'digital-twin-ehv' : 'suvidha';
+              const projectImage = PlaceHolderImages.find(p => p.id === imageId);
+              
               return (
-                <Card key={project.id} className="grid md:grid-cols-2 gap-8 md:gap-12 p-8 items-center shadow-lg overflow-hidden">
-                  <div className="space-y-4">
-                    <h3 className="text-2xl font-bold">{project.title}</h3>
-                    <p className="text-muted-foreground">{project.description}</p>
-                    <div className="flex gap-4">
-                      <Button asChild variant="outline">
-                        <Link href={project.href}>Explore</Link>
-                      </Button>
-                      <Button asChild variant="outline">
-                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                          <Github className="mr-2 h-4 w-4" />
-                          GitHub
-                        </a>
+                <Card key={project.id} className="group grid md:grid-cols-2 gap-0 overflow-hidden border-white/10 shadow-2xl bg-card hover:border-primary/30 transition-all duration-500">
+                  <div className="p-8 md:p-12 flex flex-col justify-center space-y-6">
+                    <div className="space-y-2">
+                      <h3 className="text-3xl font-bold font-headline">{project.title}</h3>
+                      <p className="text-accent font-medium">{project.tagline}</p>
+                    </div>
+                    
+                    <p className="text-muted-foreground leading-relaxed">
+                      {project.problemStatement}
+                    </p>
+
+                    <div className="flex gap-4 pb-4">
+                       <div className="flex items-center gap-2 text-sm font-medium text-foreground/80 bg-background/50 px-3 py-1.5 rounded-md border border-border">
+                          <Activity className="w-4 h-4 text-emerald-500" />
+                          Performance Metrics
+                       </div>
+                       <div className="flex items-center gap-2 text-sm font-medium text-foreground/80 bg-background/50 px-3 py-1.5 rounded-md border border-border">
+                          <Zap className="w-4 h-4 text-primary" />
+                          Highly Scalable
+                       </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-border/50">
+                      <Button asChild className="w-full sm:w-auto group/btn">
+                        <Link href={`/projects/${project.id}`}>
+                          Read Case Study 
+                          <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                        </Link>
                       </Button>
                     </div>
                   </div>
-                  <div>
-                    {projectImage && (
+                  
+                  <div className="relative h-64 md:h-auto overflow-hidden bg-muted/20">
+                    {projectImage ? (
                        <Image
                         src={projectImage.imageUrl}
                         alt={projectImage.description}
                         data-ai-hint={projectImage.imageHint}
-                        width={600}
-                        height={400}
-                        className="rounded-lg object-cover aspect-[4/3]"
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                        <span className="text-muted-foreground font-code text-sm">System Architecture Preview</span>
+                      </div>
                     )}
+                    {/* Glass gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent md:bg-gradient-to-l md:from-transparent md:via-transparent md:to-card/90" />
                   </div>
                 </Card>
               );
