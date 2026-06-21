@@ -8,6 +8,7 @@ import { cvUrl, email, socialLinks, navItems } from '@/lib/config';
 import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { motion } from 'framer-motion';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export function Header() {
   const { toast } = useToast();
@@ -24,7 +25,7 @@ export function Header() {
 
   return (
     <header 
-      className="w-full bg-transparent px-[3vw]"
+      className="fixed top-0 left-0 w-full z-50 bg-background/60 backdrop-blur-md border-b border-white/10 shadow-sm"
     >
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
@@ -48,20 +49,24 @@ export function Header() {
           </motion.div>
         </div>
         <div className="flex flex-1 items-center justify-end">
-          <nav className="hidden md:flex items-center gap-x-[5px]">
+          <nav className="hidden md:flex items-center gap-x-[5px] mr-4">
             {headerSocialLinks.map((item, index) => (
               <React.Fragment key={item.label}>
                 <motion.div whileHover={{ scale: 1.1 }}>
-                  <Button variant="link" asChild className="text-xs font-medium px-0">
+                  <Button variant="link" asChild className="text-xs font-medium px-0 hover:text-primary transition-colors">
                     <a href={item.href} target="_blank" rel="noopener noreferrer">
                       {item.label}
                     </a>
                   </Button>
                 </motion.div>
-                {index < headerSocialLinks.length - 1 && <span className="text-muted-foreground">/</span>}
+                {index < headerSocialLinks.length - 1 && <span className="text-muted-foreground/50">/</span>}
               </React.Fragment>
             ))}
           </nav>
+
+          <div className="hidden md:flex items-center">
+            <ThemeToggle />
+          </div>
 
           <div className="md:hidden">
             <Sheet>
@@ -95,7 +100,7 @@ export function Header() {
                       </Link>
                     ))}
                   </nav>
-                  <div className="mt-auto flex flex-col items-start space-y-2">
+                  <div className="mt-auto flex flex-col items-start space-y-4">
                      {mobileSocialLinks.map(({ href, label }) => (
                       <Button key={label} variant="link" className="px-0 text-lg text-foreground hover:text-accent" asChild>
                         <a href={href} target="_blank" rel="noopener noreferrer">
@@ -103,6 +108,10 @@ export function Header() {
                         </a>
                       </Button>
                     ))}
+                    <div className="pt-4 border-t w-full flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">Theme</span>
+                      <ThemeToggle />
+                    </div>
                   </div>
                 </div>
               </SheetContent>
