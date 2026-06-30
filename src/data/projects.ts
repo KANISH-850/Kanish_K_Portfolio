@@ -40,6 +40,19 @@ export interface ProjectCaseStudy {
   performanceMetrics: string[];
   lessonsLearned: string[];
   technologies: string[];
+
+  // V3 Elite Enhancements: Lessons Learned
+  engineeringChallenges?: string[];
+  mistakesMade?: string[];
+  failedApproaches?: string[];
+  optimizationStrategies?: string[];
+  futureImprovements?: string[];
+
+  // V3 Elite Enhancements: Hackathon Judge Metrics
+  innovation?: string;
+  scalability?: string;
+  impact?: string;
+  teamContribution?: string;
 }
 
 export const projectsData: Record<string, ProjectCaseStudy> = {
