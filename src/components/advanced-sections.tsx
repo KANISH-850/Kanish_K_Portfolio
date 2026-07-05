@@ -1,5 +1,5 @@
 import MotionWrap from "./motion-wrap";
-import { Network, Trophy, Github } from "lucide-react";
+import { Network, Github, Accessibility, Landmark, Lightbulb } from "lucide-react";
 import { Card } from "./ui/card";
 
 export function AdvancedSections() {
@@ -18,7 +18,7 @@ export function AdvancedSections() {
 
           <div className="grid lg:grid-cols-3 gap-8">
             
-            {/* Architecture Gallery */}
+            {/* System Design */}
             <Card className="p-8 bg-card border-white/5 shadow-lg flex flex-col gap-6 group hover:border-primary/30 transition-colors">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Network className="w-6 h-6 text-primary" />
@@ -26,7 +26,7 @@ export function AdvancedSections() {
               <div>
                 <h3 className="text-2xl font-bold mb-2">System Design</h3>
                 <p className="text-muted-foreground">
-                  View high-level architecture diagrams mapping out microservices, data pipelines, and ML model deployments.
+                  Exploring scalable architectures, data pipelines, distributed systems, and performance optimization.
                 </p>
               </div>
               <div className="mt-auto pt-4 text-primary font-medium group-hover:underline cursor-pointer flex items-center">
@@ -34,24 +34,7 @@ export function AdvancedSections() {
               </div>
             </Card>
 
-            {/* Hackathons & Competitions */}
-            <Card className="p-8 bg-card border-white/5 shadow-lg flex flex-col gap-6 group hover:border-accent/30 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
-                <Trophy className="w-6 h-6 text-accent" />
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-2">Hackathons</h3>
-                <p className="text-muted-foreground">
-                  Demonstrated ability to build MVP AI solutions under extreme time constraints and present technical concepts to judges.
-                </p>
-              </div>
-              <ul className="space-y-2 text-sm mt-auto border-t border-border/50 pt-4">
-                <li className="flex justify-between"><span>Smart India Hackathon</span> <span className="text-accent">Finalist</span></li>
-                <li className="flex justify-between"><span>AI Buildathon</span> <span className="text-accent">Winner</span></li>
-              </ul>
-            </Card>
-
-            {/* Open Source / GitHub Analytics */}
+            {/* Open Source */}
             <Card className="p-8 bg-card border-white/5 shadow-lg flex flex-col gap-6 group hover:border-emerald-500/30 transition-colors">
               <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
                 <Github className="w-6 h-6 text-emerald-500" />
@@ -59,18 +42,59 @@ export function AdvancedSections() {
               <div>
                 <h3 className="text-2xl font-bold mb-2">Open Source</h3>
                 <p className="text-muted-foreground">
-                  Active contributor to the ML community. I maintain repositories focusing on automation and accessible UI components.
+                  Active contributor to the tech community. I maintain repositories focusing on automation and accessible tools.
                 </p>
               </div>
-              <div className="mt-auto pt-4 flex gap-4 text-sm font-medium">
-                <div className="flex flex-col">
-                  <span className="text-emerald-500 text-xl font-bold">150+</span>
-                  <span className="text-muted-foreground">Contributions</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-emerald-500 text-xl font-bold">12</span>
-                  <span className="text-muted-foreground">Repositories</span>
-                </div>
+              <div className="mt-auto pt-4 text-emerald-500 font-medium group-hover:underline cursor-pointer flex items-center">
+                View GitHub →
+              </div>
+            </Card>
+
+            {/* Accessibility Engineering */}
+            <Card className="p-8 bg-card border-white/5 shadow-lg flex flex-col gap-6 group hover:border-blue-500/30 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                <Accessibility className="w-6 h-6 text-blue-500" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-2">Accessibility Engineering</h3>
+                <p className="text-muted-foreground">
+                  Building inclusive interfaces and championing web accessibility standards (WCAG) for all users.
+                </p>
+              </div>
+              <div className="mt-auto pt-4 text-blue-500 font-medium group-hover:underline cursor-pointer flex items-center">
+                View Impact →
+              </div>
+            </Card>
+
+            {/* Government Technology */}
+            <Card className="p-8 bg-card border-white/5 shadow-lg flex flex-col gap-6 group hover:border-accent/30 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                <Landmark className="w-6 h-6 text-accent" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-2">Government Technology</h3>
+                <p className="text-muted-foreground">
+                  Innovating digital public infrastructure and building AI-driven, citizen-centric governance platforms.
+                </p>
+              </div>
+              <div className="mt-auto pt-4 text-accent font-medium group-hover:underline cursor-pointer flex items-center">
+                Read Case Studies →
+              </div>
+            </Card>
+
+            {/* AI Research */}
+            <Card className="p-8 bg-card border-white/5 shadow-lg flex flex-col gap-6 group hover:border-purple-500/30 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center">
+                <Lightbulb className="w-6 h-6 text-purple-500" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold mb-2">AI Research</h3>
+                <p className="text-muted-foreground">
+                  Transforming research papers into practical prototypes using emerging ML models and edge computing.
+                </p>
+              </div>
+              <div className="mt-auto pt-4 text-purple-500 font-medium group-hover:underline cursor-pointer flex items-center">
+                View Prototypes →
               </div>
             </Card>
 

@@ -52,14 +52,26 @@ export function GithubEvidence() {
                 Open Source <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600">Contributions</span>
               </h2>
             </div>
-            <div className="mt-6 md:mt-0 flex gap-4 text-center">
+            <div className="mt-6 md:mt-0 grid grid-cols-2 sm:grid-cols-5 gap-4 text-center">
               <div className="flex flex-col bg-card border border-white/5 p-4 rounded-xl shadow-sm">
-                <span className="text-2xl font-bold text-foreground">250+</span>
-                <span className="text-xs text-muted-foreground uppercase tracking-widest">Commits</span>
+                <span className="text-2xl font-bold text-foreground">XX</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-widest">Repositories</span>
               </div>
               <div className="flex flex-col bg-card border border-white/5 p-4 rounded-xl shadow-sm">
-                <span className="text-2xl font-bold text-foreground">12</span>
-                <span className="text-xs text-muted-foreground uppercase tracking-widest">Repositories</span>
+                <span className="text-2xl font-bold text-foreground">XX</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-widest">Pull Requests</span>
+              </div>
+              <div className="flex flex-col bg-card border border-white/5 p-4 rounded-xl shadow-sm">
+                <span className="text-2xl font-bold text-foreground">XX</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-widest">Issues</span>
+              </div>
+              <div className="flex flex-col bg-card border border-white/5 p-4 rounded-xl shadow-sm">
+                <span className="text-2xl font-bold text-foreground">XX</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-widest">Documentation</span>
+              </div>
+              <div className="flex flex-col bg-card border border-white/5 p-4 rounded-xl shadow-sm">
+                <span className="text-2xl font-bold text-foreground">XX</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-widest">Reviews</span>
               </div>
             </div>
           </div>

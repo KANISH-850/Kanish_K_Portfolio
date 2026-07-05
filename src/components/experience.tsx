@@ -1,22 +1,11 @@
 import MotionWrap from "./motion-wrap";
 import { Briefcase, Calendar } from "lucide-react";
 
-const experiences = [
-  {
-    role: "AI & ML Engineer",
-    company: "Freelance / Projects",
-    duration: "2023 - Present",
-    description: "Architected end-to-end ML pipelines and full-stack web applications. Developed scalable APIs using FastAPI and React. Integrated real-time NLP translation models (IndicTrans2) into production.",
-  },
-  {
-    role: "Full Stack Developer Intern",
-    company: "Tech Startup",
-    duration: "Summer 2024",
-    description: "Contributed to building high-performance, accessible user interfaces using Next.js and Tailwind CSS. Optimized database queries in PostgreSQL, reducing latency by 30%.",
-  }
-];
+const experiences: Array<{role: string; company: string; duration: string; description: string}> = [];
 
 export function Experience() {
+  if (experiences.length === 0) return null;
+
   return (
     <section id="experience" className="py-20 md:py-28 bg-muted/10">
       <div className="container max-w-4xl mx-auto">

@@ -2,13 +2,22 @@ import MotionWrap from "./motion-wrap";
 import { CheckCircle2 } from "lucide-react";
 
 const reasons = [
-  "AI & Machine Learning Engineer",
-  "Full Stack Developer",
-  "Accessibility Engineer",
-  "System Design Enthusiast",
-  "Government Technology Builder",
-  "Problem Solver",
-  "Research-Oriented Developer"
+  {
+    title: "Accessibility Engineer",
+    description: "Builds inclusive, WCAG-compliant applications with accessibility as a core design principle."
+  },
+  {
+    title: "System Design Enthusiast",
+    description: "Interested in scalable architectures, distributed systems, APIs, cloud-native applications, and performance optimization."
+  },
+  {
+    title: "Government Technology Developer",
+    description: "Passionate about building AI-driven public-sector solutions, citizen-centric platforms, and digital governance applications."
+  },
+  {
+    title: "Research-Oriented Developer",
+    description: "Enjoys transforming research ideas into practical prototypes using AI, Edge Computing, and emerging technologies."
+  }
 ];
 
 export function WhyHireMe() {
@@ -31,9 +40,12 @@ export function WhyHireMe() {
             
             <div className="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-4">
               {reasons.map((reason, idx) => (
-                <div key={idx} className="flex items-center gap-3 p-4 rounded-xl bg-card border border-white/5 shadow-sm hover:border-primary/20 hover:bg-muted/30 transition-all">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
-                  <span className="font-medium text-foreground/90">{reason}</span>
+                <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-card border border-white/5 shadow-sm hover:border-primary/20 hover:bg-muted/30 transition-all">
+                  <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-medium text-foreground/90 block">{reason.title}</span>
+                    <span className="text-sm text-muted-foreground mt-1 block">{reason.description}</span>
+                  </div>
                 </div>
               ))}
             </div>

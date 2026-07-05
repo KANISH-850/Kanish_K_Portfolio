@@ -30,7 +30,7 @@ export function Hero() {
     { icon: Terminal, label: "4+ Major Projects", value: "Deployed" },
     { icon: Trophy, label: "Hackathons", value: "Winner/Finalist" },
     { icon: Cpu, label: "AI Models", value: "Trained & Tuned" },
-    { icon: Code2, label: "100+ Commits", value: "Open Source" },
+    { icon: Code2, label: "Community", value: "OSS Contributor" },
   ];
 
   return (

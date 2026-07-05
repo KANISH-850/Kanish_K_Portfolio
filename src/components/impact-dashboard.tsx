@@ -4,11 +4,8 @@ import { motion } from "framer-motion";
 import MotionWrap from "./motion-wrap";
 
 const impactStats = [
-  { label: "Major Projects Built", value: "4+" },
-  { label: "AI/ML Models Deployed", value: "6" },
-  { label: "GitHub Contributions", value: "250+" },
+  { label: "AI/ML Projects", value: "6" },
   { label: "Accessibility Features", value: "15+" },
-  { label: "Hackathons Participated", value: "3" },
   { label: "Core Technologies", value: "12+" }
 ];
 
@@ -43,7 +40,7 @@ export function ImpactDashboard() {
           </div>
           
           <motion.div 
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+            className="grid grid-cols-1 md:grid-cols-3 gap-4"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
