@@ -1,47 +1,103 @@
-import { TechChallenge } from "@/data/projects";
-import { Wrench, CheckCircle2, Code2, LineChart } from "lucide-react";
+﻿import { TechChallenge, projectsData } from "@/data/projects";
+import { Wrench, CheckCircle2, Code2, LineChart, Cpu } from "lucide-react";
+import MotionWrap from "./motion-wrap";
 
-export function TechnicalChallenges({ challenges }: { challenges: TechChallenge[] }) {
-  if (!challenges || challenges.length === 0) return null;
+const flagshipChallenges: TechChallenge[] = [
+  projectsData["digital-twin-ehv"].technicalChallenges[0],
+  projectsData["intelligent-grievance-system"].technicalChallenges[0],
+  projectsData["aquaguard-ai"].technicalChallenges[0],
+  projectsData["kiosk-management-system"].technicalChallenges[0]
+].filter(Boolean);
 
-  return (
-    <section className="space-y-6">
-      <h2 className="text-3xl font-bold mb-6 border-b border-border/50 pb-2">Technical Challenges</h2>
-      <div className="grid md:grid-cols-2 gap-6">
-        {challenges.map((challenge, idx) => (
-          <div key={idx} className="bg-card border border-white/5 shadow-md p-6 rounded-2xl flex flex-col gap-4">
-            
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-destructive font-semibold">
-                <Wrench className="w-4 h-4" /> Challenge
-              </div>
-              <p className="text-foreground/90">{challenge.challenge}</p>
-            </div>
+export function TechnicalChallenges({ challenges }: { challenges?: TechChallenge[] }) {
+  const displayChallenges = challenges && challenges.length > 0 ? challenges : flagshipChallenges;
 
-            <div className="space-y-2 border-t border-border/50 pt-4">
-              <div className="flex items-center gap-2 text-primary font-semibold">
-                <CheckCircle2 className="w-4 h-4" /> Solution
-              </div>
-              <p className="text-foreground/80">{challenge.solution}</p>
-            </div>
+  if (!displayChallenges || displayChallenges.length === 0) return null;
 
-            <div className="space-y-2 border-t border-border/50 pt-4">
-              <div className="flex items-center gap-2 text-accent font-semibold">
-                <Code2 className="w-4 h-4" /> Implementation
-              </div>
-              <p className="text-foreground/80 font-code text-sm bg-muted/20 p-2 rounded-md border border-white/5">{challenge.implementation}</p>
-            </div>
+  const isStandalone = !challenges;
 
-            <div className="mt-auto space-y-2 border-t border-border/50 pt-4">
-              <div className="flex items-center gap-2 text-emerald-500 font-semibold">
-                <LineChart className="w-4 h-4" /> Result
-              </div>
-              <p className="text-foreground font-bold">{challenge.result}</p>
-            </div>
-
+  const content = (
+    <div className="space-y-8">
+      {isStandalone && (
+        <div className="max-w-3xl mx-auto text-center mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-wide uppercase border border-primary/20">
+            System Design & Debugging
           </div>
+          <h2 className="font-headline text-3xl md:text-5xl font-bold tracking-tight">
+            Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary to-accent">Challenges & Solutions</span>
+          </h2>
+          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+            Real engineering bottlenecks overcome during implementation, detailing the diagnostic breakdown, chosen architecture, and verifiable outcome.
+          </p>
+        </div>
+      )}
+
+      {!isStandalone && (
+        <h2 className="text-3xl font-bold mb-6 border-b border-border/50 pb-2">
+          Technical Challenges & Solutions
+        </h2>
+      )}
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {displayChallenges.map((challenge, idx) => (
+          <article
+            key={challenge.id || `challenge-${idx}`}
+            className="bg-card border border-white/10 shadow-md p-6 sm:p-7 rounded-2xl flex flex-col gap-4 hover:border-primary/40 transition-colors"
+          >
+            {/* Challenge */}
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2 text-destructive font-semibold text-sm font-mono uppercase tracking-wider">
+                <Wrench className="w-4 h-4" /> Engineering Challenge
+              </div>
+              <p className="text-foreground/90 font-medium text-sm leading-relaxed">
+                {challenge.challenge}
+              </p>
+            </div>
+
+            {/* Solution */}
+            <div className="space-y-1.5 border-t border-border/40 pt-3">
+              <div className="flex items-center gap-2 text-primary font-semibold text-sm font-mono uppercase tracking-wider">
+                <CheckCircle2 className="w-4 h-4" /> Architectural Solution
+              </div>
+              <p className="text-foreground/80 text-xs md:text-sm leading-relaxed">
+                {challenge.solution}
+              </p>
+            </div>
+
+            {/* Implementation */}
+            <div className="space-y-1.5 border-t border-border/40 pt-3">
+              <div className="flex items-center gap-2 text-accent font-semibold text-sm font-mono uppercase tracking-wider">
+                <Code2 className="w-4 h-4" /> Implementation Details
+              </div>
+              <p className="text-foreground/80 font-mono text-xs bg-muted/30 p-2.5 rounded-lg border border-white/5 leading-relaxed">
+                {challenge.implementation}
+              </p>
+            </div>
+
+            {/* Result */}
+            <div className="mt-auto space-y-1 border-t border-border/40 pt-3">
+              <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs font-mono uppercase tracking-wider">
+                <LineChart className="w-4 h-4" /> Quantified Outcome
+              </div>
+              <p className="text-foreground font-bold text-sm">
+                {challenge.result}
+              </p>
+            </div>
+          </article>
         ))}
       </div>
-    </section>
+    </div>
   );
+
+  if (isStandalone) {
+    return (
+      <section id="challenges" className="py-20 md:py-28" aria-label="Technical Challenges">
+        <div className="container max-w-6xl mx-auto px-4 md:px-6">
+          <MotionWrap>{content}</MotionWrap>
+        </div>
+      </section>
+    );
+  }
+
+  return <section className="space-y-6">{content}</section>;
 }
