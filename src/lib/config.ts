@@ -2,7 +2,10 @@ import { Github, Linkedin } from "lucide-react";
 import { KaggleIcon, LeetCodeIcon, WhatsAppIcon } from "@/lib/icons";
 
 export const email = "kanishkgins@gmail.com";
-export const cvUrl = "/KanishK_CV.pdf";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+export const cvUrl = `${basePath}/KanishK_CV.pdf`;
+// Hidden temporarily until genuine resume is provided by user (prevents publishing placeholder stub)
+export const showResume = false;
 export const whatsappUrl = "https://wa.me/918508509719"; 
 
 export const socialLinks = [
@@ -11,7 +14,7 @@ export const socialLinks = [
     icon: Linkedin,
     label: "LinkedIn",
   },
-  { href: "https://github.com/Kanish-K-2004", icon: Github, label: "GitHub" },
+  { href: "https://github.com/KANISH-850", icon: Github, label: "GitHub" },
   {
     href: "https://www.kaggle.com/kanishk2004",
     icon: KaggleIcon,
@@ -31,7 +34,9 @@ export const socialLinks = [
 
 export const navItems = [
   { href: "#about", label: "About" },
-  { href: "#services", label: "Expertise" },
+  { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
+  { href: "#achievements", label: "Achievements" },
+  { href: "#experience", label: "Journey" },
   { href: "#contact", label: "Contact" },
 ];
