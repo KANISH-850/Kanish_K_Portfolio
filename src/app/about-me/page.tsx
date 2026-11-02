@@ -52,10 +52,10 @@ export default function AboutMePage() {
           </h2>
           <div className="prose prose-lg dark:prose-invert max-w-none text-muted-foreground leading-relaxed">
             <p>
-              My journey began at the intersection of complex data and human-centric design. Early on, I realized that building powerful machine learning models was only half the equation. If the end-user—whether an engineer debugging a digital twin or a senior citizen filing a grievance—couldn't interface with the technology intuitively, the innovation was lost.
+              My journey began at the intersection of complex data and human-centric design. Early on, I realized that building powerful machine learning models was only half the equation. If the end-user—whether an engineer debugging a digital twin or a senior citizen filing a grievance—couldn&apos;t interface with the technology intuitively, the innovation was lost.
             </p>
             <p>
-              This realization drove me to specialize as a Full-Stack AI Engineer with a rare, deep focus on Accessibility Engineering. I don't just fine-tune transformers; I build the robust, accessible, and highly-performant microservices that deliver their insights to the world.
+              This realization drove me to specialize as a Full-Stack AI Engineer with a rare, deep focus on Accessibility Engineering. I don&apos;t just fine-tune transformers; I build the robust, accessible, and highly-performant microservices that deliver their insights to the world.
             </p>
           </div>
         </motion.section>
@@ -94,7 +94,7 @@ export default function AboutMePage() {
             </div>
             <h3 className="text-2xl font-bold">Accessibility Philosophy</h3>
             <p className="text-muted-foreground leading-relaxed">
-              Accessibility is an architectural requirement, not a patch applied at the end. An interface that isn't usable by everyone is a broken interface. I rigorously adhere to WCAG 2.1 standards, ensuring screen-reader compatibility, keyboard navigation, and cognitive clarity.
+              Accessibility is an architectural requirement, not a patch applied at the end. An interface that isn&apos;t usable by everyone is a broken interface. I rigorously adhere to WCAG 2.1 standards, ensuring screen-reader compatibility, keyboard navigation, and cognitive clarity.
             </p>
           </motion.div>
 

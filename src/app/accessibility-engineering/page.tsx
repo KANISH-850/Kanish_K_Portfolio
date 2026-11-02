@@ -68,7 +68,7 @@ export default function AccessibilityEngineeringPage() {
             <section className="bg-gradient-to-br from-card to-blue-900/10 p-8 rounded-2xl border border-white/5">
               <h2 className="text-2xl font-bold mb-4 text-blue-400">Language Inclusion (IndicTrans2)</h2>
               <p className="text-foreground/80 mb-6">
-                Digital barriers aren't just physical. By integrating state-of-the-art transformer models, the system natively supports seamless translation between Tamil and English, ensuring rural citizens can engage with the government in their mother tongue.
+                Digital barriers aren&apos;t just physical. By integrating state-of-the-art transformer models, the system natively supports seamless translation between Tamil and English, ensuring rural citizens can engage with the government in their mother tongue.
               </p>
               <div className="flex gap-4">
                 <div className="flex items-center gap-2 bg-background px-4 py-2 rounded-lg border border-border">
@@ -94,7 +94,7 @@ export default function AccessibilityEngineeringPage() {
                 </div>
                 <div className="p-4 rounded-lg bg-card border-l-4 border-l-emerald-500">
                   <h4 className="font-bold">3. Cognitive Load Analysis</h4>
-                  <p className="text-sm text-muted-foreground">Iterative testing of the 'Senior Mode' to ensure workflows do not exceed 3 choices per screen.</p>
+                  <p className="text-sm text-muted-foreground">Iterative testing of the &apos;Senior Mode&apos; to ensure workflows do not exceed 3 choices per screen.</p>
                 </div>
               </div>
             </section>

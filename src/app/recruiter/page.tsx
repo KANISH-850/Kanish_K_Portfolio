@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { projectsData } from "@/data/projects";
+import { showResume } from "@/lib/config";
 
 export default function RecruiterPage() {
   const topProjects = [projectsData["aazhi-suvidhaa"], projectsData["digital-twin-ehv"]];
@@ -52,10 +53,12 @@ export default function RecruiterPage() {
           </p>
           
           <div className="flex flex-wrap gap-4 pt-4">
-            <Button size="lg" className="gap-2">
-              <Download className="w-4 h-4" />
-              Download Resume
-            </Button>
+            {showResume && (
+              <Button size="lg" className="gap-2">
+                <Download className="w-4 h-4" />
+                Download Resume
+              </Button>
+            )}
             <Button size="lg" variant="outline" className="gap-2">
               <Mail className="w-4 h-4" />
               Contact Me

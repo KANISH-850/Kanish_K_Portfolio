@@ -35,7 +35,7 @@ export default function JourneyPage() {
         <div className="relative border-l-2 border-primary/20 ml-4 md:ml-0 md:pl-0">
           {timelineData.map((event, idx) => (
             <motion.div 
-              key={idx}
+              key={event.id}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -58,8 +58,16 @@ export default function JourneyPage() {
 
                 {/* Content */}
                 <div className="bg-card border rounded-xl p-6 flex-1 hover:shadow-lg transition-shadow">
-                  <h3 className="text-xl font-bold mb-2">{event.achievement}</h3>
-                  <p className="text-muted-foreground mb-4">{event.outcome}</p>
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <h3 className="text-xl font-bold">{event.title}</h3>
+                    {event.achievementBadge && (
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/15 text-primary border border-primary/30">
+                        {event.achievementBadge}
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-accent font-mono mb-2">{event.roleOrContext}</p>
+                  <p className="text-muted-foreground mb-4 leading-relaxed">{event.description}</p>
                   
                   <div className="flex flex-wrap gap-2">
                     {event.technologyLearned.map(tech => (
