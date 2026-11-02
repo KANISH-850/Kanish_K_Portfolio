@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { cvUrl, email, socialLinks, navItems } from '@/lib/config';
+import { cvUrl, email, socialLinks, navItems, showResume } from '@/lib/config';
 import { Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { motion } from 'framer-motion';
@@ -40,13 +40,15 @@ export function Header() {
               Copy
             </Button>
           </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }}>
-            <Button variant="solid" asChild className="w-[81px] h-[25px] px-1 text-xs">
-              <a href={cvUrl} target="_blank" rel="noopener noreferrer">
-                CV
-              </a>
-            </Button>
-          </motion.div>
+          {showResume && (
+            <motion.div whileHover={{ scale: 1.1 }}>
+              <Button variant="solid" asChild className="w-[81px] h-[25px] px-1 text-xs">
+                <a href={cvUrl} target="_blank" rel="noopener noreferrer">
+                  CV
+                </a>
+              </Button>
+            </motion.div>
+          )}
         </div>
         <div className="flex flex-1 items-center justify-end">
           <nav className="hidden md:flex items-center gap-x-[5px] mr-4">
@@ -83,11 +85,13 @@ export function Header() {
                      <Button variant="outline" size="sm" onClick={copyEmail} className="w-full">
                        Copy Email
                      </Button>
-                     <Button variant="outline" asChild className="w-full">
-                       <a href={cvUrl} target="_blank" rel="noopener noreferrer">
-                         Download CV
-                       </a>
-                     </Button>
+                     {showResume && (
+                       <Button variant="outline" asChild className="w-full">
+                         <a href={cvUrl} target="_blank" rel="noopener noreferrer">
+                           Download CV
+                         </a>
+                       </Button>
+                     )}
                   </div>
                   <nav className="flex flex-col gap-4 mb-8">
                     {navItems.map(item => (
