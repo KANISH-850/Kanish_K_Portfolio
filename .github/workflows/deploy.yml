@@ -1,4 +1,4 @@
-﻿name: Deploy Next.js Portfolio to GitHub Pages
+name: Deploy Next.js Portfolio to GitHub Pages
 
 on:
   push:
@@ -32,6 +32,9 @@ jobs:
       - name: Setup GitHub Pages Configuration
         id: pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
+        continue-on-error: true
 
       - name: Install Dependencies
         run: npm ci
@@ -46,7 +49,7 @@ jobs:
         env:
           GITHUB_ACTIONS: "true"
           GITHUB_REPOSITORY: ${{ github.repository }}
-          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path || '/Kanish_K_Portfolio' }}
         run: npm run build
 
       - name: Verify Static Export Directory
