@@ -7,9 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: "pages"
@@ -29,13 +27,6 @@ jobs:
           node-version: 22
           cache: "npm"
 
-      - name: Setup GitHub Pages Configuration
-        id: pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-        continue-on-error: true
-
       - name: Install Dependencies
         run: npm ci
 
@@ -49,7 +40,7 @@ jobs:
         env:
           GITHUB_ACTIONS: "true"
           GITHUB_REPOSITORY: ${{ github.repository }}
-          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path || '/Kanish_K_Portfolio' }}
+          NEXT_PUBLIC_BASE_PATH: "/Kanish_K_Portfolio"
         run: npm run build
 
       - name: Verify Static Export Directory
@@ -68,18 +59,25 @@ jobs:
         run: touch out/.nojekyll
 
       - name: Upload GitHub Pages Artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
+          name: site-artifact
           path: ./out
 
   deploy:
     name: Deploy to GitHub Pages
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Download GitHub Pages Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-artifact
+          path: ./out
+
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          force_orphan: true
