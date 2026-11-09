@@ -1,5 +1,7 @@
-﻿import MotionWrap from "./motion-wrap";
-import { GraduationCap, Award, BookOpen, CheckCircle2 } from "lucide-react";
+"use client";
+
+import MotionWrap from "./motion-wrap";
+import { GraduationCap, Award, CheckCircle2 } from "lucide-react";
 
 interface CertificationItem {
   id: string;
@@ -18,8 +20,8 @@ const credentials: CertificationItem[] = [
     highlights: [
       "Rigorous foundations in Machine Learning, Deep Neural Networks, and Distributed Systems",
       "Hands-on research in real-time SCADA digital twins and accessible public-sector platforms",
-      "Lead developer for national hackathon-winning architectures (SIH & CDAC)"
-    ]
+      "Lead developer for national hackathon-winning architectures (SIH & CDAC)",
+    ],
   },
   {
     id: "cert-deep-learning",
@@ -29,8 +31,8 @@ const credentials: CertificationItem[] = [
     highlights: [
       "Trained autoencoders, CNNs, and recurrent models with PyTorch and TensorFlow",
       "Quantization, pruning, and ONNX Runtime inference optimization on resource-constrained devices",
-      "Fine-tuned multilingual models including IndicTrans2 and BERT embeddings"
-    ]
+      "Fine-tuned multilingual models including IndicTrans2 and BERT embeddings",
+    ],
   },
   {
     id: "cert-cloud-systems",
@@ -40,25 +42,34 @@ const credentials: CertificationItem[] = [
     highlights: [
       "Microservice deployment using FastAPI, Node.js, and Docker containerization",
       "Time-series data architecture with InfluxDB, WebSockets, and Redis caching",
-      "Relational schema modeling and query optimization with PostgreSQL and Prisma"
-    ]
-  }
+      "Relational schema modeling and query optimization with PostgreSQL and Prisma",
+    ],
+  },
 ];
 
 export function Certifications() {
   return (
-    <section id="certifications" className="py-20 md:py-28 bg-card/20 border-y border-border/50" aria-label="Education and Certifications">
+    <section
+      id="certifications"
+      className="py-24 md:py-36 relative bg-[#030712] border-t border-white/[0.06] overflow-hidden"
+      aria-label="Education and Certifications"
+    >
       <div className="container max-w-6xl mx-auto px-4 md:px-6">
         <MotionWrap>
           <div className="max-w-3xl mx-auto text-center mb-16 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-wide uppercase border border-primary/20">
-              Academic Foundation & Credentials
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-primary text-xs font-mono font-semibold tracking-wider uppercase border border-primary/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              06 // Academic & Specialized Credentials
             </div>
-            <h2 className="font-headline text-3xl md:text-5xl font-bold tracking-tight">
-              Education & <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary to-accent">Certifications</span>
+            <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
+              Education &{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-300 to-accent">
+                Specializations
+              </span>
             </h2>
-            <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-              Formal computer science foundations combined with continuous applied learning across modern machine learning and distributed systems.
+            <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+              Formal computer science foundations combined with continuous applied
+              learning across modern machine learning and distributed systems.
             </p>
           </div>
 
@@ -66,43 +77,49 @@ export function Certifications() {
             {credentials.map((cred) => (
               <div
                 key={cred.id}
-                className="bg-card border border-white/5 rounded-2xl p-6 shadow-sm hover:border-primary/40 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                className="glass-panel p-6 sm:p-7 rounded-3xl border border-white/10 hover:border-primary/50 hover:shadow-[0_0_30px_rgba(0,240,255,0.15)] transition-all duration-300 flex flex-col justify-between group"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="p-2.5 rounded-lg bg-primary/10 text-primary">
+                    <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 group-hover:scale-110 transition-transform">
                       {cred.type === "academic" ? (
-                        <GraduationCap className="w-5 h-5" />
+                        <GraduationCap className="w-5 h-5 text-cyan-400" />
                       ) : (
-                        <Award className="w-5 h-5" />
+                        <Award className="w-5 h-5 text-purple-400" />
                       )}
                     </div>
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground bg-muted/40 px-2.5 py-0.5 rounded">
-                      {cred.type === "academic" ? "Academic Degree" : "Applied Specialization"}
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-300 bg-white/[0.04] px-2.5 py-1 rounded border border-white/5">
+                      {cred.type === "academic"
+                        ? "Academic Degree"
+                        : "Applied Specialization"}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-bold text-foreground leading-snug">
+                    <h3 className="font-headline text-lg sm:text-xl font-bold text-white group-hover:text-primary transition-colors leading-snug">
                       {cred.title}
                     </h3>
-                    <p className="text-xs font-mono text-accent mt-1">
+                    <p className="text-xs font-mono text-cyan-400 mt-1">
                       {cred.issuerOrFocus}
                     </p>
                   </div>
 
-                  <ul className="space-y-2 pt-3 border-t border-border/40">
+                  <ul className="space-y-2 pt-3 border-t border-white/[0.08]">
                     {cred.highlights.map((item, idx) => (
-                      <li key={`${cred.id}-h-${idx}`} className="flex items-start gap-2 text-xs text-foreground/80 leading-relaxed">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
+                      <li
+                        key={`${cred.id}-h-${idx}`}
+                        className="flex items-start gap-2 text-xs text-slate-300 leading-relaxed"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-border/30 text-[11px] font-mono text-muted-foreground">
-                  <span>Verified Academic Record</span>
+                <div className="pt-4 mt-6 border-t border-white/[0.06] text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                  <span>Verified Credentials</span>
+                  <span className="text-emerald-400 font-bold">&bull; Authentic</span>
                 </div>
               </div>
             ))}

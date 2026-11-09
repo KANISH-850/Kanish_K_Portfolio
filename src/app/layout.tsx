@@ -1,5 +1,4 @@
 import type {Metadata} from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { Footer } from '@/components/footer';
@@ -7,11 +6,6 @@ import { ScriptProps } from 'next/script';
 import { DevToolsBlocker } from '@/components/devtools-blocker';
 import { ThemeProvider } from "@/components/theme-provider";
 import { FloatingCTA } from "@/components/floating-cta";
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-});
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -74,7 +68,7 @@ export default function RootLayout({
       <head>
         <ScrollToTopScript id="scroll-to-top" />
       </head>
-      <body className={`${inter.className} font-body antialiased bg-background text-foreground selection:bg-accent/30`}>
+      <body className="font-body antialiased bg-background text-foreground selection:bg-accent/30">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
