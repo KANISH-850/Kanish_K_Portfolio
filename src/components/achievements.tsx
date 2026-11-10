@@ -38,11 +38,11 @@ const verifiedAchievements: VerifiedAchievement[] = [
     projectTitle: "Digital Twin of EHV Substation Monitoring",
     projectSlug: "digital-twin-ehv",
     description:
-      "Awarded 1st place in the national grand finale for architecting a predictive digital twin framework that monitors Extra High Voltage (EHV) electrical substations across ~50,000 SCADA telemetry records with sub-50ms autoencoder anomaly inference.",
+      "Awarded 1st place in the national grand finale for architecting a predictive digital twin framework that monitors Extra High Voltage (EHV) electrical substations evaluated across ~50,000 synthetic and industry-informed SCADA telemetry records with autoencoder anomaly inference.",
     highlights: [
-      "Real-time SCADA telemetry ingestion & digital twin asset modeling",
-      "Semi-supervised deep autoencoders detecting transformer anomalies in < 50ms",
-      "Decoupled Web Worker rendering sustaining 60 FPS under peak telemetry stress",
+      "SCADA telemetry ingestion & interactive digital twin asset modeling",
+      "Semi-supervised deep autoencoders detecting transformer anomalies (~50ms internal test target)",
+      "Decoupled rendering architecture targeting smooth 60 FPS under peak telemetry stress",
     ],
     badgeColor: "text-amber-400 border-amber-400/30 bg-amber-400/10",
   },
@@ -57,8 +57,8 @@ const verifiedAchievements: VerifiedAchievement[] = [
     description:
       "Recognized as National Runner-up for engineering a secure, centralized device orchestration platform providing automated kiosk configuration, real-time heartbeats, and peripheral diagnostics.",
     highlights: [
-      "Authenticated heartbeat protocol with local SQLite buffering for intermittent connectivity",
-      "Outbound-only reverse WebSocket tunneling for secure remote troubleshooting",
+      "Heartbeat protocol design specification with local SQLite buffering for intermittent connectivity",
+      "Proposed outbound-only reverse WebSocket architecture for secure remote administration",
       "Automated peripheral diagnostics evaluating touch, cameras, and receipt printers",
     ],
     badgeColor: "text-purple-400 border-purple-400/30 bg-purple-400/10",

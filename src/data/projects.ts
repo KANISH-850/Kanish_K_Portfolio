@@ -54,43 +54,44 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     title: "Digital Twin of EHV Substation Monitoring",
     tagline: "Predictive Equipment Monitoring & Anomaly Detection Framework",
     achievement: "Smart India Hackathon Winner",
+    githubUrl: "https://github.com/KANISH-850/oceanBerg_sih",
     problemStatement:
       "Extra High Voltage (EHV) electrical substations face catastrophic downtime and substantial maintenance costs due to unanticipated equipment degradation and thermal overloading across critical transformers and switchgear.",
     systemArchitecture:
       "A distributed telemetry ingestion and digital twin modeling architecture. High-frequency sensor streams (voltage, current, oil temperature, acoustic vibrations) are ingested through an MQTT broker into InfluxDB time-series storage. Real-time autoencoders evaluate telemetry streams to flag anomalies and drive a 3D digital twin dashboard.",
     dataFlow:
-      "SCADA Telemetry (~50k records) -> MQTT Broker -> Python Feature Extraction Worker -> InfluxDB -> TensorFlow Anomaly Engine -> WebSocket Broadcaster -> React 3D Dashboard.",
+      "Synthetic & Industry-Informed SCADA Telemetry (~50k records) -> MQTT Ingestion Broker (Simulated) -> Python Feature Extraction Worker -> InfluxDB -> TensorFlow Anomaly Engine -> WebSocket Broadcaster -> React 3D Dashboard.",
     technicalChallenges: [
       {
         id: "dt-1",
         challenge: "Visualizing high-frequency SCADA telemetry streams (100+ data points/sec) without causing UI thread stutter or frame drops.",
         solution: "Decoupled data parsing from the React UI thread using background Web Workers and offloaded rendering to HTML5 Canvas.",
         implementation: "Constructed dedicated Web Worker buffers for incoming WebSocket streams and rendered sensor telemetry using double-buffered canvas routines.",
-        result: "Maintained steady 60 FPS UI rendering during peak ingestion stress tests."
+        result: "Targeted a stable 60 FPS rendering loop by isolating data processing from UI updates."
       },
       {
         id: "dt-2",
         challenge: "Accurately identifying rare transformer thermal anomalies from 50,000 synthetic and industry-informed operational records.",
         solution: "Trained semi-supervised deep autoencoders on nominal operational envelopes to detect reconstruction errors.",
         implementation: "Standardized multi-variate rolling averages and FFT frequency-domain features; flagged deviations exceeding 3.5 standard deviations.",
-        result: "Achieved 94% anomaly detection accuracy with an inference latency below 50ms."
+        result: "Achieved 94% anomaly detection accuracy with an internal test benchmark latency targeting ~50ms."
       }
     ],
     mlPipeline: [
-      { name: "Telemetry Ingestion", description: "Ingests ~50,000 synthetic and operational SCADA telemetry records.", metric: "50k Records" },
+      { name: "Telemetry Ingestion", description: "Ingests ~50,000 synthetic and industry-informed operational SCADA telemetry records.", metric: "50k Synthetic Records" },
       { name: "Feature Transformation", description: "Multi-variate rolling windows, frequency domain FFT analysis, and noise filtering." },
       { name: "Autoencoder Scoring", description: "Semi-supervised reconstruction error evaluation for thermal anomaly detection." },
-      { name: "Predictive Inference", description: "Scoring incoming streams in real time for early equipment failure warning.", metric: "< 50ms latency" }
+      { name: "Predictive Inference", description: "Scoring incoming streams in real time for early equipment failure warning.", metric: "~50ms target (internal test)" }
     ],
     securityFeatures: [
-      "Strict network isolation for SCADA telemetry gateways",
-      "Mutual TLS (mTLS) encrypted WebSocket connections (WSS)",
-      "Role-Based Access Control (RBAC) with immutable operator audit trails"
+      "Architectural design: Strict network isolation specification for SCADA telemetry gateways",
+      "Proposed architecture: Mutual TLS (mTLS) encrypted WebSocket connections (WSS)",
+      "Access control specification: Role-Based Access Control (RBAC) with operator audit trails"
     ],
     devopsPipeline: ["Git Push", "Docker Compose Local Stack", "Automated Integration Tests", "On-Premises Substation Edge Deployment"],
     technologies: ["Python", "TensorFlow", "React", "Next.js", "WebSockets", "InfluxDB", "Docker"],
     keyFeatures: [
-      "Digital twin visualization of substation transformer and breaker states.",
+      "Digital twin 3D visualization of substation transformer and breaker states.",
       "Intelligent equipment monitoring with dynamic threshold alerts.",
       "Machine learning-based anomaly analysis on multi-variate sensor streams.",
       "Predictive monitoring capabilities to minimize scheduled maintenance outages.",
@@ -102,9 +103,9 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
       "Keyboard navigable diagnostic panels."
     ],
     performanceMetrics: [
-      "Model inference latency under 50ms per telemetry burst.",
-      "60 FPS smooth rendering for complex real-time time-series telemetry charts.",
-      "Tested across 50,000 synthetic and operational substation records."
+      "Internal test benchmark: inference latency targeting ~50ms per telemetry burst.",
+      "Targeted smooth 60 FPS rendering loop for time-series telemetry charts.",
+      "Evaluated across 50,000 synthetic and industry-informed substation records."
     ],
     lessonsLearned: [
       "Industrial IoT requires resilient offline buffering at the edge when connectivity degrades.",
@@ -148,9 +149,9 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     ],
     securityFeatures: [
       "PII redaction engine sanitizing national IDs, phone numbers, and addresses before NLP scoring",
-      "Role-Based Access Control (RBAC) separating citizen, operator, and departmental supervisor permissions",
-      "End-to-end encryption (AES-256) at rest for all database entries",
-      "Strict rate limiting and CORS policies on public submission endpoints"
+      "Architectural design: Role-Based Access Control (RBAC) separating citizen, operator, and departmental supervisor views",
+      "Data protection specification: End-to-end encryption (AES-256) at rest for all database entries",
+      "Rate limiting and CORS policies on public submission endpoints"
     ],
     devopsPipeline: ["GitHub Push", "GitHub Actions CI", "Pytest & Jest Suites", "Docker Container Build", "FastAPI Service Deployment"],
     technologies: [
@@ -291,26 +292,27 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     title: "Kiosk Management System",
     tagline: "Integrated Fleet Management & Device Telemetry Platform",
     achievement: "CDAC Runner-up",
+    githubUrl: "https://github.com/KANISH-850/aazhi",
     problemStatement:
       "Public-facing service kiosks distributed across multiple government centers frequently suffer from unmonitored hardware lockups, fragmented update processes, and delayed technician dispatch due to lack of centralized telemetry.",
     systemArchitecture:
       "A centralized device orchestration platform built with Python, FastAPI, React, and PostgreSQL. Client-side kiosk daemons communicate with an administrative control server via authenticated heartbeats, reporting hardware resource consumption, peripheral health (touch, printers, cameras), and application uptime.",
     dataFlow:
-      "Kiosk Daemon Telemetry -> Secure API Gateway -> Ingestion Worker -> PostgreSQL / Timescale -> Alert Evaluator -> Administrative Fleet Dashboard.",
+      "Kiosk Daemon Telemetry (Simulated) -> Secure API Gateway -> Ingestion Worker -> PostgreSQL / Timescale -> Alert Evaluator -> Administrative Fleet Dashboard.",
     technicalChallenges: [
       {
         id: "kms-1",
         challenge: "Maintaining reliable device heartbeat tracking across kiosks operating on intermittent or slow cellular connections.",
-        solution: "Implemented an adaptive heartbeat protocol with local SQLite offline caching and exponential backoff synchronization.",
-        implementation: "The kiosk agent buffers status checkpoints locally during network outages and flushes chronologically upon link recovery.",
-        result: "Zero diagnostic log loss across simulated 4-hour connectivity disconnects."
+        solution: "Designed an adaptive heartbeat protocol with local SQLite offline caching and exponential backoff synchronization as an edge resilience specification.",
+        implementation: "Architected the kiosk agent to buffer status checkpoints locally during network outages and flush chronologically upon link recovery.",
+        result: "Demonstrated zero diagnostic log loss across simulated 4-hour connectivity disconnects."
       },
       {
         id: "kms-2",
         challenge: "Enabling remote troubleshooting without exposing kiosks to public internet attack surfaces.",
-        solution: "Established reverse WebSocket tunnels initiated exclusively outbound from authorized kiosk agents.",
-        implementation: "Engineered secure tunnel brokers with timed single-use authentication tokens.",
-        result: "Secure remote administration without open inbound firewall ports on edge kiosk hardware."
+        solution: "Proposed reverse WebSocket tunnels initiated exclusively outbound from authorized kiosk agents.",
+        implementation: "Engineered secure tunnel broker specifications with timed single-use authentication tokens.",
+        result: "Demonstrated remote administration architecture eliminating the need for open inbound firewall ports on edge kiosk hardware."
       }
     ],
     mlPipeline: [
@@ -320,10 +322,10 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
       { name: "Fleet Overview", description: "Presents live geographic and operational status to operators." }
     ],
     securityFeatures: [
-      "Outbound-only reverse WebSocket architecture eliminating open ingress ports",
-      "Mutual TLS and rotating hardware token authentication for all kiosk agents",
-      "Granular role-based permissions separating fleet admins from regional technicians",
-      "Tamper detection telemetry reporting unauthorized enclosure access"
+      "Proposed architecture: Outbound-only reverse WebSocket design eliminating open ingress ports",
+      "Architectural specification: Hardware token and mutual TLS authorization model for edge agents",
+      "Access control design: Granular role-based permissions separating fleet admins from regional technicians",
+      "Telemetry design: Tamper detection telemetry reporting unauthorized physical enclosure access"
     ],
     devopsPipeline: ["Git Push", "Docker Fleet Daemon Builds", "Unit & Integration Tests", "Remote OTA Agent Rollouts"],
     technologies: ["Python", "FastAPI", "React", "Next.js", "TypeScript", "PostgreSQL", "Docker"],
@@ -348,9 +350,6 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     ]
   }
 };
-
-// Backward-compatibility alias for legacy routes and links
-projectsData["aazhi-suvidhaa"] = projectsData["intelligent-grievance-system"];
 
 export const featuredProjectsList: ProjectCaseStudy[] = [
   projectsData["digital-twin-ehv"],

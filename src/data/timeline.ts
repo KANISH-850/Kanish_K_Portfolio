@@ -26,7 +26,7 @@ export const timelineData: TimelineEvent[] = [
     roleOrContext: "AI Model Development & Real-Time Telemetry",
     achievementBadge: "Smart India Hackathon Winner",
     technologyLearned: ["Python", "TensorFlow", "Autoencoders", "WebSockets", "InfluxDB", "React"],
-    description: "Won 1st Place at Smart India Hackathon for designing a predictive digital twin monitoring ~50,000 SCADA telemetry records with sub-50ms autoencoder anomaly scoring.",
+    description: "Won 1st Place at Smart India Hackathon for designing a predictive digital twin evaluated across ~50,000 synthetic and industry-informed SCADA records with autoencoder anomaly scoring.",
     category: "hackathon"
   },
   {

@@ -3,9 +3,11 @@ import { KaggleIcon, LeetCodeIcon, WhatsAppIcon } from "@/lib/icons";
 
 export const email = "kanishkgins@gmail.com";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+// Target URL for physical resume PDF once dropped into /public
 export const cvUrl = `${basePath}/KanishK_CV.pdf`;
-// Hidden temporarily until genuine resume is provided by user (prevents publishing placeholder stub)
+// Controlled availability flag: false directs recruiters to request CV directly, preventing 404 errors
 export const showResume = false;
+export const resumeRequestMailto = `mailto:${email}?subject=Resume%20Request%20-%20Kanish%20K&body=Hi%20Kanish,%0D%0A%0D%0AI%20reviewed%20your%20portfolio%20and%20would%20like%20to%20request%20a%20copy%20of%20your%20official%20resume.%0D%0A%0D%0AThank%20you!`;
 export const whatsappUrl = "https://wa.me/918508509719"; 
 
 export const socialLinks = [

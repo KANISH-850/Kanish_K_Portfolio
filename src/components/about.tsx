@@ -36,7 +36,7 @@ export function About() {
     },
     {
       name: "Generative AI",
-      desc: "Implementing foundation model integration, prompt architectures, and structured LLM workflows with Genkit AI.",
+      desc: "Implementing foundation model integration, prompt architectures, and structured LLM workflows.",
       icon: Sparkles,
       color: "text-pink-400",
     },
@@ -57,13 +57,13 @@ export function About() {
   const verifiedStats = [
     {
       value: "50,000+",
-      label: "SCADA Telemetry Records",
+      label: "Synthetic SCADA Records",
       detail: "Evaluated in EHV Digital Twin",
     },
     {
-      value: "< 50ms",
-      label: "Inference Latency",
-      detail: "Real-Time Autoencoder Scoring",
+      value: "~50ms",
+      label: "Target Anomaly Latency",
+      detail: "Internal Benchmark Target",
     },
     {
       value: "1st Place",

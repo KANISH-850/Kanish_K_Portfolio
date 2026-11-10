@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 import { timelineData } from "@/data/timeline";
-import { Calendar, Code2, Rocket, Trophy, Target } from "lucide-react";
+import { Calendar, Code2, Rocket, Trophy, Target, ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function JourneyPage() {
   const getIcon = (category: string) => {
@@ -17,6 +19,13 @@ export default function JourneyPage() {
   return (
     <div className="min-h-screen bg-background text-foreground py-16 px-4 md:px-8 lg:px-24 overflow-hidden">
       <div className="max-w-4xl mx-auto space-y-16 relative">
+        
+        {/* Back Link */}
+        <Button variant="ghost" asChild className="text-slate-400 hover:text-cyan-400 -ml-4">
+          <Link href="/#experience">
+            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Journey Overview
+          </Link>
+        </Button>
         
         {/* Header */}
         <motion.div 

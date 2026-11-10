@@ -13,7 +13,7 @@ import {
   Send,
   Sparkles,
 } from "lucide-react";
-import { email, cvUrl, whatsappUrl, socialLinks } from "@/lib/config";
+import { email, cvUrl, showResume, resumeRequestMailto, whatsappUrl, socialLinks } from "@/lib/config";
 import { KaggleIcon, LeetCodeIcon, WhatsAppIcon } from "@/lib/icons";
 import MotionWrap from "./motion-wrap";
 
@@ -45,11 +45,19 @@ export function Contact() {
     "https://leetcode.com/u/Kanish_k_2004/";
 
   const handleResumeDownload = () => {
-    window.open(cvUrl, "_blank");
-    toast({
-      title: "Opening Resume / CV",
-      description: "Direct technical and academic CV for Kanish K.",
-    });
+    if (showResume) {
+      window.open(cvUrl, "_blank");
+      toast({
+        title: "Opening Resume / CV",
+        description: "Direct technical and academic CV for Kanish K.",
+      });
+    } else {
+      window.location.href = resumeRequestMailto;
+      toast({
+        title: "Resume Request",
+        description: "Opening direct email to kanishkgins@gmail.com for verified CV.",
+      });
+    }
   };
 
   return (
@@ -126,7 +134,7 @@ export function Contact() {
                 className="glass-panel text-white font-semibold px-7 h-12 rounded-xl border-white/20 hover:border-primary/50 hover:bg-white/[0.08]"
               >
                 <Download className="mr-2 h-4 w-4 text-primary" />
-                Download Resume
+                {showResume ? "Download Resume" : "Request Resume"}
               </Button>
 
               {/* LinkedIn Button */}

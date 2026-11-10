@@ -20,154 +20,8 @@ import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import MotionWrap from "./motion-wrap";
 import { projectsData } from "@/data/projects";
-
-// Telemetry visualizer for Digital Twin EHV
-function DigitalTwin3DPreview() {
-  return (
-    <div className="relative w-full h-full min-h-[320px] bg-gradient-to-br from-slate-950 via-[#070e1d] to-[#041226] p-6 flex flex-col justify-between overflow-hidden border border-cyan-500/20 rounded-2xl group">
-      {/* Background Cyber Grid */}
-      <div className="absolute inset-0 cyber-grid opacity-25 pointer-events-none" />
-      <div className="absolute -top-16 -right-16 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
-      {/* Top Telemetry Header */}
-      <div className="relative z-10 flex items-center justify-between border-b border-white/[0.08] pb-3">
-        <div className="flex items-center gap-2">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500" />
-          </span>
-          <span className="text-xs font-mono font-semibold tracking-wider text-cyan-400 uppercase">
-            SCADA Telemetry Stream
-          </span>
-        </div>
-        <span className="text-[11px] font-mono text-slate-300 bg-white/[0.05] px-2.5 py-0.5 rounded border border-white/10">
-          50,000 Records
-        </span>
-      </div>
-
-      {/* Middle: Live Anomaly Scoring Gauges */}
-      <div className="relative z-10 space-y-3.5 my-3">
-        {/* Autoencoder Inference Gauge */}
-        <div className="p-3.5 rounded-xl bg-slate-900/80 border border-white/10 backdrop-blur-md space-y-2">
-          <div className="flex justify-between items-center text-xs font-mono">
-            <span className="text-slate-400">Autoencoder Inference Latency</span>
-            <span className="text-emerald-400 font-bold">&lt; 50ms</span>
-          </div>
-          <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-            <div className="bg-gradient-to-r from-cyan-500 to-emerald-400 h-full w-[94%] animate-pulse" />
-          </div>
-        </div>
-
-        {/* Live Substation Sensor Metrics */}
-        <div className="grid grid-cols-2 gap-2.5 text-[11px] font-mono">
-          <div className="p-3 rounded-xl bg-slate-900/70 border border-white/10">
-            <span className="text-slate-400 block text-[10px] uppercase">
-              Anomaly Accuracy
-            </span>
-            <span className="text-white font-bold text-sm text-cyan-300">
-              94.0%
-            </span>
-            <span className="text-[10px] text-slate-400 block mt-0.5">
-              Semi-Supervised
-            </span>
-          </div>
-          <div className="p-3 rounded-xl bg-slate-900/70 border border-white/10">
-            <span className="text-slate-400 block text-[10px] uppercase">
-              Rendering Loop
-            </span>
-            <span className="text-white font-bold text-sm text-emerald-400">
-              60 FPS
-            </span>
-            <span className="text-[10px] text-slate-400 block mt-0.5">
-              Decoupled Worker
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Protocol Footer */}
-      <div className="relative z-10 flex items-center justify-between text-xs text-slate-400 font-mono pt-3 border-t border-white/[0.08]">
-        <span className="flex items-center gap-1.5 text-cyan-400">
-          <Activity className="w-3.5 h-3.5" /> MQTT &bull; InfluxDB &bull; WSS
-        </span>
-        <span className="text-[11px] text-slate-400">EHV Substation Twin</span>
-      </div>
-    </div>
-  );
-}
-
-// Telemetry visualizer for Kiosk Management System
-function KioskManagement3DPreview() {
-  return (
-    <div className="relative w-full h-full min-h-[320px] bg-gradient-to-br from-slate-950 via-[#100b1e] to-[#080516] p-6 flex flex-col justify-between overflow-hidden border border-purple-500/20 rounded-2xl group">
-      {/* Background Cyber Grid */}
-      <div className="absolute inset-0 cyber-grid opacity-25 pointer-events-none" />
-      <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
-
-      {/* Top Telemetry Header */}
-      <div className="relative z-10 flex items-center justify-between border-b border-white/[0.08] pb-3">
-        <div className="flex items-center gap-2">
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-purple-500" />
-          </span>
-          <span className="text-xs font-mono font-semibold tracking-wider text-purple-400 uppercase">
-            Fleet Telemetry Engine
-          </span>
-        </div>
-        <span className="text-[11px] font-mono text-purple-300 bg-purple-500/10 px-2.5 py-0.5 rounded border border-purple-500/20">
-          CDAC Runner-up
-        </span>
-      </div>
-
-      {/* Middle: Active Fleet Diagnostics */}
-      <div className="relative z-10 space-y-3.5 my-3">
-        <div className="p-3.5 rounded-xl bg-slate-900/80 border border-white/10 backdrop-blur-md space-y-2">
-          <div className="flex justify-between items-center text-xs font-mono">
-            <span className="text-slate-400">Kiosk Daemon Heartbeat</span>
-            <span className="text-emerald-400 font-bold">Synchronized</span>
-          </div>
-          <p className="text-[11px] text-slate-300 font-mono">
-            Automated peripheral diagnostics, crash telemetry, and remote status evaluation.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-2.5 text-[11px] font-mono">
-          <div className="p-3 rounded-xl bg-slate-900/70 border border-white/10">
-            <span className="text-slate-400 block text-[10px] uppercase">
-              Tunnel Architecture
-            </span>
-            <span className="text-white font-bold text-sm text-purple-300">
-              Reverse WSS
-            </span>
-            <span className="text-[10px] text-slate-400 block mt-0.5">
-              Zero Ingress Ports
-            </span>
-          </div>
-          <div className="p-3 rounded-xl bg-slate-900/70 border border-white/10">
-            <span className="text-slate-400 block text-[10px] uppercase">
-              Offline Resilience
-            </span>
-            <span className="text-white font-bold text-sm text-emerald-400">
-              SQLite Buffer
-            </span>
-            <span className="text-[10px] text-slate-400 block mt-0.5">
-              Zero Diagnostic Loss
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Protocol Footer */}
-      <div className="relative z-10 flex items-center justify-between text-xs text-slate-400 font-mono pt-3 border-t border-white/[0.08]">
-        <span className="flex items-center gap-1.5 text-purple-400">
-          <Server className="w-3.5 h-3.5" /> FastAPI &bull; PostgreSQL &bull; Docker
-        </span>
-        <span className="text-[11px] text-slate-400">Fleet Control Portal</span>
-      </div>
-    </div>
-  );
-}
+import { DigitalTwin3DScene } from "./digital-twin-3d-scene";
+import { Kiosk3DScene } from "./kiosk-3d-scene";
 
 // 3D Tilt Card Container component
 function TiltProjectCard({
@@ -233,7 +87,7 @@ export function Projects() {
       accentGlow: "from-cyan-500/20 via-primary/10 to-transparent",
       accentBorder: "hover:border-cyan-400/50",
       number: "01",
-      previewComponent: <DigitalTwin3DPreview />,
+      previewComponent: <DigitalTwin3DScene />,
       summaryDesc:
         "An intelligent digital twin platform for monitoring and analyzing Extra High Voltage electrical substations.",
     },
@@ -245,7 +99,7 @@ export function Projects() {
       accentGlow: "from-purple-500/20 via-accent/10 to-transparent",
       accentBorder: "hover:border-purple-400/50",
       number: "02",
-      previewComponent: <KioskManagement3DPreview />,
+      previewComponent: <Kiosk3DScene />,
       summaryDesc:
         "A smart kiosk management solution developed as part of the CDAC project competition.",
     },

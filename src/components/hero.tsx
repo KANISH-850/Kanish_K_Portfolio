@@ -15,7 +15,7 @@ import {
   Sparkles,
   ExternalLink,
 } from "lucide-react";
-import { cvUrl, socialLinks } from "@/lib/config";
+import { cvUrl, showResume, resumeRequestMailto, socialLinks } from "@/lib/config";
 import { Hero3DScene } from "./hero-3d-scene";
 import { useToast } from "@/hooks/use-toast";
 
@@ -23,12 +23,19 @@ export function Hero() {
   const { toast } = useToast();
 
   const handleResumeDownload = () => {
-    // Open resume or notify if pending custom PDF drop
-    window.open(cvUrl, "_blank");
-    toast({
-      title: "Opening Resume / CV",
-      description: "Direct academic and technical CV for Kanish K.",
-    });
+    if (showResume) {
+      window.open(cvUrl, "_blank");
+      toast({
+        title: "Opening Resume / CV",
+        description: "Direct academic and technical CV for Kanish K.",
+      });
+    } else {
+      window.location.href = resumeRequestMailto;
+      toast({
+        title: "Resume Request",
+        description: "Opening direct email to kanishkgins@gmail.com for verified CV.",
+      });
+    }
   };
 
   const containerVariants = {
@@ -36,18 +43,18 @@ export function Hero() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.1,
+        staggerChildren: 0.05,
+        delayChildren: 0.02,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 24 },
+    hidden: { opacity: 0, y: 12 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+      transition: { duration: 0.35, ease: "easeOut" },
     },
   };
 
@@ -73,7 +80,7 @@ export function Hero() {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-[#030712] text-foreground">
+    <section className="relative min-h-screen flex items-center justify-center pt-20 sm:pt-24 pb-12 sm:pb-16 overflow-hidden bg-[#030712] text-foreground">
       {/* 3D Interactive Three.js Neural Network Canvas */}
       <Hero3DScene />
 
@@ -83,55 +90,63 @@ export function Hero() {
       <div className="absolute bottom-1/4 -right-40 w-96 h-96 bg-accent/15 rounded-full blur-[140px] pointer-events-none -z-10" />
 
       {/* Radial fade to preserve text contrast over 3D scene */}
-      <div className="absolute inset-0 bg-radial-gradient from-transparent via-[#030712]/60 to-[#030712] pointer-events-none -z-10" />
+      <div className="absolute inset-0 bg-radial-gradient from-[#030712]/30 via-[#030712]/75 to-[#030712] pointer-events-none -z-10" />
 
       <div className="container max-w-6xl mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-4xl mx-auto text-center space-y-8"
+          className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-7"
         >
           {/* Top Status Pill */}
-          <motion.div variants={itemVariants} className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-panel text-xs font-mono tracking-wider uppercase border border-white/10 shadow-lg">
-            <span className="relative flex h-2.5 w-2.5">
+          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full glass-panel text-[10px] sm:text-xs font-mono tracking-wider uppercase border border-white/10 shadow-lg max-w-full">
+            <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <span className="text-foreground/90 font-medium">Available for AI Engineering Roles</span>
+            <span className="text-foreground/90 font-medium">
+              Available for AI Roles
+            </span>
             <span className="text-muted-foreground/60">&bull;</span>
-            <span className="text-primary font-bold">2026 Ready</span>
+            <span className="text-primary font-bold shrink-0">2026 Ready</span>
           </motion.div>
 
           {/* Main Heading: Kanish K */}
-          <motion.div variants={itemVariants} className="space-y-4">
-            <div className="text-xs sm:text-sm font-mono tracking-[0.3em] uppercase text-primary/90 flex items-center justify-center gap-2">
-              <Sparkles className="w-3.5 h-3.5 text-primary" />
+          <motion.div variants={itemVariants} className="space-y-2 sm:space-y-3">
+            <div className="text-[10px] sm:text-xs font-mono tracking-normal sm:tracking-[0.25em] uppercase text-primary/90 flex items-center justify-center gap-1.5 px-2">
+              <Sparkles className="w-3 h-3 text-primary shrink-0" />
               <span>Next-Gen Systems &bull; Deep Learning Architecture</span>
-              <Sparkles className="w-3.5 h-3.5 text-primary" />
+              <Sparkles className="w-3 h-3 text-primary shrink-0" />
             </div>
 
-            <h1 className="font-headline text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[1.05] text-white">
+            <h1 className="font-headline text-4xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-[1.05] text-white">
               Kanish{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-300 to-accent drop-shadow-[0_0_35px_rgba(0,240,255,0.35)]">
                 K
               </span>
             </h1>
 
-            {/* Professional Title */}
-            <p className="text-lg sm:text-xl md:text-2xl font-semibold tracking-tight text-slate-200">
-              AI Engineer{" "}
-              <span className="text-primary font-light px-1">|</span> Machine
-              Learning <span className="text-primary font-light px-1">|</span>{" "}
-              Deep Learning <span className="text-primary font-light px-1">|</span>{" "}
-              Generative AI
-            </p>
+            {/* Professional Title with Responsive Clean Wrap */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2.5 text-xs sm:text-base md:text-xl font-semibold tracking-tight text-slate-200">
+              <div className="flex items-center gap-2">
+                <span>AI Engineer</span>
+                <span className="text-primary font-light text-xs">&bull;</span>
+                <span>Machine Learning</span>
+              </div>
+              <span className="text-primary font-light text-xs hidden sm:inline">&bull;</span>
+              <div className="flex items-center gap-2">
+                <span>Deep Learning</span>
+                <span className="text-primary font-light text-xs">&bull;</span>
+                <span>Generative AI</span>
+              </div>
+            </div>
           </motion.div>
 
           {/* Supporting Text */}
           <motion.p
             variants={itemVariants}
-            className="text-base sm:text-lg md:text-xl text-slate-300/90 max-w-2xl mx-auto leading-relaxed font-normal"
+            className="text-xs sm:text-base md:text-lg text-slate-300/90 max-w-2xl mx-auto leading-relaxed font-normal px-3"
           >
             Building intelligent systems that solve real-world problems through
             AI, machine learning, and emerging technologies.
@@ -140,16 +155,16 @@ export function Hero() {
           {/* Glowing Interactive CTA Buttons */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-wrap items-center justify-center gap-4 pt-2"
+            className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3 w-full max-w-xs sm:max-w-none mx-auto pt-2 px-2"
           >
             {/* CTA 1: Explore My Work */}
             <Button
               size="lg"
-              className="relative group overflow-hidden bg-primary text-slate-950 font-bold px-8 h-12 rounded-xl shadow-[0_0_25px_rgba(0,240,255,0.4)] hover:shadow-[0_0_35px_rgba(0,240,255,0.6)] transition-all duration-300 hover:scale-[1.02] border border-cyan-300/40"
+              className="w-full sm:w-auto relative group overflow-hidden bg-primary text-slate-950 font-bold px-7 h-12 rounded-xl shadow-[0_0_25px_rgba(0,240,255,0.4)] hover:shadow-[0_0_35px_rgba(0,240,255,0.6)] transition-all duration-300 hover:scale-[1.02] border border-cyan-300/40"
               asChild
             >
               <Link href="#projects">
-                <span className="relative z-10 flex items-center gap-2">
+                <span className="relative z-10 flex items-center justify-center gap-2">
                   Explore My Work
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </span>
@@ -162,17 +177,17 @@ export function Hero() {
               size="lg"
               variant="outline"
               onClick={handleResumeDownload}
-              className="glass-panel text-white font-semibold px-7 h-12 rounded-xl border-white/20 hover:border-primary/60 hover:bg-white/[0.08] hover:text-primary transition-all duration-300 hover:scale-[1.02] shadow-lg"
+              className="w-full sm:w-auto glass-panel text-white font-semibold px-6 h-12 rounded-xl border-white/20 hover:border-primary/60 hover:bg-white/[0.08] hover:text-primary transition-all duration-300 hover:scale-[1.02] shadow-lg"
             >
               <Download className="mr-2 w-4 h-4 text-primary" />
-              Download Resume
+              {showResume ? "Download Resume" : "Request Resume"}
             </Button>
 
             {/* CTA 3: Contact Me */}
             <Button
               size="lg"
               variant="outline"
-              className="glass-panel text-white font-semibold px-7 h-12 rounded-xl border-white/20 hover:border-accent/60 hover:bg-accent/10 hover:text-accent transition-all duration-300 hover:scale-[1.02] shadow-lg"
+              className="w-full sm:w-auto glass-panel text-white font-semibold px-6 h-12 rounded-xl border-white/20 hover:border-accent/60 hover:bg-accent/10 hover:text-accent transition-all duration-300 hover:scale-[1.02] shadow-lg"
               asChild
             >
               <Link href="#contact">

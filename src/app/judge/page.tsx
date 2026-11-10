@@ -9,7 +9,7 @@ import { projectsData } from "@/data/projects";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export default function JudgePage() {
-  const projects = Object.values(projectsData);
+  const projects = Array.from(new Map(Object.values(projectsData).map(p => [p.id, p])).values());
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -65,8 +65,10 @@ export default function JudgePage() {
                         </Button>
                       )}
                       {project.githubUrl && project.githubUrl !== "#" && (
-                        <Button variant="outline" className="gap-2">
-                          <ExternalLink className="w-4 h-4" /> Repository
+                        <Button variant="outline" className="gap-2" asChild>
+                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="w-4 h-4" /> Repository
+                          </a>
                         </Button>
                       )}
                     </div>

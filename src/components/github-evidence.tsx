@@ -24,17 +24,17 @@ const verifiedRepos = [
   },
   {
     id: "repo-digital-twin",
-    name: "digital-twin-ehv-monitoring",
-    url: "https://github.com/KANISH-850",
-    description: "Smart India Hackathon winning predictive monitoring digital twin for EHV substations across 50,000 SCADA telemetry records.",
+    name: "oceanBerg_sih (Digital Twin EHV)",
+    url: "https://github.com/KANISH-850/oceanBerg_sih",
+    description: "Smart India Hackathon winning predictive monitoring digital twin for EHV substations evaluated across ~50,000 synthetic and industry-informed SCADA records.",
     language: "Python / React",
     color: "bg-yellow-400",
     tags: ["TensorFlow", "WebSockets", "InfluxDB", "SIH Winner"]
   },
   {
     id: "repo-kiosk",
-    name: "kiosk-management-telemetry",
-    url: "https://github.com/KANISH-850",
+    name: "aazhi (Kiosk Management System)",
+    url: "https://github.com/KANISH-850/aazhi",
     description: "CDAC Runner-up fleet orchestration platform with heartbeat telemetry and automated device diagnostics.",
     language: "Python / TypeScript",
     color: "bg-purple-400",
@@ -144,7 +144,7 @@ export function GithubEvidence() {
 
             {/* Static, deterministic activity matrix representation */}
             <div className="flex items-center gap-1.5 opacity-90" aria-hidden="true">
-              <span className="text-[10px] font-mono text-muted-foreground mr-1">Activity</span>
+              <span className="text-[10px] font-mono text-muted-foreground mr-1">Activity (Illustrative)</span>
               <div className="flex gap-1 overflow-x-hidden">
                 {deterministicActivity.map((col, colIdx) => (
                   <div key={`col-${colIdx}`} className="flex flex-col gap-1">

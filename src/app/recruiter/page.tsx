@@ -1,15 +1,22 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Download, Mail, ExternalLink, Github, Linkedin, Briefcase, Award, Code2 } from "lucide-react";
+import { Download, Mail, ExternalLink, Github, Linkedin, Briefcase, Award, Code2, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { projectsData } from "@/data/projects";
-import { showResume } from "@/lib/config";
+import { cvUrl, showResume, resumeRequestMailto, email, socialLinks } from "@/lib/config";
+import Link from "next/link";
 
 export default function RecruiterPage() {
-  const topProjects = [projectsData["aazhi-suvidhaa"], projectsData["digital-twin-ehv"]];
+  const topProjects = [
+    projectsData["digital-twin-ehv"],
+    projectsData["kiosk-management-system"]
+  ].filter(Boolean);
+
+  const linkedinUrl = socialLinks.find(l => l.label === "LinkedIn")?.href || "https://www.linkedin.com/in/kanish-k-558694251/";
+  const githubUrl = socialLinks.find(l => l.label === "GitHub")?.href || "https://github.com/KANISH-850";
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -17,17 +24,17 @@ export default function RecruiterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground py-12 px-4 md:px-8 lg:px-24">
+    <div className="min-h-screen bg-[#030712] text-foreground py-16 px-4 md:px-8 lg:px-24">
       {/* Quick Navigation Panel (Sticky) */}
-      <div className="fixed top-24 right-8 hidden xl:flex flex-col gap-4 border-l pl-4 border-muted">
-        <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Quick Nav</span>
-        <a href="#summary" className="text-sm hover:text-primary transition-colors">Summary</a>
-        <a href="#skills" className="text-sm hover:text-primary transition-colors">Core Skills</a>
-        <a href="#projects" className="text-sm hover:text-primary transition-colors">Top Projects</a>
-        <a href="#stats" className="text-sm hover:text-primary transition-colors">GitHub Stats</a>
+      <div className="fixed top-24 right-8 hidden xl:flex flex-col gap-4 border-l pl-4 border-white/10 text-xs font-mono">
+        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Quick Nav</span>
+        <a href="#summary" className="text-slate-400 hover:text-cyan-400 transition-colors">Summary</a>
+        <a href="#skills" className="text-slate-400 hover:text-cyan-400 transition-colors">Core Skills</a>
+        <a href="#projects" className="text-slate-400 hover:text-cyan-400 transition-colors">Top Projects</a>
+        <a href="#achievements" className="text-slate-400 hover:text-cyan-400 transition-colors">Achievements</a>
       </div>
 
-      <div className="max-w-4xl mx-auto space-y-24">
+      <div className="max-w-4xl mx-auto space-y-20">
         
         {/* Header / Summary */}
         <motion.section 
@@ -38,41 +45,51 @@ export default function RecruiterPage() {
           transition={{ duration: 0.5 }}
           className="space-y-6"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
-            <Briefcase className="w-4 h-4" />
-            Recruiter 60-Second Overview
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-primary text-xs font-mono font-semibold tracking-wider uppercase border border-primary/20">
+            <Briefcase className="w-3.5 h-3.5" />
+            Recruiter 60-Second Briefing
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-            Kanish K.
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white font-headline">
+            Kanish <span className="text-cyan-400">K</span>
           </h1>
-          <h2 className="text-2xl text-muted-foreground font-medium">
-            Full-Stack AI Engineer & Accessibility Advocate
+          <h2 className="text-lg md:text-xl text-cyan-300 font-mono font-medium">
+            AI Engineer | Machine Learning | Deep Learning | Generative AI | NLP | Python | DSA
           </h2>
-          <p className="text-lg leading-relaxed text-muted-foreground max-w-2xl">
-            I build highly scalable AI-powered systems with a strict focus on accessibility (100 WCAG), performance, and security. Experienced in deploying microservices and production LLM wrappers.
+          <p className="text-base md:text-lg leading-relaxed text-slate-300 max-w-2xl">
+            Building intelligent, resilient software systems that bridge mathematical model formulation with production-grade telemetry pipelines and distributed microservices. Grand finale winner of Smart India Hackathon and runner-up in CDAC national innovation challenges.
           </p>
           
-          <div className="flex flex-wrap gap-4 pt-4">
-            {showResume && (
-              <Button size="lg" className="gap-2">
+          <div className="flex flex-wrap items-center gap-3 pt-3">
+            <Button size="lg" className="bg-primary text-slate-950 hover:bg-cyan-300 font-bold gap-2" asChild>
+              <a
+                href={showResume ? cvUrl : resumeRequestMailto}
+                target={showResume ? "_blank" : undefined}
+                rel="noopener noreferrer"
+              >
                 <Download className="w-4 h-4" />
-                Download Resume
-              </Button>
-            )}
-            <Button size="lg" variant="outline" className="gap-2">
-              <Mail className="w-4 h-4" />
-              Contact Me
+                {showResume ? "Download Resume / CV" : "Request Resume / CV"}
+              </a>
             </Button>
-            <Button size="icon" variant="ghost">
-              <Github className="w-5 h-5" />
+            <Button size="lg" variant="outline" className="glass-panel text-white hover:text-cyan-400 border-white/20 gap-2" asChild>
+              <a href={`mailto:${email}`}>
+                <Mail className="w-4 h-4 text-cyan-400" />
+                Contact Directly
+              </a>
             </Button>
-            <Button size="icon" variant="ghost">
-              <Linkedin className="w-5 h-5" />
+            <Button size="icon" variant="outline" className="glass-panel border-white/10 text-slate-300 hover:text-cyan-400" asChild>
+              <a href={githubUrl} target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                <Github className="w-4 h-4" />
+              </a>
+            </Button>
+            <Button size="icon" variant="outline" className="glass-panel border-white/10 text-slate-300 hover:text-cyan-400" asChild>
+              <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                <Linkedin className="w-4 h-4 text-[#0077b5]" />
+              </a>
             </Button>
           </div>
         </motion.section>
 
-        {/* Core Skills */}
+        {/* Core Competencies */}
         <motion.section 
           id="skills"
           initial="hidden"
@@ -82,23 +99,23 @@ export default function RecruiterPage() {
           transition={{ duration: 0.5 }}
           className="space-y-6"
         >
-          <h3 className="text-2xl font-bold flex items-center gap-2">
+          <h3 className="text-2xl font-bold flex items-center gap-2 text-white">
             <Code2 className="w-6 h-6 text-primary" />
-            Core Competencies
+            Core Technical Competencies
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              "TypeScript / React / Next.js",
-              "Python / FastAPI / TensorFlow",
-              "PostgreSQL / Redis / InfluxDB",
-              "Docker / GCP / GitHub Actions",
-              "WCAG 2.1 / ARIA",
-              "LLM Deployment & RAG",
-              "Microservices Architecture",
-              "Performance Optimization"
+              "Python / NumPy / Pandas",
+              "PyTorch / TensorFlow",
+              "Deep Autoencoders & ML",
+              "Generative AI & LLMs",
+              "IndicTrans2 & NLP",
+              "Data Structures & Algorithms",
+              "FastAPI / WebSockets",
+              "Docker / InfluxDB / PostgreSQL"
             ].map((skill, i) => (
-              <Card key={i} className="bg-card/50 border-muted">
-                <CardContent className="p-4 flex items-center justify-center text-center font-medium text-sm h-full">
+              <Card key={i} className="glass-panel border-white/10 text-slate-200">
+                <CardContent className="p-3.5 flex items-center justify-center text-center font-mono text-xs sm:text-sm h-full">
                   {skill}
                 </CardContent>
               </Card>
@@ -106,7 +123,7 @@ export default function RecruiterPage() {
           </div>
         </motion.section>
 
-        {/* Top Projects */}
+        {/* Top Flagship Projects */}
         <motion.section 
           id="projects"
           initial="hidden"
@@ -116,37 +133,54 @@ export default function RecruiterPage() {
           transition={{ duration: 0.5 }}
           className="space-y-6"
         >
-          <h3 className="text-2xl font-bold">Top Projects</h3>
+          <h3 className="text-2xl font-bold text-white">Flagship Projects</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {topProjects.map((project) => (
-              project && (
-                <Card key={project.id} className="flex flex-col">
-                  <CardHeader>
-                    <CardTitle className="text-xl">{project.title}</CardTitle>
-                    <CardDescription>{project.tagline}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-1 space-y-4">
-                    <p className="text-sm text-muted-foreground">{project.problemStatement}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.slice(0, 4).map(tech => (
-                        <Badge key={tech} variant="secondary">{tech}</Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                  <div className="p-6 pt-0 mt-auto">
-                    <Button variant="link" className="p-0 h-auto font-semibold gap-1">
-                      View Deep Dive <ExternalLink className="w-3 h-3" />
-                    </Button>
+              <Card key={project.id} className="glass-panel border-white/10 flex flex-col justify-between">
+                <CardHeader>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <Badge variant="outline" className="text-[10px] font-mono text-cyan-400 border-cyan-400/30">
+                      {project.achievement || "Flagship"}
+                    </Badge>
                   </div>
-                </Card>
-              )
+                  <CardTitle className="text-xl text-white">{project.title}</CardTitle>
+                  <CardDescription className="text-xs text-cyan-300 font-mono">{project.tagline}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">{project.problemStatement}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.technologies.slice(0, 5).map(tech => (
+                      <Badge key={tech} variant="secondary" className="glass-panel text-slate-300 text-[11px] font-mono border-white/10">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardContent>
+                <div className="p-6 pt-0 mt-auto flex items-center justify-between border-t border-white/[0.06]">
+                  <Button variant="link" className="p-0 h-auto font-semibold gap-1 text-primary hover:text-cyan-300" asChild>
+                    <Link href={`/projects/${project.id}`}>
+                      System Case Study <ExternalLink className="w-3.5 h-3.5" />
+                    </Link>
+                  </Button>
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-mono text-slate-400 hover:text-cyan-400 flex items-center gap-1"
+                    >
+                      <Github className="w-3.5 h-3.5" /> Code
+                    </a>
+                  )}
+                </div>
+              </Card>
             ))}
           </div>
         </motion.section>
 
-        {/* GitHub Stats & Achievements */}
+        {/* Verified Achievements */}
         <motion.section 
-          id="stats"
+          id="achievements"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -154,30 +188,30 @@ export default function RecruiterPage() {
           transition={{ duration: 0.5 }}
           className="space-y-6"
         >
-          <h3 className="text-2xl font-bold flex items-center gap-2">
-            <Award className="w-6 h-6 text-primary" />
-            Impact & Achievements
+          <h3 className="text-2xl font-bold flex items-center gap-2 text-white">
+            <Trophy className="w-6 h-6 text-amber-400" />
+            Verified Honors & System Benchmarks
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <Card className="bg-primary/5 border-primary/20">
-              <CardContent className="p-6 text-center space-y-2">
-                <div className="text-4xl font-black text-primary">100</div>
-                <div className="text-sm font-medium">Lighthouse Score</div>
-                <div className="text-xs text-muted-foreground">Accessibility & Perf</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Card className="glass-panel border-white/10 text-center">
+              <CardContent className="p-6 space-y-2">
+                <div className="text-3xl font-black text-amber-400 font-headline">1st Place</div>
+                <div className="text-xs font-mono text-white font-bold">Smart India Hackathon Winner</div>
+                <div className="text-[11px] text-slate-400 font-mono">Grand Finale National Winner</div>
               </CardContent>
             </Card>
-            <Card className="bg-primary/5 border-primary/20">
-              <CardContent className="p-6 text-center space-y-2">
-                <div className="text-4xl font-black text-primary">1st</div>
-                <div className="text-sm font-medium">Hackathon Winner</div>
-                <div className="text-xs text-muted-foreground">National Level</div>
+            <Card className="glass-panel border-white/10 text-center">
+              <CardContent className="p-6 space-y-2">
+                <div className="text-3xl font-black text-cyan-400 font-headline">Runner-up</div>
+                <div className="text-xs font-mono text-white font-bold">CDAC Innovation Challenge</div>
+                <div className="text-[11px] text-slate-400 font-mono">Kiosk Fleet Telemetry Platform</div>
               </CardContent>
             </Card>
-            <Card className="bg-primary/5 border-primary/20">
-              <CardContent className="p-6 text-center space-y-2">
-                <div className="text-4xl font-black text-primary">&lt;50ms</div>
-                <div className="text-sm font-medium">Inference Latency</div>
-                <div className="text-xs text-muted-foreground">ML Optimization</div>
+            <Card className="glass-panel border-white/10 text-center">
+              <CardContent className="p-6 space-y-2">
+                <div className="text-3xl font-black text-emerald-400 font-headline">~50ms</div>
+                <div className="text-xs font-mono text-white font-bold">Target Anomaly Latency</div>
+                <div className="text-[11px] text-slate-400 font-mono">Internal Benchmark Target</div>
               </CardContent>
             </Card>
           </div>

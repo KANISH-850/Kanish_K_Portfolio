@@ -28,19 +28,20 @@ interface SkillCategory {
 
 const skillCategories: SkillCategory[] = [
   {
-    id: "ai-ml",
-    name: "AI & Machine Learning",
+    id: "machine-learning",
+    name: "Machine Learning",
     icon: BrainCircuit,
     color: "text-cyan-400",
-    description: "Statistical learning models, ensemble trees, and time-series predictive pipelines.",
+    description:
+      "Supervised & semi-supervised statistical learning, ensemble trees, anomaly scoring, and time-series pipelines.",
     skills: [
       "Python",
       "Scikit-learn",
       "XGBoost",
       "CatBoost",
       "One-Class SVM",
-      "Time-Series Analysis",
-      "Anomaly Detection",
+      "Time-Series Modeling",
+      "Anomaly Scoring",
       "Feature Engineering",
     ],
   },
@@ -49,7 +50,8 @@ const skillCategories: SkillCategory[] = [
     name: "Deep Learning",
     icon: Layers,
     color: "text-purple-400",
-    description: "Deep neural networks, reconstruction autoencoders, and edge inference optimization.",
+    description:
+      "Deep neural network architectures, reconstruction autoencoders for telemetry analysis, and low-latency inference.",
     skills: [
       "PyTorch",
       "TensorFlow",
@@ -57,6 +59,7 @@ const skillCategories: SkillCategory[] = [
       "Convolutional Networks",
       "Model Quantization (INT8)",
       "ONNX Runtime",
+      "Hyperparameter Tuning",
     ],
   },
   {
@@ -64,13 +67,16 @@ const skillCategories: SkillCategory[] = [
     name: "Generative AI",
     icon: Sparkles,
     color: "text-pink-400",
-    description: "Foundation model orchestration, structured agent workflows, and prompt engineering.",
+    description:
+      "Transformer foundation model orchestration, multilingual translation pipelines, and structured generation.",
     skills: [
       "LLM Integration",
       "IndicTrans2",
-      "Genkit AI",
+      "Foundation Models",
       "Prompt Engineering",
-      "Retrieval Pipelines",
+      "RAG Pipelines",
+      "Context Caching",
+      "Structured Output Parsing",
     ],
   },
   {
@@ -78,77 +84,50 @@ const skillCategories: SkillCategory[] = [
     name: "NLP",
     icon: Binary,
     color: "text-emerald-400",
-    description: "Multilingual translation, semantic embeddings, and high-accuracy text categorization.",
+    description:
+      "Semantic embedding extraction, vector search, regional language translation, and high-accuracy intent categorization.",
     skills: [
       "IndicTrans2 Translation",
       "Sentence Transformers",
       "BERT",
       "Semantic Embeddings",
       "Text Classification",
-      "Multilingual Processing",
+      "Multilingual Normalization",
     ],
   },
   {
-    id: "languages",
-    name: "Programming Languages",
+    id: "python",
+    name: "Python",
     icon: Code2,
     color: "text-amber-400",
-    description: "Core algorithmic languages for distributed backend services and typed interfaces.",
+    description:
+      "Production Python engineering, asynchronous microservices, real-time telemetry streaming, and containerized deployment.",
     skills: [
-      "Python",
-      "TypeScript",
-      "JavaScript",
-      "SQL",
-      "C / C++",
-    ],
-  },
-  {
-    id: "backend",
-    name: "Backend Development",
-    icon: Server,
-    color: "text-blue-400",
-    description: "High-throughput asynchronous APIs, time-series storage, and websocket telemetry.",
-    skills: [
+      "Python 3.12+",
       "FastAPI",
-      "Node.js",
-      "Express",
-      "REST APIs",
-      "WebSockets",
-      "Prisma ORM",
-      "Microservices",
-    ],
-  },
-  {
-    id: "frontend",
-    name: "Frontend Development",
-    icon: Layout,
-    color: "text-cyan-300",
-    description: "Interactive 3D interfaces, reactive UI frameworks, and accessible design systems.",
-    skills: [
-      "React 19",
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Three.js",
-      "Framer Motion",
-      "WCAG AAA Accessibility",
-    ],
-  },
-  {
-    id: "tools",
-    name: "Developer Tools",
-    icon: Wrench,
-    color: "text-slate-300",
-    description: "Containerization, telemetry databases, automated testing, and CI/CD pipelines.",
-    skills: [
+      "NumPy & Pandas",
+      "AsyncIO / WebSockets",
       "Docker",
-      "Git & GitHub",
-      "GitHub Actions (CI/CD)",
-      "InfluxDB",
       "PostgreSQL",
-      "Redis",
-      "Linux",
-      "MQTT Telemetry",
+      "InfluxDB",
+      "Pytest",
+    ],
+  },
+  {
+    id: "dsa",
+    name: "DSA",
+    icon: Cpu,
+    color: "text-blue-400",
+    description:
+      "Algorithmic problem solving, rigorous space-time complexity analysis, and scalable data structure design.",
+    skills: [
+      "Graph Traversal (BFS/DFS)",
+      "Dynamic Programming",
+      "Tree Structures & Heaps",
+      "Hash Maps & Sets",
+      "Time & Space Optimization",
+      "Greedy Algorithms",
+      "Two Pointers & Sliding Window",
     ],
   },
 ];
@@ -223,8 +202,8 @@ export function Skills() {
             })}
           </div>
 
-          {/* 8 Categories Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {/* 6 Core Competency Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {skillCategories.map((group) => {
               const Icon = group.icon;
               const isSelected = group.name === activeCategory;

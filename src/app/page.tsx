@@ -29,7 +29,7 @@ export default function Home() {
         {/* 2. About Me & Engineering Philosophy */}
         <About />
 
-        {/* 3. Technical Skills (5 Specified Categories) */}
+        {/* 3. Technical Skills (6 Specified Domains) */}
         <Skills />
 
         {/* 4. Featured Projects (4 Ordered Systems) */}

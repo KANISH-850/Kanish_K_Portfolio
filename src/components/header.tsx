@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { cvUrl, email, socialLinks, navItems } from "@/lib/config";
+import { cvUrl, showResume, resumeRequestMailto, email, socialLinks } from "@/lib/config";
 import { Menu, Sparkles, Download, Copy, Check } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { motion } from "framer-motion";
@@ -13,6 +13,35 @@ import { ThemeToggle } from "@/components/theme-toggle";
 export function Header() {
   const { toast } = useToast();
   const [copied, setCopied] = React.useState(false);
+  const [activeSection, setActiveSection] = React.useState<string>("about");
+
+  const desktopNav = React.useMemo(() => [
+    { href: "#about", label: "About", id: "about" },
+    { href: "#projects", label: "Projects", id: "projects" },
+    { href: "#skills", label: "Skills", id: "skills" },
+    { href: "#achievements", label: "Achievements", id: "achievements" },
+    { href: "#experience", label: "Journey", id: "experience" },
+    { href: "#contact", label: "Contact", id: "contact" },
+  ], []);
+
+  React.useEffect(() => {
+    const sectionIds = ["contact", "experience", "achievements", "skills", "projects", "about"];
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 220;
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollPosition) {
+          setActiveSection(id);
+          return;
+        }
+      }
+      setActiveSection("about");
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(email);
@@ -23,15 +52,6 @@ export function Header() {
     });
     setTimeout(() => setCopied(false), 2000);
   };
-
-  const desktopNav = [
-    { href: "#about", label: "About" },
-    { href: "#projects", label: "Projects" },
-    { href: "#skills", label: "Skills" },
-    { href: "#achievements", label: "Achievements" },
-    { href: "#experience", label: "Journey" },
-    { href: "#contact", label: "Contact" },
-  ];
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-[#030712]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-2xl">
@@ -57,17 +77,24 @@ export function Header() {
           </span>
         </Link>
 
-        {/* Center Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 glass-panel px-3 py-1.5 rounded-full border border-white/10">
-          {desktopNav.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="text-xs font-mono font-medium text-slate-300 hover:text-cyan-400 px-3 py-1 rounded-full transition-colors hover:bg-white/[0.05]"
-            >
-              {item.label}
-            </Link>
-          ))}
+        {/* Center Desktop Navigation with Active Scroll Tracking */}
+        <nav className="hidden lg:flex items-center gap-1 glass-panel px-2.5 py-1.5 rounded-full border border-white/10">
+          {desktopNav.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`text-xs font-mono px-3 py-1 rounded-full transition-all duration-200 ${
+                  isActive
+                    ? "bg-primary text-slate-950 font-bold shadow-[0_0_15px_rgba(0,240,255,0.4)]"
+                    : "font-medium text-slate-300 hover:text-cyan-400 hover:bg-white/[0.05]"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Right Desktop Utilities */}
@@ -92,7 +119,11 @@ export function Header() {
             asChild
             className="h-8 px-3 text-xs font-mono glass-panel text-white hover:text-cyan-400 border-white/20 gap-1.5 hover:border-primary/50"
           >
-            <a href={cvUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              href={showResume ? cvUrl : resumeRequestMailto}
+              target={showResume ? "_blank" : undefined}
+              rel="noopener noreferrer"
+            >
               <Download className="w-3.5 h-3.5 text-cyan-400" />
               <span>Resume</span>
             </a>
@@ -160,9 +191,13 @@ export function Header() {
                     asChild
                     className="w-full justify-start glass-panel border-white/10 text-xs font-mono"
                   >
-                    <a href={cvUrl} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={showResume ? cvUrl : resumeRequestMailto}
+                      target={showResume ? "_blank" : undefined}
+                      rel="noopener noreferrer"
+                    >
                       <Download className="mr-2 h-3.5 w-3.5 text-cyan-400" />
-                      Download Resume / CV
+                      {showResume ? "Download Resume / CV" : "Request Resume / CV"}
                     </a>
                   </Button>
                 </div>
