@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Download, Mail, ExternalLink, Github, Linkedin, Briefcase, Award, Code2, Trophy } from "lucide-react";
+import { ArrowLeft, Download, Mail, ExternalLink, Github, Linkedin, Briefcase, Award, Code2, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -36,6 +36,13 @@ export default function RecruiterPage() {
 
       <div className="max-w-4xl mx-auto space-y-20">
         
+        {/* Back Link */}
+        <Button variant="ghost" asChild className="text-slate-400 hover:text-cyan-400 -ml-4">
+          <Link href="/">
+            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Portfolio
+          </Link>
+        </Button>
+
         {/* Header / Summary */}
         <motion.section 
           id="summary"

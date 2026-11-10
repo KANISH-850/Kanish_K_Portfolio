@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Trophy, Lightbulb, ShieldCheck, Zap, Code2, Users, Activity, Eye, Play } from "lucide-react";
+import { ArrowLeft, ExternalLink, Trophy, Lightbulb, ShieldCheck, Zap, Code2, Users, Activity, Eye, Play } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -20,6 +21,13 @@ export default function JudgePage() {
     <div className="min-h-screen bg-background text-foreground py-12 px-4 md:px-8 lg:px-24">
       <div className="max-w-5xl mx-auto space-y-16">
         
+        {/* Back Link */}
+        <Button variant="ghost" asChild className="text-muted-foreground hover:text-primary -ml-4">
+          <Link href="/">
+            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Portfolio
+          </Link>
+        </Button>
+
         {/* Header */}
         <motion.section 
           initial="hidden"
