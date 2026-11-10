@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { socialLinks, email } from "@/lib/config";
+import { socialLinks, email, navItems } from "@/lib/config";
 import { ArrowUp, Sparkles, Mail } from "lucide-react";
 
 export function Footer() {
@@ -11,15 +11,6 @@ export function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  const navLinks = [
-    { href: "#about", label: "About" },
-    { href: "#projects", label: "Projects" },
-    { href: "#skills", label: "Skills" },
-    { href: "#achievements", label: "Achievements" },
-    { href: "#experience", label: "Journey" },
-    { href: "#contact", label: "Contact" },
-  ];
 
   return (
     <footer className="bg-[#030712] border-t border-white/[0.08] text-foreground relative z-10">
@@ -52,15 +43,27 @@ export function Footer() {
               Quick Navigation
             </span>
             <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-              {navLinks.map((item) => (
+              {navItems.map((item) => (
                 <Link
                   key={item.label}
-                  href={item.href}
+                  href={`/${item.href}`}
                   className="text-slate-400 hover:text-cyan-400 transition-colors py-1"
                 >
                   {item.label}
                 </Link>
               ))}
+              <Link
+                href="/recruiter"
+                className="text-slate-400 hover:text-cyan-400 transition-colors py-1"
+              >
+                Recruiter Brief
+              </Link>
+              <Link
+                href="/judge"
+                className="text-slate-400 hover:text-cyan-400 transition-colors py-1"
+              >
+                Judge Mode
+              </Link>
             </div>
           </div>
 

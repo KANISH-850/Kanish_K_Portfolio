@@ -31,7 +31,7 @@ export function FloatingCTA() {
       transition={{ duration: 0.25, ease: "easeOut" }}
       className={`fixed bottom-6 right-6 z-50 ${isVisible ? "pointer-events-auto" : "pointer-events-none"}`}
     >
-      <Link href="#projects">
+      <Link href="/#projects">
         <button
           type="button"
           aria-label="Jump to featured engineering projects"
