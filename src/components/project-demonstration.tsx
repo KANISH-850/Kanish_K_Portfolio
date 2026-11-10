@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { ImageIcon, MonitorPlay, Github, ExternalLink } from "lucide-react";
@@ -45,6 +46,46 @@ const AquaGuard3DScene = dynamic(
   }
 );
 
+const WebScraper3DScene = dynamic(
+  () => import("./webscraper-3d-scene").then((mod) => mod.WebScraper3DScene),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[420px] md:h-[470px] rounded-2xl bg-slate-950/60 border border-cyan-500/20 animate-pulse" />
+    ),
+  }
+);
+
+const HackZen3DScene = dynamic(
+  () => import("./hackzen-3d-scene").then((mod) => mod.HackZen3DScene),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[420px] md:h-[470px] rounded-2xl bg-slate-950/60 border border-amber-500/20 animate-pulse" />
+    ),
+  }
+);
+
+const Vikshana3DScene = dynamic(
+  () => import("./vikshana-3d-scene").then((mod) => mod.Vikshana3DScene),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[420px] md:h-[470px] rounded-2xl bg-slate-950/60 border border-purple-500/20 animate-pulse" />
+    ),
+  }
+);
+
+const TechSpire3DScene = dynamic(
+  () => import("./techspire-3d-scene").then((mod) => mod.TechSpire3DScene),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[420px] md:h-[470px] rounded-2xl bg-slate-950/60 border border-emerald-500/20 animate-pulse" />
+    ),
+  }
+);
+
 export interface ProjectMediaItem {
   title: string;
   caption: string;
@@ -53,19 +94,88 @@ export interface ProjectMediaItem {
   src?: string;
 }
 
-export function ProjectScenePreview({ projectId }: { projectId: string }) {
-  switch (projectId) {
-    case "digital-twin-ehv":
-      return <DigitalTwin3DScene />;
-    case "kiosk-management-system":
-      return <Kiosk3DScene />;
-    case "intelligent-grievance-system":
-      return <GrievancePipeline3DScene />;
-    case "aquaguard-ai":
-      return <AquaGuard3DScene />;
-    default:
-      return null;
-  }
+const SUPPORTED_3D_IDS = new Set([
+  "digital-twin-ehv",
+  "kiosk-management-system",
+  "intelligent-grievance-system",
+  "aquaguard-ai",
+  "webscraper",
+  "hackzen",
+  "vikshana",
+  "techspire",
+]);
+
+export function ProjectScenePreview({
+  projectId,
+  alwaysMount = false,
+}: {
+  projectId: string;
+  alwaysMount?: boolean;
+}) {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const [isNearViewport, setIsNearViewport] = useState(alwaysMount);
+
+  useEffect(() => {
+    if (alwaysMount) {
+      setIsNearViewport(true);
+      return;
+    }
+    const el = hostRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsNearViewport(entry.isIntersecting);
+      },
+      { rootMargin: "350px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [alwaysMount]);
+
+  if (!SUPPORTED_3D_IDS.has(projectId)) return null;
+
+  const renderScene = () => {
+    switch (projectId) {
+      case "digital-twin-ehv":
+        return <DigitalTwin3DScene />;
+      case "kiosk-management-system":
+        return <Kiosk3DScene />;
+      case "intelligent-grievance-system":
+        return <GrievancePipeline3DScene />;
+      case "aquaguard-ai":
+        return <AquaGuard3DScene />;
+      case "webscraper":
+        return <WebScraper3DScene />;
+      case "hackzen":
+        return <HackZen3DScene />;
+      case "vikshana":
+        return <Vikshana3DScene />;
+      case "techspire":
+        return <TechSpire3DScene />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div ref={hostRef} className="w-full min-h-[420px] md:min-h-[470px]">
+      {isNearViewport ? (
+        renderScene()
+      ) : (
+        <div
+          data-interactive-3d="true"
+          className="w-full h-[420px] md:h-[470px] rounded-2xl bg-slate-950/70 border border-white/10 flex flex-col items-center justify-center p-6 text-center space-y-2"
+        >
+          <span className="text-xs font-mono uppercase tracking-wider text-cyan-400">
+            Interactive 3D System Twin
+          </span>
+          <p className="text-xs text-slate-400 max-w-xs">
+            Scroll near this card to initialize WebGL simulation context cleanly.
+          </p>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export function ProjectDemonstration({
@@ -82,11 +192,7 @@ export function ProjectDemonstration({
   liveUrl?: string;
 }) {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-  const hasInteractive3D =
-    projectId === "digital-twin-ehv" ||
-    projectId === "kiosk-management-system" ||
-    projectId === "intelligent-grievance-system" ||
-    projectId === "aquaguard-ai";
+  const hasInteractive3D = SUPPORTED_3D_IDS.has(projectId);
 
   return (
     <section className="space-y-6" aria-label="Screenshots and Demonstrations">
@@ -130,7 +236,7 @@ export function ProjectDemonstration({
               WebGL Simulation
             </span>
           </div>
-          <ProjectScenePreview projectId={projectId} />
+          <ProjectScenePreview projectId={projectId} alwaysMount />
         </div>
       )}
 
