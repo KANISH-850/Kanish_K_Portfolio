@@ -35,10 +35,10 @@ export const socialLinks = [
 ];
 
 export const navItems = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#achievements", label: "Achievements" },
-  { href: "#experience", label: "Journey" },
-  { href: "#contact", label: "Contact" },
-];
+  { id: "about", href: "#about", label: "About" },
+  { id: "skills", href: "#skills", label: "Skills" },
+  { id: "projects", href: "#projects", label: "Projects" },
+  { id: "achievements", href: "#achievements", label: "Achievements" },
+  { id: "experience", href: "#experience", label: "Journey" },
+  { id: "contact", href: "#contact", label: "Contact" },
+] as const;
