@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import MotionWrap from "./motion-wrap";
 import {
   BrainCircuit,
@@ -12,7 +13,16 @@ import {
   Sparkles,
   Zap,
 } from "lucide-react";
-import { About3DTensor } from "./about-3d-tensor";
+
+const About3DTensor = dynamic(
+  () => import("./about-3d-tensor").then((mod) => mod.About3DTensor),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[320px] md:h-[380px] rounded-2xl glass-panel border border-white/10 animate-pulse bg-slate-950/60" />
+    ),
+  }
+);
 
 export function About() {
   const technicalPillars = [

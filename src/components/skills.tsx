@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import MotionWrap from "./motion-wrap";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -15,7 +16,16 @@ import {
   CheckCircle2,
   Layers,
 } from "lucide-react";
-import { Skills3DConstellation } from "./skills-3d-constellation";
+
+const Skills3DConstellation = dynamic(
+  () => import("./skills-3d-constellation").then((mod) => mod.Skills3DConstellation),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[380px] sm:h-[420px] rounded-2xl glass-panel border border-white/10 animate-pulse bg-slate-950/60" />
+    ),
+  }
+);
 
 interface SkillCategory {
   id: string;

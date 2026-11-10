@@ -1,11 +1,16 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import MotionWrap from "./motion-wrap";
-import { Github, GitBranch, Star, Code2, ExternalLink } from "lucide-react";
+import { Github, GitBranch, Star, Code2, ExternalLink, ArrowRight } from "lucide-react";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 
 const verifiedRepos = [
   {
     id: "repo-igs",
+    caseStudySlug: "intelligent-grievance-system",
     name: "intelligent-grievance-system",
     url: "https://github.com/KANISH-850/intelligent-grievance-system",
     description: "AI-powered multilingual grievance categorization and automated department routing with IndicTrans2 and BERT.",
@@ -15,6 +20,7 @@ const verifiedRepos = [
   },
   {
     id: "repo-neeraran",
+    caseStudySlug: "aquaguard-ai",
     name: "neeraran (AquaGuard AI)",
     url: "https://github.com/LakshanyaaJ/neeraran",
     description: "Campus water resilience analytics platform: anomaly detection (One-Class SVM), leak detection (XGBoost), demand forecasting (CatBoost).",
@@ -24,6 +30,7 @@ const verifiedRepos = [
   },
   {
     id: "repo-digital-twin",
+    caseStudySlug: "digital-twin-ehv",
     name: "oceanBerg_sih (Digital Twin EHV)",
     url: "https://github.com/KANISH-850/oceanBerg_sih",
     description: "Smart India Hackathon winning predictive monitoring digital twin for EHV substations evaluated across ~50,000 synthetic and industry-informed SCADA records.",
@@ -33,6 +40,7 @@ const verifiedRepos = [
   },
   {
     id: "repo-kiosk",
+    caseStudySlug: "kiosk-management-system",
     name: "aazhi (Kiosk Management System)",
     url: "https://github.com/KANISH-850/aazhi",
     description: "CDAC Runner-up fleet orchestration platform with heartbeat telemetry and automated device diagnostics.",
@@ -51,6 +59,8 @@ const deterministicActivity = [
 ];
 
 export function GithubEvidence() {
+  const router = useRouter();
+
   return (
     <section className="py-20 bg-muted/10 border-y border-border/50" aria-label="Open Source & GitHub Evidence">
       <div className="container max-w-6xl mx-auto px-4 md:px-6">
@@ -82,19 +92,24 @@ export function GithubEvidence() {
 
           <div className="grid md:grid-cols-2 gap-6">
             {verifiedRepos.map((repo) => (
-              <Card key={repo.id} className="p-6 bg-card border-white/5 shadow-md hover:border-emerald-500/30 transition-all flex flex-col justify-between group">
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <a
-                      href={repo.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-base md:text-lg font-bold text-emerald-400 hover:underline"
+              <Card
+                key={repo.id}
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).closest("a, button")) return;
+                  router.push(`/projects/${repo.caseStudySlug}/`);
+                }}
+                className="min-w-0 p-6 bg-card border-white/5 shadow-md hover:border-emerald-500/40 transition-all flex flex-col justify-between group cursor-pointer"
+              >
+                <div className="min-w-0">
+                  <div className="flex items-center justify-between gap-2 mb-3 min-w-0">
+                    <Link
+                      href={`/projects/${repo.caseStudySlug}/`}
+                      className="flex items-center gap-2 min-w-0 flex-1 text-base md:text-lg font-bold text-emerald-400 hover:underline"
                     >
                       <Github className="w-4 h-4 shrink-0" />
                       <span className="truncate">{repo.name}</span>
-                    </a>
-                    <Badge variant="outline" className="text-[10px] font-mono bg-background">
+                    </Link>
+                    <Badge variant="outline" className="text-[10px] font-mono bg-background shrink-0">
                       Verified
                     </Badge>
                   </div>
@@ -112,19 +127,27 @@ export function GithubEvidence() {
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between text-xs text-muted-foreground font-mono pt-1">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground font-mono pt-1">
                     <div className="flex items-center gap-2">
                       <div className={`w-2.5 h-2.5 rounded-full ${repo.color}`} />
                       <span>{repo.language}</span>
                     </div>
-                    <a
-                      href={repo.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-emerald-400 hover:underline flex items-center gap-1 text-[11px]"
-                    >
-                      Inspect Code &rarr;
-                    </a>
+                    <div className="flex items-center gap-3">
+                      <Link
+                        href={`/projects/${repo.caseStudySlug}/`}
+                        className="text-cyan-400 hover:underline flex items-center gap-1 text-[11px]"
+                      >
+                        Case Study <ArrowRight className="w-3 h-3" />
+                      </Link>
+                      <a
+                        href={repo.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-emerald-400 hover:underline flex items-center gap-1 text-[11px]"
+                      >
+                        Inspect Code <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </Card>
@@ -143,9 +166,9 @@ export function GithubEvidence() {
             </div>
 
             {/* Static, deterministic activity matrix representation */}
-            <div className="flex items-center gap-1.5 opacity-90" aria-hidden="true">
-              <span className="text-[10px] font-mono text-muted-foreground mr-1">Activity (Illustrative)</span>
-              <div className="flex gap-1 overflow-x-hidden">
+            <div className="flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-end gap-2 max-w-full opacity-90" aria-hidden="true">
+              <span className="text-[10px] font-mono text-muted-foreground">Activity (Illustrative)</span>
+              <div className="flex gap-1 overflow-x-hidden max-w-full">
                 {deterministicActivity.map((col, colIdx) => (
                   <div key={`col-${colIdx}`} className="flex flex-col gap-1">
                     {col.map((intensity, rowIdx) => {

@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   ArrowDown,
   ArrowRight,
-  Download,
+  FileDown,
   Mail,
   Trophy,
   Award,
@@ -15,22 +16,26 @@ import {
   Sparkles,
   ExternalLink,
 } from "lucide-react";
-import { cvUrl, showResume, resumeRequestMailto, socialLinks } from "@/lib/config";
-import { Hero3DScene } from "./hero-3d-scene";
+import { resumeConfig } from "@/lib/config";
 import { useToast } from "@/hooks/use-toast";
+
+const Hero3DScene = dynamic(
+  () => import("./hero-3d-scene").then((mod) => mod.Hero3DScene),
+  { ssr: false }
+);
 
 export function Hero() {
   const { toast } = useToast();
 
   const handleResumeDownload = () => {
-    if (showResume) {
-      window.open(cvUrl, "_blank");
+    if (resumeConfig.available) {
+      window.open(resumeConfig.href, "_blank", "noopener,noreferrer");
       toast({
-        title: "Opening Resume / CV",
+        title: "Opening Resume (PDF)",
         description: "Direct academic and technical CV for Kanish K.",
       });
     } else {
-      window.location.href = resumeRequestMailto;
+      window.location.href = resumeConfig.href;
       toast({
         title: "Resume Request",
         description: "Opening direct email to kanishkgins@gmail.com for verified CV.",
@@ -172,15 +177,16 @@ export function Hero() {
               </Link>
             </Button>
 
-            {/* CTA 2: Download Resume */}
+            {/* CTA 2: Download / Request Resume */}
             <Button
               size="lg"
               variant="outline"
               onClick={handleResumeDownload}
+              aria-label={resumeConfig.ariaLabel}
               className="w-full sm:w-auto glass-panel text-white font-semibold px-6 h-12 rounded-xl border-white/20 hover:border-primary/60 hover:bg-white/[0.08] hover:text-primary transition-all duration-300 hover:scale-[1.02] shadow-lg"
             >
-              <Download className="mr-2 w-4 h-4 text-primary" />
-              {showResume ? "Download Resume" : "Request Resume"}
+              <FileDown className="mr-2 w-4 h-4 text-primary" />
+              {resumeConfig.available ? "Download Resume (PDF)" : "Request Resume"}
             </Button>
 
             {/* CTA 3: Contact Me */}

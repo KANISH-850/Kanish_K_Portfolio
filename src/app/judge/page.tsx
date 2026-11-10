@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowLeft, ExternalLink, Trophy, Lightbulb, ShieldCheck, Zap, Code2, Users, Activity, Eye, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, Trophy, Lightbulb, ShieldCheck, Zap, Code2, Users, Activity, Eye, Play } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +11,7 @@ import { projectsData } from "@/data/projects";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export default function JudgePage() {
+  const router = useRouter();
   const projects = Array.from(new Map(Object.values(projectsData).map(p => [p.id, p])).values());
 
   const fadeIn = {
@@ -59,16 +61,31 @@ export default function JudgePage() {
               variants={fadeIn}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
             >
-              <Card className="border-2 overflow-hidden">
-                <CardHeader className="bg-muted/50 border-b">
+              <Card className="border-2 overflow-hidden hover:border-primary/40 transition-colors">
+                <CardHeader
+                  onClick={(e) => {
+                    if ((e.target as HTMLElement).closest("a, button")) return;
+                    router.push(`/projects/${project.id}/`);
+                  }}
+                  className="bg-muted/50 border-b cursor-pointer group"
+                >
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                      <CardTitle className="text-2xl md:text-3xl">{project.title}</CardTitle>
+                      <CardTitle className="text-2xl md:text-3xl">
+                        <Link href={`/projects/${project.id}/`} className="hover:text-primary transition-colors">
+                          {project.title}
+                        </Link>
+                      </CardTitle>
                       <CardDescription className="text-base mt-2">{project.tagline}</CardDescription>
                     </div>
-                    <div className="flex gap-3">
+                    <div className="flex flex-wrap gap-2.5">
+                      <Button className="gap-2" asChild>
+                        <Link href={`/projects/${project.id}/`}>
+                          Case Study <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </Button>
                       {project.liveUrl && project.liveUrl !== "#" && (
-                        <Button className="gap-2" asChild>
+                        <Button variant="secondary" className="gap-2" asChild>
                           <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                             <Play className="w-4 h-4" /> Demo
                           </a>

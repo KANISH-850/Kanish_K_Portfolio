@@ -4,9 +4,9 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { cvUrl, showResume, resumeRequestMailto, email, socialLinks, navItems } from "@/lib/config";
-import { Menu, Sparkles, Download, Copy, Check } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { resumeConfig, email, socialLinks, navItems } from "@/lib/config";
+import { Menu, FileDown, Copy, Check } from "lucide-react";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -56,28 +56,32 @@ export function Header() {
         {/* Brand / Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-white font-headline font-black text-lg tracking-tight group"
+          className="flex items-center gap-2 text-white font-headline font-black text-lg tracking-tight group shrink-0"
         >
           <span className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-400 to-accent flex items-center justify-center text-slate-950 font-black text-sm shadow-[0_0_15px_rgba(0,240,255,0.4)] group-hover:scale-105 transition-transform">
             K
           </span>
-          <span className="font-bold tracking-tight">
+          <span className="font-bold tracking-tight whitespace-nowrap">
             Kanish <span className="text-cyan-400">K</span>
           </span>
-          <span className="text-[10px] font-mono text-slate-400 bg-white/[0.05] px-2 py-0.5 rounded border border-white/10 hidden sm:inline">
+          <span className="text-[10px] font-mono text-slate-400 bg-white/[0.05] px-2 py-0.5 rounded border border-white/10 hidden sm:inline whitespace-nowrap">
             AI Engineer
           </span>
         </Link>
 
         {/* Center Desktop Navigation with Active Scroll Tracking */}
-        <nav className="hidden lg:flex items-center gap-1 glass-panel px-2.5 py-1.5 rounded-full border border-white/10">
+        <nav
+          aria-label="Primary navigation"
+          className="hidden lg:flex items-center gap-1 glass-panel px-2 py-1.5 rounded-full border border-white/10"
+        >
           {navItems.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <Link
                 key={item.label}
                 href={item.href}
-                className={`text-xs font-mono px-3 py-1 rounded-full transition-all duration-200 ${
+                aria-current={isActive ? "location" : undefined}
+                className={`text-xs font-mono px-2.5 xl:px-3 py-1 rounded-full transition-all duration-200 whitespace-nowrap ${
                   isActive
                     ? "bg-primary text-slate-950 font-bold shadow-[0_0_15px_rgba(0,240,255,0.4)]"
                     : "font-medium text-slate-300 hover:text-cyan-400 hover:bg-white/[0.05]"
@@ -90,7 +94,7 @@ export function Header() {
         </nav>
 
         {/* Right Utilities & Mobile/Tablet Drawer */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <div className="hidden md:flex items-center gap-2.5">
             <Button
               size="sm"
@@ -113,12 +117,14 @@ export function Header() {
               className="h-8 px-3 text-xs font-mono glass-panel text-white hover:text-cyan-400 border-white/20 gap-1.5 hover:border-primary/50"
             >
               <a
-                href={showResume ? cvUrl : resumeRequestMailto}
-                target={showResume ? "_blank" : undefined}
+                href={resumeConfig.href}
+                target={resumeConfig.target}
+                download={resumeConfig.download}
                 rel="noopener noreferrer"
+                aria-label={resumeConfig.ariaLabel}
               >
-                <Download className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Resume</span>
+                <FileDown className="w-3.5 h-3.5 text-cyan-400" />
+                <span>{resumeConfig.shortLabel}</span>
               </a>
             </Button>
 
@@ -137,6 +143,8 @@ export function Header() {
                 <Button
                   variant="outline"
                   size="icon"
+                  aria-expanded={mobileMenuOpen}
+                  aria-label="Toggle navigation menu"
                   className="h-9 w-9 glass-panel border-white/10"
                 >
                   <Menu className="w-4 h-4" />
@@ -149,15 +157,15 @@ export function Header() {
               >
                 <div className="flex flex-col h-full py-6 space-y-6">
                   <div>
-                    <h3 className="font-headline font-bold text-lg text-white">
+                    <SheetTitle className="font-headline font-bold text-lg text-white">
                       Kanish K
-                    </h3>
-                    <p className="text-xs font-mono text-cyan-400">
+                    </SheetTitle>
+                    <SheetDescription className="text-xs font-mono text-cyan-400">
                       AI Engineer &bull; Deep Learning &bull; Generative AI
-                    </p>
+                    </SheetDescription>
                   </div>
 
-                  <nav className="flex flex-col gap-3">
+                  <nav aria-label="Mobile navigation" className="flex flex-col gap-3">
                     {navItems.map((item) => (
                       <Link
                         key={item.label}
@@ -184,38 +192,42 @@ export function Header() {
                       Copy Email Address
                     </Button>
 
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    asChild
-                    className="w-full justify-start glass-panel border-white/10 text-xs font-mono"
-                  >
-                    <a
-                      href={showResume ? cvUrl : resumeRequestMailto}
-                      target={showResume ? "_blank" : undefined}
-                      rel="noopener noreferrer"
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      asChild
+                      className="w-full justify-start glass-panel border-white/10 text-xs font-mono"
                     >
-                      <Download className="mr-2 h-3.5 w-3.5 text-cyan-400" />
-                      {showResume ? "Download Resume / CV" : "Request Resume / CV"}
-                    </a>
-                  </Button>
-                </div>
+                      <a
+                        href={resumeConfig.href}
+                        target={resumeConfig.target}
+                        download={resumeConfig.download}
+                        rel="noopener noreferrer"
+                        aria-label={resumeConfig.ariaLabel}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <FileDown className="mr-2 h-3.5 w-3.5 text-cyan-400" />
+                        {resumeConfig.fullLabel}
+                      </a>
+                    </Button>
+                  </div>
 
-                <div className="mt-auto pt-6 border-t border-white/10 flex flex-wrap gap-2 text-xs font-mono">
-                  {socialLinks.map(({ href, label }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="glass-panel px-3 py-1 rounded text-slate-300 hover:text-cyan-400 border border-white/10"
-                    >
-                      {label}
-                    </a>
-                  ))}
+                  <div className="mt-auto pt-6 border-t border-white/10 flex flex-wrap gap-2 text-xs font-mono">
+                    {socialLinks.map(({ href, label }) => (
+                      <a
+                        key={label}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="glass-panel px-3 py-1 rounded text-slate-300 hover:text-cyan-400 border border-white/10"
+                      >
+                        {label}
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </SheetContent>
+              </SheetContent>
           </Sheet>
           </div>
         </div>

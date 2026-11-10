@@ -1,35 +1,31 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   ArrowRight,
   Github,
   Trophy,
   Award,
-  Cpu,
-  Activity,
   Layers,
   CheckCircle2,
-  Zap,
-  Server,
-  Terminal,
-  ExternalLink,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 import MotionWrap from "./motion-wrap";
 import { projectsData } from "@/data/projects";
-import { DigitalTwin3DScene } from "./digital-twin-3d-scene";
-import { Kiosk3DScene } from "./kiosk-3d-scene";
+import { ProjectScenePreview } from "./project-demonstration";
 
-// 3D Tilt Card Container component
+// 3D Tilt Card Container component with full-card navigation guard
 function TiltProjectCard({
   children,
   className = "",
+  onNavigate,
 }: {
   children: React.ReactNode;
   className?: string;
+  onNavigate?: () => void;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotateX, setRotateX] = useState(0);
@@ -43,8 +39,8 @@ function TiltProjectCard({
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const rX = ((y - centerY) / centerY) * -5;
-    const rY = ((x - centerX) / centerX) * 5;
+    const rX = ((y - centerY) / centerY) * -3;
+    const rY = ((x - centerX) / centerX) * 3;
 
     setRotateX(rX);
     setRotateY(rY);
@@ -55,11 +51,19 @@ function TiltProjectCard({
     setRotateY(0);
   };
 
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!onNavigate) return;
+    const target = e.target as HTMLElement;
+    if (target.closest("a, button, [data-interactive-3d]")) return;
+    onNavigate();
+  };
+
   return (
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onClick={handleCardClick}
       style={{
         transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         transition: "transform 0.15s ease-out",
@@ -72,11 +76,13 @@ function TiltProjectCard({
 }
 
 export function Projects() {
-  // STRICTLY showcase ONLY the two major projects specified in the prompt:
-  // 1. Digital Twin of EHV Substation Monitoring (SIH Winner)
-  // 2. Kiosk Management System (CDAC Runner-up)
+  const router = useRouter();
   const sihProject = projectsData["digital-twin-ehv"];
   const cdacProject = projectsData["kiosk-management-system"];
+
+  const navigateToProject = (slug: string) => {
+    router.push(`/projects/${slug}/`);
+  };
 
   const majorProjects = [
     {
@@ -87,7 +93,7 @@ export function Projects() {
       accentGlow: "from-cyan-500/20 via-primary/10 to-transparent",
       accentBorder: "hover:border-cyan-400/50",
       number: "01",
-      previewComponent: <DigitalTwin3DScene />,
+      previewComponent: <ProjectScenePreview projectId="digital-twin-ehv" />,
       summaryDesc:
         "An intelligent digital twin platform for monitoring and analyzing Extra High Voltage electrical substations.",
     },
@@ -99,7 +105,7 @@ export function Projects() {
       accentGlow: "from-purple-500/20 via-accent/10 to-transparent",
       accentBorder: "hover:border-purple-400/50",
       number: "02",
-      previewComponent: <Kiosk3DScene />,
+      previewComponent: <ProjectScenePreview projectId="kiosk-management-system" />,
       summaryDesc:
         "A smart kiosk management solution developed as part of the CDAC project competition.",
     },
@@ -143,11 +149,12 @@ export function Projects() {
               return (
                 <TiltProjectCard
                   key={data.id}
-                  className={`rounded-3xl border border-white/10 glass-panel overflow-hidden shadow-2xl transition-all duration-300 ${accentBorder}`}
+                  onNavigate={() => navigateToProject(data.id)}
+                  className={`cursor-pointer min-w-0 max-w-full rounded-3xl border border-white/10 glass-panel overflow-hidden shadow-2xl transition-all duration-300 ${accentBorder}`}
                 >
-                  <div className="grid lg:grid-cols-12 gap-0">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 min-w-0">
                     {/* Left Column: Project Overview & Specs */}
-                    <div className="lg:col-span-7 p-6 sm:p-8 md:p-10 flex flex-col justify-between space-y-6">
+                    <div className="lg:col-span-7 min-w-0 p-6 sm:p-8 md:p-10 flex flex-col justify-between space-y-6">
                       <div className="space-y-4">
                         {/* Header Badges */}
                         <div className="flex flex-wrap items-center gap-2.5">
@@ -165,7 +172,9 @@ export function Projects() {
                         {/* Title & Tagline */}
                         <div>
                           <h3 className="font-headline text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight">
-                            {data.title}
+                            <Link href={`/projects/${data.id}/`} className="hover:text-cyan-300 transition-colors">
+                              {data.title}
+                            </Link>
                           </h3>
                           <p className="text-sm sm:text-base text-cyan-400 font-medium mt-1">
                             {data.tagline}
@@ -226,7 +235,7 @@ export function Projects() {
                           className="bg-primary text-slate-950 hover:bg-cyan-300 font-bold px-6 rounded-xl shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] transition-all group/btn"
                           asChild
                         >
-                          <Link href={`/projects/${data.id}`}>
+                          <Link href={`/projects/${data.id}/`}>
                             Explore System Case Study
                             <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                           </Link>
@@ -269,13 +278,108 @@ export function Projects() {
                     </div>
 
                     {/* Right Column: Interactive 3D Telemetry Preview */}
-                    <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-center bg-slate-950/40">
+                    <div className="lg:col-span-5 min-w-0 p-6 sm:p-8 flex flex-col justify-center bg-slate-950/40">
                       {previewComponent}
                     </div>
                   </div>
                 </TiltProjectCard>
               );
             })}
+          </div>
+
+          {/* Additional AI Engineering Systems */}
+          <div className="mt-16 space-y-8">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <h3 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                <Layers className="w-5 h-5 text-cyan-400" />
+                Additional AI &amp; ML Engineering Systems
+              </h3>
+              <span className="text-xs font-mono text-slate-400">
+                NLP Pipeline &bull; Campus Water Resilience Twin
+              </span>
+            </div>
+
+            <div className="space-y-10">
+              {[
+                projectsData["intelligent-grievance-system"],
+                projectsData["aquaguard-ai"],
+              ]
+                .filter(Boolean)
+                .map((proj, idx) => (
+                  <div
+                    key={proj.id}
+                    onClick={(e) => {
+                      const target = e.target as HTMLElement;
+                      if (target.closest("a, button, [data-interactive-3d]")) return;
+                      navigateToProject(proj.id);
+                    }}
+                    className="cursor-pointer min-w-0 max-w-full glass-panel rounded-3xl border border-white/10 hover:border-primary/50 transition-all overflow-hidden shadow-xl"
+                  >
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 min-w-0">
+                      <div className="lg:col-span-6 min-w-0 p-6 sm:p-8 flex flex-col justify-between space-y-5">
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider">
+                              {`PROJECT 0${idx + 3} // SYSTEM CASE STUDY`}
+                            </span>
+                            {proj.githubUrl && (
+                              <a
+                                href={proj.githubUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-xs font-mono text-slate-400 hover:text-cyan-400 transition-colors"
+                              >
+                                <Github className="w-3.5 h-3.5" />
+                                <span>Source</span>
+                              </a>
+                            )}
+                          </div>
+                          <h4 className="font-headline text-2xl sm:text-3xl font-bold text-white">
+                            <Link href={`/projects/${proj.id}/`} className="hover:text-cyan-300 transition-colors">
+                              {proj.title}
+                            </Link>
+                          </h4>
+                          <p className="text-xs sm:text-sm text-cyan-300 font-mono">
+                            {proj.tagline}
+                          </p>
+                          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            {proj.problemStatement}
+                          </p>
+                        </div>
+
+                        <div className="space-y-4 pt-4 border-t border-white/[0.08]">
+                          <div className="flex flex-wrap gap-1.5">
+                            {proj.technologies.slice(0, 6).map((tech) => (
+                              <Badge
+                                key={`${proj.id}-${tech}`}
+                                variant="secondary"
+                                className="glass-panel text-slate-300 text-[11px] font-mono px-2.5 py-0.5 border border-white/10"
+                              >
+                                {tech}
+                              </Badge>
+                            ))}
+                          </div>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full sm:w-auto glass-panel text-white border-white/20 hover:border-primary/50 hover:text-cyan-400 font-mono text-xs"
+                            asChild
+                          >
+                            <Link href={`/projects/${proj.id}/`}>
+                              Explore Full Case Study
+                              <ArrowRight className="ml-2 w-3.5 h-3.5" />
+                            </Link>
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="lg:col-span-6 min-w-0 p-6 sm:p-8 flex flex-col justify-center bg-slate-950/40">
+                        <ProjectScenePreview projectId={proj.id} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
           </div>
         </MotionWrap>
       </div>

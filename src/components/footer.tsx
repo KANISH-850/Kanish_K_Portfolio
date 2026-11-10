@@ -37,33 +37,49 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Quick Navigation */}
-          <div className="md:col-span-4 space-y-3">
-            <span className="text-xs font-mono uppercase tracking-wider text-slate-300 font-bold block">
-              Quick Navigation
-            </span>
-            <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-              {navItems.map((item) => (
+          {/* Quick Navigation & Specialized Views */}
+          <div className="md:col-span-4 space-y-5">
+            <div className="space-y-3">
+              <span className="text-xs font-mono uppercase tracking-wider text-slate-300 font-bold block">
+                Quick Navigation
+              </span>
+              <nav aria-label="Quick navigation" className="grid grid-cols-2 gap-2 text-xs font-mono">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="text-slate-400 hover:text-cyan-400 transition-colors py-1"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+
+            <div className="pt-3 border-t border-white/[0.06] space-y-2">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">
+                Specialized Views
+              </span>
+              <nav aria-label="Specialized views" className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono">
                 <Link
-                  key={item.label}
-                  href={`/${item.href}`}
-                  className="text-slate-400 hover:text-cyan-400 transition-colors py-1"
+                  href="/recruiter/"
+                  className="text-slate-400 hover:text-cyan-400 transition-colors py-0.5"
                 >
-                  {item.label}
+                  Recruiter Briefing
                 </Link>
-              ))}
-              <Link
-                href="/recruiter"
-                className="text-slate-400 hover:text-cyan-400 transition-colors py-1"
-              >
-                Recruiter Brief
-              </Link>
-              <Link
-                href="/judge"
-                className="text-slate-400 hover:text-cyan-400 transition-colors py-1"
-              >
-                Judge Mode
-              </Link>
+                <Link
+                  href="/judge/"
+                  className="text-slate-400 hover:text-cyan-400 transition-colors py-0.5"
+                >
+                  Judge Evaluation
+                </Link>
+                <Link
+                  href="/notes/"
+                  className="text-slate-400 hover:text-cyan-400 transition-colors py-0.5"
+                >
+                  Engineering Notes
+                </Link>
+              </nav>
             </div>
           </div>
 
