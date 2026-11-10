@@ -40,6 +40,10 @@ export default function RecruiterPage() {
   const additionalProjects = [
     projectsData["intelligent-grievance-system"],
     projectsData["aquaguard-ai"],
+    projectsData["vikshana"],
+    projectsData["techspire"],
+    projectsData["hackzen"],
+    projectsData["webscraper"],
   ].filter(Boolean);
 
   const linkedinUrl =

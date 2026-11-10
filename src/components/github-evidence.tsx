@@ -47,6 +47,46 @@ const verifiedRepos = [
     language: "Python / TypeScript",
     color: "bg-purple-400",
     tags: ["FastAPI", "Docker", "PostgreSQL", "CDAC"]
+  },
+  {
+    id: "repo-vikshana",
+    caseStudySlug: "vikshana",
+    name: "Vikshana (Crime Intelligence AI)",
+    url: "https://github.com/KANISH-850/Vikshana",
+    description: "Collaborative Datathon investigation platform on Zoho Catalyst with 10-table KSP records, DBSCAN hotspots & XGBoost.",
+    language: "JavaScript / Node.js",
+    color: "bg-purple-400",
+    tags: ["Zoho Catalyst", "XGBoost", "DBSCAN", "Neo4j"]
+  },
+  {
+    id: "repo-techspire",
+    caseStudySlug: "techspire",
+    name: "techspire (AI Hospital HMS)",
+    url: "https://github.com/KANISH-850/techspire",
+    description: "4-container HMS unifying clinical CRUD, PostgreSQL 16 (14 models), air-gapped Ollama RAG (qwen3:4b) & PDF/Excel reports.",
+    language: "Python / React",
+    color: "bg-emerald-400",
+    tags: ["FastAPI", "Ollama RAG", "PostgreSQL", "Docker"]
+  },
+  {
+    id: "repo-hackzen",
+    caseStudySlug: "hackzen",
+    name: "HackZen (Safety Risk Vision)",
+    url: "https://github.com/KANISH-850/HackZen",
+    description: "Real-time industrial CCTV safety monitor using YOLO PPE weights, IOU tracking, Shapely zones & Socket.IO streams.",
+    language: "Python / TypeScript",
+    color: "bg-amber-400",
+    tags: ["YOLO", "Shapely", "Socket.IO", "FastAPI"]
+  },
+  {
+    id: "repo-webscraper",
+    caseStudySlug: "webscraper",
+    name: "webscraper (HealScrape AI)",
+    url: "https://github.com/KANISH-850/webscraper",
+    description: "Schema-drift detecting scraper pairing Bright Data & Cheerio extraction with automated LLM HTML selector repair.",
+    language: "TypeScript",
+    color: "bg-cyan-400",
+    tags: ["Express 5", "Prisma", "Bright Data", "Cheerio"]
   }
 ];
 

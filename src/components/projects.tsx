@@ -130,14 +130,13 @@ export function Projects() {
               02 // Featured 3D Showcase
             </div>
             <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-              Flagship{" "}
+              Eight Flagship{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-300 to-accent">
-                AI Engineering Projects
+                AI &amp; Systems Projects
               </span>
             </h2>
             <p className="text-slate-400 text-base md:text-lg leading-relaxed">
-              Showcasing verified national hackathon triumphs with full-stack
-              telemetry, predictive anomaly modeling, and edge device orchestration.
+              Interactive 3D visualizations and verified architectural case studies spanning power-grid digital twins, multilingual NLP, vision safety, healthcare RAG, and self-healing pipelines.
             </p>
           </div>
 
@@ -292,10 +291,10 @@ export function Projects() {
             <div className="flex items-center justify-between flex-wrap gap-2">
               <h3 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                 <Layers className="w-5 h-5 text-cyan-400" />
-                Additional AI &amp; ML Engineering Systems
+                Applied AI, Data &amp; Full-Stack Systems (Projects 03&ndash;08)
               </h3>
               <span className="text-xs font-mono text-slate-400">
-                NLP Pipeline &bull; Campus Water Resilience Twin
+                NLP &bull; Water ML &bull; Investigation AI &bull; Hospital RAG &bull; Vision Safety &bull; Self-Healing Scraper
               </span>
             </div>
 
@@ -303,6 +302,10 @@ export function Projects() {
               {[
                 projectsData["intelligent-grievance-system"],
                 projectsData["aquaguard-ai"],
+                projectsData["vikshana"],
+                projectsData["techspire"],
+                projectsData["hackzen"],
+                projectsData["webscraper"],
               ]
                 .filter(Boolean)
                 .map((proj, idx) => (
@@ -318,7 +321,7 @@ export function Projects() {
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 min-w-0">
                       <div className="lg:col-span-6 min-w-0 p-6 sm:p-8 flex flex-col justify-between space-y-5">
                         <div className="space-y-3">
-                          <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center justify-between gap-2 flex-wrap">
                             <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider">
                               {`PROJECT 0${idx + 3} // SYSTEM CASE STUDY`}
                             </span>
@@ -343,8 +346,14 @@ export function Projects() {
                             {proj.tagline}
                           </p>
                           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                            {proj.problemStatement}
+                            {proj.overview || proj.problemStatement}
                           </p>
+                          <div className="p-3.5 rounded-xl bg-slate-950/60 border border-white/[0.08] text-xs text-slate-400 leading-relaxed space-y-1">
+                            <span className="text-slate-300 font-semibold block text-[11px] uppercase tracking-wider">
+                              Architecture Summary
+                            </span>
+                            <p className="line-clamp-3">{proj.systemArchitecture}</p>
+                          </div>
                         </div>
 
                         <div className="space-y-4 pt-4 border-t border-white/[0.08]">
