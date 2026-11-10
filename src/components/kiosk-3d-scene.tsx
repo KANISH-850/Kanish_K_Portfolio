@@ -2,65 +2,67 @@
 
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { Server, Shield, Wifi, HardDrive, RotateCcw, Cpu } from "lucide-react";
+import { RotateCcw, Server, Touchpad, Wifi, ArrowRight } from "lucide-react";
 
-interface KioskComponentInfo {
-  id: string;
-  name: string;
-  category: string;
+type JourneyStep = 0 | 1 | 2;
+
+const KIOSK_STEPS: {
+  step: JourneyStep;
+  title: string;
+  screenHeading: string;
+  screenLines: string[];
   detail: string;
-  status: string;
-  position: [number, number, number];
-}
-
-const KIOSK_COMPONENTS: KioskComponentInfo[] = [
+}[] = [
   {
-    id: "touchscreen",
-    name: "Interactive Touch Panel",
-    category: "Display & User I/O",
-    detail: "Full HD capacitive touch with multilingual audio-visual guide",
-    status: "Active & Calibrated",
-    position: [0, 1.8, 0.4],
+    step: 0,
+    title: "1. Service Selection",
+    screenHeading: "AAZHI HELP DESK",
+    screenLines: [
+      "[EN] [TA] [HI] Select Language",
+      "> 1. Civic Utility Service",
+      "  2. Document Print / Status",
+      "  3. Accessible Voice Guide",
+    ],
+    detail: "Touchscreen renders multilingual options & high-contrast elderly accessibility mode.",
   },
   {
-    id: "scanner",
-    name: "Document Scanner Slot",
-    category: "Civic Ingestion Peripheral",
-    detail: "Automated identity & application paper feeder with OCR prep",
-    status: "Ready",
-    position: [0, 1.25, 0.35],
+    step: 1,
+    title: "2. Verification & Sync",
+    screenHeading: "FASTAPI TELEMETRY",
+    screenLines: [
+      "Scanning Reference QR...",
+      "Checking Peripheral Status:",
+      "Touch: OK | Cam: OK | Net: Sync",
+      "Dispatching Heartbeat...",
+    ],
+    detail: "Kiosk daemon verifies peripheral readiness and syncs session over FastAPI telemetry.",
   },
   {
-    id: "printer",
-    name: "Thermal Receipt Unit",
-    category: "Transaction Outflow",
-    detail: "High-speed thermal printer with paper-end telemetry sensors",
-    status: "Online (Paper OK)",
-    position: [0, 0.85, 0.35],
-  },
-  {
-    id: "tunnel",
-    name: "Reverse WSS Tunnel Agent",
-    category: "Fleet Edge Telemetry",
-    detail: "Proposed TLS tunnel + SQLite local buffer architecture specification",
-    status: "Heartbeat Synced",
-    position: [0, 0.3, 0],
+    step: 2,
+    title: "3. Receipt Output",
+    screenHeading: "SERVICE TOKEN READY",
+    screenLines: [
+      "Token: #AZ-204 Generated",
+      "Printing Thermal Receipt...",
+      "Collect Slip Below Chute",
+      "Session Telemetry Logged",
+    ],
+    detail: "Thermal printer outputs token slip while fleet portal records transaction uptime.",
   },
 ];
 
 export function Kiosk3DScene() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [webGLSupported, setWebGLSupported] = useState(true);
-  const [activeComponent, setActiveComponent] = useState<KioskComponentInfo>(KIOSK_COMPONENTS[0]);
+  const [step, setStep] = useState<JourneyStep>(0);
   const [isRotating, setIsRotating] = useState(true);
-  const [heartbeatCount, setHeartbeatCount] = useState(14820);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setHeartbeatCount((prev) => prev + 1);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, []);
+  const stepRef = useRef<JourneyStep>(step);
+  stepRef.current = step;
+  const rotatingRef = useRef(isRotating);
+  rotatingRef.current = isRotating;
+
+  const activeStep = KIOSK_STEPS[step];
 
   useEffect(() => {
     const container = containerRef.current;
@@ -80,18 +82,14 @@ export function Kiosk3DScene() {
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // SCENE, CAMERA, RENDERER
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x060515, 0.05);
+    scene.fog = new THREE.FogExp2(0x060414, 0.045);
 
-    const camera = new THREE.PerspectiveCamera(
-      40,
-      container.clientWidth / container.clientHeight,
-      0.1,
-      100
-    );
-    camera.position.set(4.8, 3.2, 5.8);
-    camera.lookAt(0, 1.2, 0);
+    const width = container.clientWidth || 600;
+    const height = container.clientHeight || 420;
+    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+    camera.position.set(3.8, 2.7, 5.4);
+    camera.lookAt(0, 1.35, 0);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -99,398 +97,421 @@ export function Kiosk3DScene() {
       powerPreference: "high-performance",
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setSize(width, height);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.25;
     container.appendChild(renderer.domElement);
 
-    // LIGHTING
-    const ambientLight = new THREE.AmbientLight(0x130d29, 2.8);
-    scene.add(ambientLight);
+    // Lighting
+    scene.add(new THREE.AmbientLight(0x1e1b4b, 2.4));
+    const keyLight = new THREE.DirectionalLight(0xe0e7ff, 2.8);
+    keyLight.position.set(5, 8, 6);
+    scene.add(keyLight);
+    const rimPurple = new THREE.DirectionalLight(0xa855f7, 2.2);
+    rimPurple.position.set(-5, 4, -4);
+    scene.add(rimPurple);
 
-    const purpleDir = new THREE.DirectionalLight(0xa855f7, 3.5);
-    purpleDir.position.set(6, 10, 5);
-    scene.add(purpleDir);
+    const root = new THREE.Group();
+    scene.add(root);
 
-    const cyanRim = new THREE.DirectionalLight(0x00f0ff, 2.0);
-    cyanRim.position.set(-6, 5, -5);
-    scene.add(cyanRim);
-
-    const pedestalGlow = new THREE.PointLight(0xa855f7, 2.2, 8);
-    pedestalGlow.position.set(0, -0.2, 0);
-    scene.add(pedestalGlow);
-
-    // ROOT KIOSK GROUP
-    const kioskGroup = new THREE.Group();
-    scene.add(kioskGroup);
-
-    // 1. BASE STAND & PEDESTAL
-    const baseGeo = new THREE.CylinderGeometry(1.4, 1.6, 0.18, 32);
-    const baseMat = new THREE.MeshStandardMaterial({
-      color: 0x130f26,
-      roughness: 0.7,
-      metalness: 0.6,
-    });
-    const baseMesh = new THREE.Mesh(baseGeo, baseMat);
-    baseMesh.position.y = 0.09;
-    kioskGroup.add(baseMesh);
-
-    // Ambient glow ring around base
-    const baseGlowRing = new THREE.Mesh(
-      new THREE.TorusGeometry(1.45, 0.03, 16, 64),
-      new THREE.MeshBasicMaterial({ color: 0xa855f7 })
+    // Floor platform + grid
+    const floor = new THREE.Mesh(
+      new THREE.CylinderGeometry(2.4, 2.5, 0.12, 36),
+      new THREE.MeshStandardMaterial({ color: 0x0d0a1f, roughness: 0.8, metalness: 0.4 })
     );
-    baseGlowRing.rotation.x = Math.PI / 2;
-    baseGlowRing.position.y = 0.12;
-    kioskGroup.add(baseGlowRing);
+    floor.position.y = -0.06;
+    root.add(floor);
+    const grid = new THREE.GridHelper(4.4, 12, 0xa855f7, 0x1e1b4b);
+    grid.position.y = 0.01;
+    root.add(grid);
 
-    // Pedestal Pillar
-    const pillarGeo = new THREE.BoxGeometry(0.8, 1.4, 0.6);
-    const pillarMat = new THREE.MeshStandardMaterial({
-      color: 0x1a1532,
-      roughness: 0.4,
-      metalness: 0.8,
-    });
-    const pillar = new THREE.Mesh(pillarGeo, pillarMat);
-    pillar.position.set(0, 0.8, 0);
-    kioskGroup.add(pillar);
+    // KIOSK ENCLOSURE GROUP
+    const kiosk = new THREE.Group();
+    root.add(kiosk);
 
-    // 2. KIOSK MAIN HEAD CHASSIS (Angled Upper Unit)
-    const chassisGeo = new THREE.BoxGeometry(1.2, 1.3, 0.45);
-    const chassisMat = new THREE.MeshStandardMaterial({
-      color: 0x0f0b20,
-      roughness: 0.3,
-      metalness: 0.9,
-    });
-    const chassis = new THREE.Mesh(chassisGeo, chassisMat);
-    chassis.position.set(0, 1.9, 0.05);
-    chassis.rotation.x = -0.18; // angled upward toward eye-level
-    kioskGroup.add(chassis);
+    const bodyMat = new THREE.MeshStandardMaterial({ color: 0x17142b, metalness: 0.75, roughness: 0.35 });
+    const trimMat = new THREE.MeshStandardMaterial({ color: 0x312e81, metalness: 0.85, roughness: 0.25 });
 
-    // 3. CAPACITIVE TOUCHSCREEN DISPLAY
-    const screenGeo = new THREE.PlaneGeometry(0.95, 0.65);
-    const screenMat = new THREE.MeshStandardMaterial({
-      color: 0x0b1329,
-      emissive: 0x1d2e5c,
-      emissiveIntensity: 0.6,
-      roughness: 0.1,
-      metalness: 0.95,
-    });
-    const screen = new THREE.Mesh(screenGeo, screenMat);
-    screen.position.set(0, 2.05, 0.29);
-    screen.rotation.x = -0.18;
-    kioskGroup.add(screen);
+    // Base plate & lower column
+    const baseFoot = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.12, 0.85), trimMat);
+    baseFoot.position.set(0, 0.06, 0);
+    kiosk.add(baseFoot);
 
-    // Screen UI Accent line
-    const screenUiLine = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.85, 0.04),
-      new THREE.MeshBasicMaterial({ color: 0x00f0ff })
+    const column = new THREE.Mesh(new THREE.BoxGeometry(0.82, 1.32, 0.52), bodyMat);
+    column.position.set(0, 0.78, -0.05);
+    kiosk.add(column);
+
+    // Angled Upper Display Head
+    const headGroup = new THREE.Group();
+    headGroup.position.set(0, 1.88, 0.05);
+    headGroup.rotation.x = -0.22;
+    kiosk.add(headGroup);
+
+    const headChassis = new THREE.Mesh(new THREE.BoxGeometry(1.16, 1.12, 0.38), bodyMat);
+    headGroup.add(headChassis);
+
+    const bezel = new THREE.Mesh(new THREE.BoxGeometry(1.06, 0.82, 0.04), trimMat);
+    bezel.position.set(0, 0.05, 0.19);
+    headGroup.add(bezel);
+
+    // Dynamic Interactive Touchscreen CanvasTexture
+    const canvas = document.createElement("canvas");
+    canvas.width = 512;
+    canvas.height = 384;
+    const ctx = canvas.getContext("2d");
+    const screenTex = new THREE.CanvasTexture(canvas);
+
+    const drawKioskScreen = (currentStep: JourneyStep) => {
+      if (!ctx) return;
+      const info = KIOSK_STEPS[currentStep];
+      ctx.fillStyle = "#060918";
+      ctx.fillRect(0, 0, 512, 384);
+
+      // Header bar
+      ctx.fillStyle = currentStep === 2 ? "#065f46" : "#3b0764";
+      ctx.fillRect(0, 0, 512, 66);
+      ctx.fillStyle = "#22d3ee";
+      ctx.font = "bold 24px monospace";
+      ctx.fillText(info.screenHeading, 24, 42);
+
+      // Step badge
+      ctx.fillStyle = "#a855f7";
+      ctx.fillRect(380, 16, 110, 34);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 16px monospace";
+      ctx.fillText(`STEP ${currentStep + 1}/3`, 398, 39);
+
+      // Body rows
+      info.screenLines.forEach((line, idx) => {
+        const y = 112 + idx * 54;
+        ctx.fillStyle = idx === 0 ? "rgba(34,211,238,0.14)" : "rgba(255,255,255,0.05)";
+        ctx.fillRect(24, y - 30, 464, 42);
+        ctx.strokeStyle = idx === 0 ? "#22d3ee" : "rgba(168,85,247,0.35)";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(24, y - 30, 464, 42);
+        ctx.fillStyle = idx === 0 ? "#67e8f9" : "#e2e8f0";
+        ctx.font = "20px monospace";
+        ctx.fillText(line, 38, y - 2);
+      });
+
+      // Footer prompt
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "15px monospace";
+      ctx.fillText("Click screen to advance simulated journey ->", 24, 358);
+      screenTex.needsUpdate = true;
+    };
+    drawKioskScreen(0);
+
+    const screenMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.96, 0.72),
+      new THREE.MeshBasicMaterial({ map: screenTex })
     );
-    screenUiLine.position.set(0, 2.22, 0.295);
-    screenUiLine.rotation.x = -0.18;
-    kioskGroup.add(screenUiLine);
+    screenMesh.position.set(0, 0.05, 0.215);
+    screenMesh.userData.interactiveScreen = true;
+    headGroup.add(screenMesh);
 
-    // 4. UPPER CAMERA / PROXIMITY SENSOR
-    const cameraBezel = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.04, 0.04, 0.03, 16),
-      new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+    // Top camera & accessibility light bar
+    const camLens = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.038, 0.038, 0.04, 16),
+      new THREE.MeshBasicMaterial({ color: 0x22d3ee })
     );
-    cameraBezel.rotation.x = Math.PI / 2 - 0.18;
-    cameraBezel.position.set(0, 2.45, 0.22);
-    kioskGroup.add(cameraBezel);
+    camLens.rotation.x = Math.PI / 2;
+    camLens.position.set(0, 0.51, 0.2);
+    headGroup.add(camLens);
 
-    // 5. PERIPHERALS: SCANNER & PRINTER SLOTS
-    // Scanner slot
-    const scannerSlot = new THREE.Mesh(
-      new THREE.BoxGeometry(0.65, 0.05, 0.1),
-      new THREE.MeshStandardMaterial({ color: 0x05040a, roughness: 0.9 })
-    );
-    scannerSlot.position.set(0, 1.48, 0.28);
-    scannerSlot.rotation.x = -0.18;
-    kioskGroup.add(scannerSlot);
+    // Peripheral Tray: Scanner bay & Receipt Printer chute
+    const tray = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.14, 0.34), trimMat);
+    tray.position.set(0, 1.24, 0.22);
+    kiosk.add(tray);
 
-    // Scanner illuminated guide light
-    const scannerGuide = new THREE.Mesh(
-      new THREE.BoxGeometry(0.65, 0.015, 0.02),
+    const scannerLight = new THREE.Mesh(
+      new THREE.BoxGeometry(0.32, 0.02, 0.18),
       new THREE.MeshBasicMaterial({ color: 0x10b981 })
     );
-    scannerGuide.position.set(0, 1.52, 0.29);
-    scannerGuide.rotation.x = -0.18;
-    kioskGroup.add(scannerGuide);
+    scannerLight.position.set(-0.22, 1.32, 0.25);
+    kiosk.add(scannerLight);
 
-    // Receipt printer slot
     const printerSlot = new THREE.Mesh(
-      new THREE.BoxGeometry(0.5, 0.03, 0.1),
-      new THREE.MeshStandardMaterial({ color: 0x05040a, roughness: 0.9 })
+      new THREE.BoxGeometry(0.32, 0.03, 0.08),
+      new THREE.MeshStandardMaterial({ color: 0x030712 })
     );
-    printerSlot.position.set(0, 1.15, 0.32);
-    kioskGroup.add(printerSlot);
+    printerSlot.position.set(0.22, 1.25, 0.37);
+    kiosk.add(printerSlot);
 
-    // 6. TELEMETRY PULSE BEACONS
-    const beacons: { group: THREE.Group; baseScale: number }[] = [];
-    KIOSK_COMPONENTS.forEach((comp) => {
-      const g = new THREE.Group();
-      g.position.set(...comp.position);
+    // Animated Thermal Receipt Paper sliding out on Step 2
+    const receiptMesh = new THREE.Mesh(
+      new THREE.BoxGeometry(0.24, 0.008, 0.28),
+      new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.8 })
+    );
+    receiptMesh.position.set(0.22, 1.24, 0.36);
+    receiptMesh.rotation.x = 0.25;
+    receiptMesh.visible = false;
+    kiosk.add(receiptMesh);
 
-      const dot = new THREE.Mesh(
-        new THREE.SphereGeometry(0.08, 16, 16),
-        new THREE.MeshStandardMaterial({
-          color: 0xa855f7,
-          emissive: 0xa855f7,
-          emissiveIntensity: 1.0,
-        })
-      );
-      g.add(dot);
+    // Stylized Citizen Interaction Marker (Front Left)
+    const userGroup = new THREE.Group();
+    userGroup.position.set(-0.95, 0, 0.95);
+    const userBase = new THREE.Mesh(
+      new THREE.RingGeometry(0.28, 0.34, 24),
+      new THREE.MeshBasicMaterial({ color: 0x22d3ee, side: THREE.DoubleSide })
+    );
+    userBase.rotation.x = -Math.PI / 2;
+    userBase.position.y = 0.02;
+    userGroup.add(userBase);
 
-      const ring = new THREE.Mesh(
-        new THREE.RingGeometry(0.12, 0.18, 24),
-        new THREE.MeshBasicMaterial({
-          color: 0xc084fc,
-          side: THREE.DoubleSide,
-          transparent: true,
-          opacity: 0.8,
-        })
-      );
-      g.add(ring);
+    const userTorso = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.14, 0.18, 0.72, 14),
+      new THREE.MeshStandardMaterial({ color: 0x0e7490, metalness: 0.3, roughness: 0.6 })
+    );
+    userTorso.position.y = 0.82;
+    userGroup.add(userTorso);
 
-      kioskGroup.add(g);
-      beacons.push({ group: g, baseScale: 1 });
-    });
+    const userHead = new THREE.Mesh(
+      new THREE.SphereGeometry(0.13, 14, 14),
+      new THREE.MeshStandardMaterial({ color: 0x22d3ee, metalness: 0.2, roughness: 0.5 })
+    );
+    userHead.position.y = 1.34;
+    userGroup.add(userHead);
+    root.add(userGroup);
 
-    // MOUSE DRAG / ROTATION INTERACTION
+    // Backend Fleet Control Server Node (Rear Right) + Telemetry Link
+    const serverNode = new THREE.Mesh(
+      new THREE.BoxGeometry(0.55, 0.9, 0.45),
+      new THREE.MeshStandardMaterial({ color: 0x1e1b4b, metalness: 0.8, roughness: 0.3 })
+    );
+    serverNode.position.set(1.35, 0.45, -1.15);
+    root.add(serverNode);
+
+    const serverLed = new THREE.Mesh(
+      new THREE.BoxGeometry(0.36, 0.05, 0.02),
+      new THREE.MeshBasicMaterial({ color: 0x10b981 })
+    );
+    serverLed.position.set(1.35, 0.75, -0.92);
+    root.add(serverLed);
+
+    const linkCurve = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(0, 0.75, -0.3),
+      new THREE.Vector3(0.7, 0.4, -0.75),
+      new THREE.Vector3(1.35, 0.65, -1.15),
+    ]);
+    const linkTube = new THREE.Mesh(
+      new THREE.TubeGeometry(linkCurve, 20, 0.02, 8, false),
+      new THREE.MeshBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.7 })
+    );
+    root.add(linkTube);
+
+    const packetMesh = new THREE.Mesh(
+      new THREE.SphereGeometry(0.055, 10, 10),
+      new THREE.MeshBasicMaterial({ color: 0x22d3ee })
+    );
+    root.add(packetMesh);
+
+    // Drag & Screen Click Raycasting
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
     let isDragging = false;
-    let prevMouseX = 0;
-    let prevMouseY = 0;
-    let targetRotationY = -0.4;
-    let targetRotationX = 0.1;
+    let moved = 0;
+    let prevX = 0;
+    let prevY = 0;
+    let targetRotY = -0.35;
+    let targetRotX = 0.08;
 
-    const onMouseDown = (e: MouseEvent) => {
+    const onDown = (e: PointerEvent) => {
       isDragging = true;
-      prevMouseX = e.clientX;
-      prevMouseY = e.clientY;
+      moved = 0;
+      prevX = e.clientX;
+      prevY = e.clientY;
     };
-    const onMouseMove = (e: MouseEvent) => {
-      if (isDragging) {
-        const deltaX = e.clientX - prevMouseX;
-        const deltaY = e.clientY - prevMouseY;
-        targetRotationY += deltaX * 0.008;
-        targetRotationX += deltaY * 0.005;
-        targetRotationX = Math.max(-0.2, Math.min(0.5, targetRotationX));
-        prevMouseX = e.clientX;
-        prevMouseY = e.clientY;
-      }
+    const onMove = (e: PointerEvent) => {
+      if (!isDragging) return;
+      const dx = e.clientX - prevX;
+      const dy = e.clientY - prevY;
+      moved += Math.abs(dx) + Math.abs(dy);
+      targetRotY += dx * 0.008;
+      targetRotX = Math.max(-0.15, Math.min(0.45, targetRotX + dy * 0.005));
+      prevX = e.clientX;
+      prevY = e.clientY;
     };
-    const onMouseUp = () => {
+    const onUp = (e: PointerEvent) => {
+      if (!isDragging) return;
       isDragging = false;
+      if (moved < 6) {
+        const rect = renderer.domElement.getBoundingClientRect();
+        pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+        raycaster.setFromCamera(pointer, camera);
+        const hits = raycaster.intersectObject(screenMesh, false);
+        if (hits.length > 0) {
+          setStep((prev) => (((prev + 1) % 3) as JourneyStep));
+        }
+      }
     };
 
     const dom = renderer.domElement;
-    dom.addEventListener("mousedown", onMouseDown);
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp);
+    dom.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
 
-    // Touch support
-    const onTouchStart = (e: TouchEvent) => {
-      if (e.touches.length === 1) {
-        isDragging = true;
-        prevMouseX = e.touches[0].clientX;
-        prevMouseY = e.touches[0].clientY;
-      }
-    };
-    const onTouchMove = (e: TouchEvent) => {
-      if (isDragging && e.touches.length === 1) {
-        const deltaX = e.touches[0].clientX - prevMouseX;
-        const deltaY = e.touches[0].clientY - prevMouseY;
-        targetRotationY += deltaX * 0.008;
-        targetRotationX += deltaY * 0.005;
-        targetRotationX = Math.max(-0.2, Math.min(0.5, targetRotationX));
-        prevMouseX = e.touches[0].clientX;
-        prevMouseY = e.touches[0].clientY;
-      }
-    };
-    const onTouchEnd = () => {
-      isDragging = false;
-    };
-
-    dom.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
-    window.addEventListener("touchend", onTouchEnd);
-
-    // INTERSECTION OBSERVER
     let isVisible = true;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting;
-      },
-      { threshold: 0.1 }
-    );
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+    }, { threshold: 0.1 });
     observer.observe(container);
 
-    // RESIZE
     const handleResize = () => {
       if (!container) return;
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      camera.aspect = width / height;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      camera.aspect = w / h;
       camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
+      renderer.setSize(w, h);
     };
     window.addEventListener("resize", handleResize);
 
-    // ANIMATION
-    let animationFrameId: number;
-    const clock = new THREE.Clock();
+    let animId = 0;
+    let lastDrawnStep: JourneyStep = 0;
+    let packetProgress = 0;
+    let receiptSlide = 0;
 
     const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
+      animId = requestAnimationFrame(animate);
       if (!isVisible) return;
 
-      const elapsedTime = clock.getElapsedTime();
-
-      if (!isDragging && !prefersReducedMotion && isRotating) {
-        targetRotationY += 0.003;
+      if (!isDragging && !prefersReducedMotion && rotatingRef.current) {
+        targetRotY += 0.0022;
       }
 
-      kioskGroup.rotation.y += (targetRotationY - kioskGroup.rotation.y) * 0.06;
-      kioskGroup.rotation.x += (targetRotationX - kioskGroup.rotation.x) * 0.06;
+      root.rotation.y += (targetRotY - root.rotation.y) * 0.08;
+      root.rotation.x += (targetRotX - root.rotation.x) * 0.08;
 
-      // Animate telemetry rings
-      beacons.forEach(({ group }, idx) => {
-        const ring = group.children[1] as THREE.Mesh;
-        if (ring) {
-          const s = 1 + Math.sin(elapsedTime * 3.2 + idx) * 0.2;
-          ring.scale.set(s, s, s);
-          ring.lookAt(camera.position);
-        }
-      });
+      if (stepRef.current !== lastDrawnStep) {
+        lastDrawnStep = stepRef.current;
+        drawKioskScreen(lastDrawnStep);
+        receiptSlide = 0;
+      }
+
+      // Receipt print animation on Step 2
+      if (stepRef.current === 2) {
+        receiptMesh.visible = true;
+        receiptSlide = Math.min(1, receiptSlide + 0.035);
+        receiptMesh.position.z = 0.34 + receiptSlide * 0.18;
+      } else {
+        receiptMesh.visible = false;
+      }
+
+      if (!prefersReducedMotion) {
+        packetProgress = (packetProgress + 0.008) % 1;
+        packetMesh.position.copy(linkCurve.getPoint(packetProgress));
+      }
 
       renderer.render(scene, camera);
     };
-
     animate();
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(animId);
       observer.disconnect();
       window.removeEventListener("resize", handleResize);
-      dom.removeEventListener("mousedown", onMouseDown);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
-      dom.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("touchend", onTouchEnd);
-
-      if (container.contains(dom)) {
-        container.removeChild(dom);
-      }
-
+      dom.removeEventListener("pointerdown", onDown);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      if (container.contains(dom)) container.removeChild(dom);
+      screenTex.dispose();
       scene.traverse((obj) => {
         if ((obj as THREE.Mesh).isMesh) {
-          const mesh = obj as THREE.Mesh;
-          if (mesh.geometry) mesh.geometry.dispose();
-          if (Array.isArray(mesh.material)) {
-            mesh.material.forEach((mat) => mat.dispose());
-          } else if (mesh.material) {
-            mesh.material.dispose();
-          }
+          const m = obj as THREE.Mesh;
+          m.geometry?.dispose();
+          if (Array.isArray(m.material)) m.material.forEach((mat) => mat.dispose());
+          else m.material?.dispose();
         }
       });
-
       renderer.dispose();
     };
-  }, [isRotating]);
+  }, []);
 
   return (
-    <div className="relative w-full h-[400px] md:h-[480px] bg-gradient-to-br from-[#060412] via-[#0d0924] to-[#080517] rounded-2xl overflow-hidden border border-purple-500/30 group shadow-2xl">
-      {/* 3D WebGL Canvas Container */}
+    <div
+      data-interactive-3d="true"
+      className="relative w-full h-[420px] md:h-[490px] bg-gradient-to-br from-[#060412] via-[#0d0924] to-[#080517] rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl"
+    >
       <div
         ref={containerRef}
         className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y"
-        title="Click and drag to rotate the 3D Kiosk Device"
+        title="Drag to rotate or click the kiosk touchscreen to step through a user journey"
       />
 
-      {/* Top Telemetry Header */}
-      <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between pointer-events-none">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/80 backdrop-blur-md border border-purple-500/30 text-xs font-mono">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500" />
-          </span>
-          <span className="text-purple-400 font-semibold tracking-wide uppercase text-[11px] sm:text-xs">
-            AAZHI Fleet Daemon &bull; Architectural 3D Model <span className="text-slate-400 font-normal hidden sm:inline">(Simulated Telemetry)</span>
+      {/* Top Header */}
+      <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between gap-2 pointer-events-none">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/85 backdrop-blur-md border border-purple-500/30 text-xs font-mono">
+          <span className="h-2 w-2 rounded-full bg-purple-400" />
+          <span className="text-purple-300 font-semibold uppercase text-[10px] sm:text-xs">
+            AAZHI Self-Service Kiosk <span className="text-slate-400 font-normal hidden sm:inline">(Simulated Journey)</span>
           </span>
         </div>
 
-        <div className="flex items-center gap-2 pointer-events-auto">
+        <div className="flex items-center gap-1.5 pointer-events-auto">
           <button
+            type="button"
+            onClick={() => setStep((prev) => (((prev + 1) % 3) as JourneyStep))}
+            className="px-2.5 py-1.5 rounded-lg bg-purple-600/20 hover:bg-purple-600/40 border border-purple-400/40 text-purple-200 text-[10px] sm:text-xs font-mono flex items-center gap-1 transition-colors"
+          >
+            <Touchpad className="w-3.5 h-3.5" />
+            <span>Next Step</span>
+            <ArrowRight className="w-3 h-3" />
+          </button>
+
+          <button
+            type="button"
             onClick={() => setIsRotating((prev) => !prev)}
-            className="p-1.5 rounded-lg bg-slate-950/80 hover:bg-slate-900 border border-white/10 text-slate-300 hover:text-purple-400 transition-colors text-xs font-mono flex items-center gap-1"
-            title="Toggle rotation"
+            className="p-1.5 rounded-lg bg-slate-950/85 hover:bg-slate-900 border border-white/10 text-slate-300 hover:text-purple-400 transition-colors text-xs font-mono flex items-center gap-1"
             aria-label="Toggle 3D rotation"
           >
             <RotateCcw className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">{isRotating ? "Pause" : "Rotate"}</span>
           </button>
         </div>
       </div>
 
-      {/* Component Inspector Card (Bottom Left) */}
-      <div className="absolute bottom-3 left-3 z-10 max-w-[270px] sm:max-w-xs p-3 rounded-xl bg-slate-950/85 backdrop-blur-md border border-purple-500/30 shadow-xl space-y-2 pointer-events-auto">
-        <div className="flex items-center justify-between text-xs font-mono">
-          <span className="text-slate-400 flex items-center gap-1 text-[11px] truncate">
-            <Server className="w-3.5 h-3.5 text-purple-400 shrink-0" />
-            {activeComponent.category}
-          </span>
-          <span className="px-1.5 py-0.5 rounded text-[9px] uppercase font-bold bg-purple-500/10 text-purple-300 border border-purple-500/20 shrink-0">
-            Simulated Model
+      {/* Bottom Journey Card */}
+      <div className="absolute bottom-3 left-3 right-3 sm:right-auto sm:max-w-sm z-10 p-3 rounded-xl bg-slate-950/90 backdrop-blur-md border border-purple-500/30 shadow-xl space-y-2">
+        <div className="flex items-center justify-between text-[11px] font-mono">
+          <span className="text-purple-300 font-bold">{activeStep.title}</span>
+          <span className="px-1.5 py-0.5 rounded text-[9px] uppercase font-bold bg-purple-500/10 text-purple-300 border border-purple-500/20">
+            Simulated UI
           </span>
         </div>
-
-        <div>
-          <div className="text-xs font-bold text-white tracking-wide">{activeComponent.name}</div>
-          <div className="text-[11px] text-slate-300 font-mono mt-0.5 leading-snug">
-            {activeComponent.detail}
-          </div>
-          <div className="text-[9px] font-mono text-slate-400 mt-1">
-            * Reverse WSS & offline SQLite buffering proposed in CDAC system design
-          </div>
-        </div>
-
-        {/* Quick Component Switcher */}
-        <div className="flex flex-wrap gap-1.5 pt-1 border-t border-white/10">
-          {KIOSK_COMPONENTS.map((comp) => (
+        <p className="text-[11px] text-slate-300 leading-snug">{activeStep.detail}</p>
+        <div className="flex gap-1.5 pt-1 border-t border-white/10">
+          {KIOSK_STEPS.map((item) => (
             <button
-              key={comp.id}
-              onClick={() => setActiveComponent(comp)}
-              className={`text-[10px] font-mono px-2 py-0.5 rounded transition-all ${
-                activeComponent.id === comp.id
+              key={item.step}
+              type="button"
+              onClick={() => setStep(item.step)}
+              className={`text-[10px] font-mono px-2 py-0.5 rounded transition-colors ${
+                step === item.step
                   ? "bg-purple-600 text-white font-bold"
-                  : "bg-slate-900/90 text-slate-300 hover:text-purple-300 border border-white/10"
+                  : "bg-slate-900 text-slate-300 hover:text-purple-300 border border-white/10"
               }`}
             >
-              {comp.name.split(" ")[0]}
+              Step {item.step + 1}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Bottom Right Heartbeat Monitor */}
-      <div className="absolute bottom-3 right-3 z-10 hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-950/85 backdrop-blur-md border border-white/10 text-xs font-mono text-slate-300">
-        <Wifi className="w-4 h-4 text-purple-400 animate-pulse" />
+      <div className="absolute bottom-3 right-3 z-10 hidden md:flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-950/85 backdrop-blur-md border border-white/10 text-[10px] font-mono text-slate-300">
+        <Wifi className="w-4 h-4 text-purple-400" />
         <div>
-          <div className="text-[10px] text-slate-400 uppercase">Simulated Heartbeat</div>
-          <div className="font-bold text-purple-300">#{heartbeatCount} &bull; TLS Spec</div>
+          <div className="text-slate-400 uppercase">Click 3D Screen</div>
+          <div className="font-bold text-emerald-400">Citizen &rarr; Kiosk &rarr; Backend</div>
         </div>
       </div>
 
-      {/* WebGL Fallback */}
       {!webGLSupported && (
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 bg-slate-950/95 text-center space-y-3">
           <Server className="w-10 h-10 text-purple-400" />
-          <h4 className="text-base font-bold text-white">Kiosk Management System (Simulated)</h4>
+          <h4 className="text-base font-bold text-white">AAZHI Kiosk Management System (Simulated)</h4>
           <p className="text-xs text-slate-300 max-w-sm">
-            Interactive WebGL is not available on this device. Fleet orchestration design with
-            proposed reverse WebSocket and local SQLite crash resilience.
+            WebGL is unavailable on this device. Workflow demonstrates citizen touchscreen selection, FastAPI telemetry verification, and thermal receipt output.
           </p>
         </div>
       )}
