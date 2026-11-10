@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { Server, ArrowRight, GitCommit, ShieldCheck, CheckCircle } from "lucide-react";
 import MotionWrap from "./motion-wrap";
@@ -38,19 +38,19 @@ export function DevopsPipeline({ pipeline }: { pipeline?: string[] }) {
         </h2>
       )}
 
-      <div className="p-6 md:p-8 bg-card border border-white/10 rounded-2xl shadow-sm overflow-x-auto">
+      <div className="p-4 sm:p-6 md:p-8 bg-card border border-white/10 rounded-2xl shadow-sm overflow-x-auto max-w-full min-w-0">
         <ol
           aria-label="DevOps pipeline stages"
           className="flex flex-wrap md:flex-nowrap items-center gap-3 md:gap-4 list-none p-0 m-0"
         >
           {steps.map((step, idx) => (
-            <li key={step} className="flex items-center gap-2 md:gap-3 shrink-0">
-              <div className="flex items-center gap-2.5 px-4 py-2.5 bg-muted/30 border border-border/50 rounded-xl text-xs md:text-sm font-mono text-foreground/90 shadow-sm hover:border-primary/40 transition-colors">
-                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary/15 text-primary text-[10px] font-bold">
+            <li key={step} className="flex items-center gap-2 md:gap-3 min-w-0 max-w-full md:shrink-0">
+              <div className="flex items-center gap-2.5 px-3 sm:px-4 py-2.5 bg-muted/30 border border-border/50 rounded-xl text-xs md:text-sm font-mono text-foreground/90 shadow-sm hover:border-primary/40 transition-colors max-w-full min-w-0">
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary/15 text-primary text-[10px] font-bold shrink-0">
                   {idx + 1}
                 </span>
                 <Server className="w-4 h-4 text-accent shrink-0" aria-hidden="true" />
-                <span>{step}</span>
+                <span className="break-words">{step}</span>
               </div>
               {idx < steps.length - 1 && (
                 <ArrowRight className="w-4 h-4 text-muted-foreground/60 shrink-0 hidden sm:inline" aria-hidden="true" />
