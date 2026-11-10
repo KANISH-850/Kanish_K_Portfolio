@@ -68,8 +68,10 @@ export default function JudgePage() {
                     </div>
                     <div className="flex gap-3">
                       {project.liveUrl && project.liveUrl !== "#" && (
-                        <Button className="gap-2">
-                          <Play className="w-4 h-4" /> Demo
+                        <Button className="gap-2" asChild>
+                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                            <Play className="w-4 h-4" /> Demo
+                          </a>
                         </Button>
                       )}
                       {project.githubUrl && project.githubUrl !== "#" && (
@@ -97,7 +99,7 @@ export default function JudgePage() {
                         <Lightbulb className="w-4 h-4" /> Innovation
                       </h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        {project.innovation || "Combined highly optimized ML inferencing with a completely accessible frontend layer, bridging the gap between advanced AI and common citizen usability."}
+                        {project.innovation || project.tagline}
                       </p>
                     </div>
                     <div className="p-6 space-y-3">
@@ -105,10 +107,10 @@ export default function JudgePage() {
                         <Users className="w-4 h-4" /> Impact & Team
                       </h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">
-                        {project.impact || "Targeted to reduce grievance resolution time by 80% for senior citizens."}
+                        {project.impact || project.keyFeatures[0]}
                       </p>
                       <p className="text-xs font-medium bg-muted px-2 py-1 rounded inline-block">
-                        Role: {project.teamContribution || "Lead Full-Stack AI Engineer"}
+                        Role: {project.teamContribution || "AI & Full-Stack Engineering"}
                       </p>
                     </div>
                   </div>
@@ -150,7 +152,7 @@ export default function JudgePage() {
                           <div className="md:col-span-2">
                              <h5 className="font-medium text-foreground mb-2 flex items-center gap-2"><Zap className="w-4 h-4" /> Scalability & Performance</h5>
                              <p className="text-sm text-muted-foreground">
-                               {project.scalability || "Designed to handle 10k+ concurrent connections seamlessly using a microservices pattern and load balancing."}
+                               {project.scalability || project.systemArchitecture}
                              </p>
                              <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1 mt-2">
                               {project.performanceMetrics.map((metric, i) => <li key={i}>{metric}</li>)}

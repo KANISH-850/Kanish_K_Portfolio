@@ -110,7 +110,14 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     lessonsLearned: [
       "Industrial IoT requires resilient offline buffering at the edge when connectivity degrades.",
       "Decoupling telemetry ingestion pipelines from visualization layers is critical for responsive operator UIs."
-    ]
+    ],
+    innovation:
+      "Combined semi-supervised deep autoencoder reconstruction scoring with an interactive 3D substation twin and decoupled telemetry parsing.",
+    impact:
+      "Smart India Hackathon Grand Finale 1st Place Winner; demonstrated early transformer thermal anomaly detection across ~50,000 synthetic and industry-informed SCADA records.",
+    teamContribution: "AI Modeling, Telemetry Pipeline & 3D Twin Integration",
+    scalability:
+      "Designed around decoupled time-series ingestion (InfluxDB), asynchronous feature workers, and WebSocket event broadcasting for multi-bay monitoring."
   },
 
   "intelligent-grievance-system": {
@@ -190,7 +197,14 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     lessonsLearned: [
       "Production NLP pipelines require strict fallback thresholds when user input is noisy or dialect-heavy.",
       "Public-sector software requires accessibility to be baked into the data layer, not treated as surface CSS."
-    ]
+    ],
+    innovation:
+      "Unified quantized IndicTrans2 neural translation with 768-dimensional Sentence Transformer embeddings, BERT categorization, and human-in-the-loop fallback routing.",
+    impact:
+      "Automates multilingual civic grievance intake and department dispatch while preserving Senior Citizen accessibility mode and transparent citizen tracking.",
+    teamContribution: "NLP Pipeline Architecture & Full-Stack Engineering",
+    scalability:
+      "Stateless FastAPI inference workers paired with PostgreSQL/Prisma persistence and confidence-threshold human review queues."
   },
 
   "aquaguard-ai": {
@@ -284,7 +298,14 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     lessonsLearned: [
       "Specialized small models tailored to specific telemetry tasks dramatically outperform monolithic architectures in speed and explainability.",
       "Evaluation figures must always be calibrated against test distribution characteristics to ensure robust field reliability."
-    ]
+    ],
+    innovation:
+      "Orchestrated three specialized, explainable models—One-Class SVM (anomaly), XGBoost (leak detection), and CatBoost (72h forecasting)—instead of a single monolithic black box.",
+    impact:
+      "Enables campus facilities teams to detect distribution leaks early and schedule proactive pump operations using calibrated 72-hour demand forecasts.",
+    teamContribution: "Machine Learning Engineering & Evaluation Benchmarking",
+    scalability:
+      "Lightweight specialized inference models (sub-4ms anomaly/leak scoring on test splits) served via FastAPI for multi-zone campus sensor networks."
   },
 
   "kiosk-management-system": {
@@ -347,7 +368,14 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     lessonsLearned: [
       "In distributed hardware management, edge self-healing and local crash recovery are as vital as cloud dashboards.",
       "Zero-trust communication protocols are essential for hardware placed in public spaces."
-    ]
+    ],
+    innovation:
+      "Designed an edge-resilient fleet orchestration architecture combining peripheral diagnostics, offline SQLite checkpointing, and outbound-only reverse WebSocket tunnel specs.",
+    impact:
+      "CDAC National Runner-up; centralizes kiosk health monitoring, remote diagnostics, and technician alerting across distributed public service centers.",
+    teamContribution: "Systems Architecture, Telemetry API & Fleet Dashboard",
+    scalability:
+      "Event-driven FastAPI ingestion with PostgreSQL/Timescale telemetry storage and regional role-based operator dashboards."
   }
 };
 
