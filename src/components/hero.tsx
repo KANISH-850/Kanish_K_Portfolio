@@ -66,20 +66,20 @@ export function Hero() {
   const verifiedAchievements = [
     {
       icon: Trophy,
-      title: "SIH Winner",
+      title: "SIH '25 Winner",
       subtitle: "1st Place National Finale",
       accent: "text-amber-400 border-amber-400/30 bg-amber-400/10",
     },
     {
       icon: Award,
-      title: "CDAC Runner-up",
+      title: "C-DAC Runner-up",
       subtitle: "National Challenge",
       accent: "text-primary border-primary/30 bg-primary/10",
     },
     {
       icon: Cpu,
-      title: "Production AI",
-      subtitle: "Digital Twins & NLP",
+      title: "Applied AI & Systems",
+      subtitle: "ML, NLP & FastAPI Backends",
       accent: "text-accent border-accent/30 bg-accent/10",
     },
   ];
@@ -111,17 +111,17 @@ export function Hero() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
             <span className="text-foreground/90 font-medium">
-              Available for AI Roles
+              Open to AI/ML &amp; SWE Internships
             </span>
             <span className="text-muted-foreground/60">&bull;</span>
-            <span className="text-primary font-bold shrink-0">2026 Ready</span>
+            <span className="text-primary font-bold shrink-0">B.E. CSE &apos;28</span>
           </motion.div>
 
           {/* Main Heading: Kanish K */}
           <motion.div variants={itemVariants} className="space-y-2 sm:space-y-3">
-            <div className="text-[10px] sm:text-xs font-mono tracking-normal sm:tracking-[0.25em] uppercase text-primary/90 flex items-center justify-center gap-1.5 px-2">
+            <div className="text-[10px] sm:text-xs font-mono tracking-normal sm:tracking-[0.2em] uppercase text-primary/90 flex items-center justify-center gap-1.5 px-2">
               <Sparkles className="w-3 h-3 text-primary shrink-0" />
-              <span>Next-Gen Systems &bull; Deep Learning Architecture</span>
+              <span>B.E. CSE (BITSathy &apos;28) &bull; Python, ML &amp; Full-Stack APIs</span>
               <Sparkles className="w-3 h-3 text-primary shrink-0" />
             </div>
 
@@ -141,9 +141,9 @@ export function Hero() {
               </div>
               <span className="text-primary font-light text-xs hidden sm:inline">&bull;</span>
               <div className="flex items-center gap-2">
-                <span>Deep Learning</span>
+                <span>Applied NLP &amp; Vision</span>
                 <span className="text-primary font-light text-xs">&bull;</span>
-                <span>Generative AI</span>
+                <span>Backend Systems</span>
               </div>
             </div>
           </motion.div>
@@ -153,8 +153,9 @@ export function Hero() {
             variants={itemVariants}
             className="text-xs sm:text-base md:text-lg text-slate-300/90 max-w-2xl mx-auto leading-relaxed font-normal px-3"
           >
-            Building intelligent systems that solve real-world problems through
-            AI, machine learning, and emerging technologies.
+            3rd-year Computer Science student building end-to-end ML models,
+            FastAPI microservices, and full-stack software systems with reproducible
+            benchmarks and transparent evaluation.
           </motion.p>
 
           {/* Glowing Interactive CTA Buttons */}

@@ -1,162 +1,130 @@
 "use client";
 
 import { useState } from "react";
-import dynamic from "next/dynamic";
 import MotionWrap from "./motion-wrap";
 import { Badge } from "@/components/ui/badge";
 import {
   BrainCircuit,
   Cpu,
-  Sparkles,
-  Binary,
   Code2,
   Server,
   Layout,
-  Wrench,
+  Database,
   CheckCircle2,
-  Layers,
+  Terminal,
 } from "lucide-react";
-
-const Skills3DConstellation = dynamic(
-  () => import("./skills-3d-constellation").then((mod) => mod.Skills3DConstellation),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-[380px] sm:h-[420px] rounded-2xl glass-panel border border-white/10 animate-pulse bg-slate-950/60" />
-    ),
-  }
-);
 
 interface SkillCategory {
   id: string;
   name: string;
   icon: typeof BrainCircuit;
   color: string;
+  level: string;
   skills: string[];
   description: string;
 }
 
 const skillCategories: SkillCategory[] = [
   {
-    id: "machine-learning",
-    name: "Machine Learning",
+    id: "languages",
+    name: "Programming Languages",
+    icon: Terminal,
+    color: "text-amber-400",
+    level: "Strong Working Experience",
+    description:
+      "Multi-language foundation across Python for AI/backends, TypeScript/JavaScript for full-stack apps, SQL, and Java/C++/C.",
+    skills: ["Python", "JavaScript", "TypeScript", "SQL", "Java", "C++", "C"],
+  },
+  {
+    id: "ai-ml",
+    name: "AI & Machine Learning",
     icon: BrainCircuit,
     color: "text-cyan-400",
+    level: "Project Experience",
     description:
-      "Supervised & semi-supervised statistical learning, ensemble trees, anomaly scoring, and time-series pipelines.",
+      "Tabular anomaly & leak modeling, computer vision transfer learning, text classification, and local RAG pipelines.",
     skills: [
-      "Python",
       "Scikit-learn",
       "XGBoost",
-      "CatBoost",
-      "One-Class SVM",
-      "Time-Series Modeling",
-      "Anomaly Scoring",
-      "Feature Engineering",
-    ],
-  },
-  {
-    id: "deep-learning",
-    name: "Deep Learning",
-    icon: Layers,
-    color: "text-purple-400",
-    description:
-      "Deep neural network architectures, reconstruction autoencoders for telemetry analysis, and low-latency inference.",
-    skills: [
       "PyTorch",
       "TensorFlow",
-      "Deep Autoencoders",
-      "Convolutional Networks",
-      "Model Quantization (INT8)",
-      "ONNX Runtime",
-      "Hyperparameter Tuning",
-    ],
-  },
-  {
-    id: "generative-ai",
-    name: "Generative AI",
-    icon: Sparkles,
-    color: "text-pink-400",
-    description:
-      "Transformer foundation model orchestration, multilingual translation pipelines, and structured generation.",
-    skills: [
-      "LLM Integration",
-      "IndicTrans2",
-      "Foundation Models",
-      "Prompt Engineering",
-      "RAG Pipelines",
-      "Context Caching",
-      "Structured Output Parsing",
-    ],
-  },
-  {
-    id: "nlp",
-    name: "NLP",
-    icon: Binary,
-    color: "text-emerald-400",
-    description:
-      "Semantic embedding extraction, vector search, regional language translation, and high-accuracy intent categorization.",
-    skills: [
-      "IndicTrans2 Translation",
-      "Sentence Transformers",
-      "BERT",
-      "Semantic Embeddings",
-      "Text Classification",
-      "Multilingual Normalization",
-    ],
-  },
-  {
-    id: "python",
-    name: "Python",
-    icon: Code2,
-    color: "text-amber-400",
-    description:
-      "Production Python engineering, asynchronous microservices, real-time telemetry streaming, and containerized deployment.",
-    skills: [
-      "Python 3.12+",
-      "FastAPI",
+      "One-Class SVM",
+      "Isolation Forest",
+      "MobileNetV3",
+      "TF-IDF & NLP",
+      "Ollama & ChromaDB",
       "NumPy & Pandas",
-      "AsyncIO / WebSockets",
+    ],
+  },
+  {
+    id: "backend",
+    name: "Backend & APIs",
+    icon: Server,
+    color: "text-emerald-400",
+    level: "Strong Working Experience",
+    description:
+      "Building typed REST microservices, streaming SSE responses, authentication flows, and containerized runtimes.",
+    skills: [
+      "FastAPI",
+      "Node.js",
+      "Express",
+      "REST APIs",
+      "JWT / Bcrypt",
+      "SSE & WebSockets",
       "Docker",
-      "PostgreSQL",
-      "InfluxDB",
+      "Nginx",
       "Pytest",
     ],
   },
   {
-    id: "dsa",
-    name: "DSA",
+    id: "frontend",
+    name: "Frontend & UI",
+    icon: Layout,
+    color: "text-purple-400",
+    level: "Strong Working Experience",
+    description:
+      "Responsive single-page and static applications with accessible component systems and interactive telemetry dashboards.",
+    skills: ["React", "Next.js", "Tailwind CSS", "Vite", "HTML5 / CSS3"],
+  },
+  {
+    id: "databases",
+    name: "Databases & Vector Stores",
+    icon: Database,
+    color: "text-pink-400",
+    level: "Project Experience",
+    description:
+      "Relational schema design, migrations, local SQLite prototyping, and local vector storage for retrieval workflows.",
+    skills: ["PostgreSQL", "Prisma", "SQLAlchemy", "Alembic", "SQLite", "ChromaDB"],
+  },
+  {
+    id: "core-cs",
+    name: "Core CS & Tooling",
     icon: Cpu,
     color: "text-blue-400",
+    level: "Academic & Problem Solving",
     description:
-      "Algorithmic problem solving, rigorous space-time complexity analysis, and scalable data structure design.",
+      "Computer science fundamentals paired with daily developer tooling and version control workflows.",
     skills: [
-      "Graph Traversal (BFS/DFS)",
-      "Dynamic Programming",
-      "Tree Structures & Heaps",
-      "Hash Maps & Sets",
-      "Time & Space Optimization",
-      "Greedy Algorithms",
-      "Two Pointers & Sliding Window",
+      "DSA",
+      "OOP",
+      "DBMS",
+      "Operating Systems",
+      "Computer Networks",
+      "Git & GitHub",
+      "Postman",
+      "Linux CLI",
     ],
   },
 ];
 
 export function Skills() {
-  const [activeCategory, setActiveCategory] = useState<string>(
-    skillCategories[0].name
-  );
-
-  const categoryNames = skillCategories.map((c) => c.name);
-  const activeCategoryData = skillCategories.find(
-    (c) => c.name === activeCategory
-  ) || skillCategories[0];
+  const [activeCategory, setActiveCategory] = useState<string>(skillCategories[0].name);
 
   return (
     <section
       id="skills"
-      className="py-24 md:py-36 relative bg-[#030712] border-t border-white/[0.06] overflow-hidden"
-      aria-label="Technical Skills - 3D Skill Constellation"
+      className="py-20 md:py-28 relative bg-[#030712] border-t border-white/[0.06] overflow-hidden"
+      aria-label="Technical Skills and Engineering Stack"
     >
       {/* Ambient background glows */}
       <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[140px] pointer-events-none -z-10" />
@@ -165,34 +133,25 @@ export function Skills() {
       <div className="container max-w-6xl mx-auto px-4 md:px-6">
         <MotionWrap>
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-primary text-xs font-mono font-semibold tracking-wider uppercase border border-primary/20">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              03 // Interactive Constellation
+              03 // Technical Stack
             </div>
             <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
               Technical{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-300 to-accent">
-                Competencies & Stack
+                Skills &amp; Tooling
               </span>
             </h2>
             <p className="text-slate-400 text-base md:text-lg leading-relaxed">
-              Curated technologies verified across production AI systems,
-              telemetry ingest engines, and full-stack applications.
+              Organized cleanly by engineering layer and aligned directly with my
+              resume and verified GitHub repositories.
             </p>
           </div>
 
-          {/* 3D Skill Constellation Component */}
-          <div className="mb-12">
-            <Skills3DConstellation
-              activeCategory={activeCategory}
-              onSelectCategory={setActiveCategory}
-              categories={categoryNames}
-            />
-          </div>
-
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
             {skillCategories.map((group) => {
               const isActive = group.name === activeCategory;
               return (
@@ -201,7 +160,7 @@ export function Skills() {
                   onClick={() => setActiveCategory(group.name)}
                   className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-semibold transition-all duration-300 flex items-center gap-2 border ${
                     isActive
-                      ? "bg-primary text-slate-950 border-cyan-300 shadow-[0_0_20px_rgba(0,240,255,0.4)] scale-105"
+                      ? "bg-primary text-slate-950 border-cyan-300 shadow-[0_0_20px_rgba(0,240,255,0.3)]"
                       : "glass-panel text-slate-300 border-white/10 hover:border-primary/40 hover:text-white"
                   }`}
                 >
@@ -212,7 +171,7 @@ export function Skills() {
             })}
           </div>
 
-          {/* 6 Core Competency Grid */}
+          {/* 6 Category Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {skillCategories.map((group) => {
               const Icon = group.icon;
@@ -224,18 +183,20 @@ export function Skills() {
                   onClick={() => setActiveCategory(group.name)}
                   className={`glass-panel p-6 rounded-2xl border transition-all duration-300 cursor-pointer flex flex-col justify-between group ${
                     isSelected
-                      ? "border-primary/60 shadow-[0_0_30px_rgba(0,240,255,0.18)] bg-white/[0.04]"
+                      ? "border-primary/60 shadow-[0_0_25px_rgba(0,240,255,0.16)] bg-white/[0.04]"
                       : "border-white/10 hover:border-primary/40 hover:shadow-lg"
                   }`}
                 >
                   <div className="space-y-3">
-                    <div className="flex items-center gap-3 pb-3 border-b border-white/[0.08]">
-                      <div className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10 group-hover:scale-110 transition-transform">
-                        <Icon className={`w-5 h-5 ${group.color}`} />
+                    <div className="flex items-center justify-between gap-2 pb-3 border-b border-white/[0.08]">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10 group-hover:scale-110 transition-transform">
+                          <Icon className={`w-5 h-5 ${group.color}`} />
+                        </div>
+                        <h3 className="font-bold text-sm sm:text-base text-white group-hover:text-primary transition-colors">
+                          {group.name}
+                        </h3>
                       </div>
-                      <h3 className="font-bold text-sm sm:text-base text-white group-hover:text-primary transition-colors">
-                        {group.name}
-                      </h3>
                     </div>
 
                     <p className="text-xs text-slate-400 leading-relaxed min-h-[36px]">
@@ -256,7 +217,7 @@ export function Skills() {
                   </div>
 
                   <div className="mt-5 pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-400">
-                    <span>{group.skills.length} Technologies</span>
+                    <span>{group.level}</span>
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                   </div>
                 </div>

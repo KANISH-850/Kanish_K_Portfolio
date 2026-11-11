@@ -3,99 +3,88 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import MotionWrap from "./motion-wrap";
-import { Github, GitBranch, Star, Code2, ExternalLink, ArrowRight } from "lucide-react";
+import { Github, GitBranch, Code2, ExternalLink, ArrowRight } from "lucide-react";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 
 const verifiedRepos = [
   {
-    id: "repo-igs",
-    caseStudySlug: "intelligent-grievance-system",
-    name: "intelligent-grievance-system",
-    url: "https://github.com/KANISH-850/intelligent-grievance-system",
-    description: "AI-powered multilingual grievance categorization and automated department routing with IndicTrans2 and BERT.",
-    language: "TypeScript / Python",
-    color: "bg-blue-400",
-    tags: ["React 19", "FastAPI", "NLP", "PostgreSQL"]
-  },
-  {
-    id: "repo-neeraran",
-    caseStudySlug: "aquaguard-ai",
-    name: "neeraran (AquaGuard AI)",
-    url: "https://github.com/LakshanyaaJ/neeraran",
-    description: "Campus water resilience analytics platform: anomaly detection (One-Class SVM), leak detection (XGBoost), demand forecasting (CatBoost).",
-    language: "Python",
-    color: "bg-emerald-400",
-    tags: ["Scikit-learn", "XGBoost", "CatBoost", "FastAPI"]
-  },
-  {
     id: "repo-digital-twin",
     caseStudySlug: "digital-twin-ehv",
     name: "oceanBerg_sih (Digital Twin EHV)",
     url: "https://github.com/KANISH-850/oceanBerg_sih",
-    description: "Smart India Hackathon winning predictive monitoring digital twin for EHV substations evaluated across ~50,000 synthetic and industry-informed SCADA records.",
-    language: "Python / React",
+    roleLabel: "Team Lead / Core AI Contributor (SIH '25)",
+    description: "Smart India Hackathon winning EHV substation monitoring prototype using Random Forest, Isolation Forest, and CNN-LSTM models with Streamlit & ReportLab alerts.",
+    language: "Python",
     color: "bg-yellow-400",
-    tags: ["TensorFlow", "WebSockets", "InfluxDB", "SIH Winner"]
+    tags: ["Scikit-learn", "TensorFlow", "Streamlit", "SIH Winner"]
   },
   {
     id: "repo-kiosk",
     caseStudySlug: "kiosk-management-system",
     name: "aazhi (Kiosk Management System)",
     url: "https://github.com/KANISH-850/aazhi",
-    description: "CDAC Runner-up fleet orchestration platform with heartbeat telemetry and automated device diagnostics.",
+    roleLabel: "Systems & Backend Contributor (C-DAC)",
+    description: "C-DAC SUVIDHA Runner-up civic kiosk platform combining React/Next.js portals, Express/Prisma APIs, FastAPI ML routing/forecasting, and Docker.",
     language: "Python / TypeScript",
     color: "bg-purple-400",
-    tags: ["FastAPI", "Docker", "PostgreSQL", "CDAC"]
-  },
-  {
-    id: "repo-vikshana",
-    caseStudySlug: "vikshana",
-    name: "Vikshana (Crime Intelligence AI)",
-    url: "https://github.com/KANISH-850/Vikshana",
-    description: "Collaborative Datathon investigation platform on Zoho Catalyst with 10-table KSP records, DBSCAN hotspots & XGBoost.",
-    language: "JavaScript / Node.js",
-    color: "bg-purple-400",
-    tags: ["Zoho Catalyst", "XGBoost", "DBSCAN", "Neo4j"]
+    tags: ["FastAPI", "Scikit-learn", "Prisma", "Docker"]
   },
   {
     id: "repo-techspire",
     caseStudySlug: "techspire",
     name: "techspire (AI Hospital HMS)",
     url: "https://github.com/KANISH-850/techspire",
-    description: "4-container HMS unifying clinical CRUD, PostgreSQL 16 (14 models), air-gapped Ollama RAG (qwen3:4b) & PDF/Excel reports.",
-    language: "Python / React",
+    roleLabel: "Primary Author & Integrator",
+    description: "4-container HMS unifying 14 SQLAlchemy clinical models, PostgreSQL 16, local Ollama RAG (qwen3:4b + ChromaDB), RandomForest forecasts & PDF/Excel reports.",
+    language: "Python / TypeScript",
     color: "bg-emerald-400",
     tags: ["FastAPI", "Ollama RAG", "PostgreSQL", "Docker"]
   },
   {
-    id: "repo-hackzen",
-    caseStudySlug: "hackzen",
-    name: "HackZen (Safety Risk Vision)",
-    url: "https://github.com/KANISH-850/HackZen",
-    description: "Real-time industrial CCTV safety monitor using YOLO PPE weights, IOU tracking, Shapely zones & Socket.IO streams.",
+    id: "repo-igs",
+    caseStudySlug: "intelligent-grievance-system",
+    name: "intelligent-grievance-system",
+    url: "https://github.com/KANISH-850/intelligent-grievance-system",
+    roleLabel: "Primary Author",
+    description: "Multilingual civic grievance framework pairing TF-IDF + LogisticRegression routing, PyTorch MobileNetV3-Small civic vision (eval benchmarked), and translation APIs.",
+    language: "TypeScript / Python",
+    color: "bg-blue-400",
+    tags: ["FastAPI", "PyTorch", "PostgreSQL", "React"]
+  },
+  {
+    id: "repo-neeraran",
+    caseStudySlug: "aquaguard-ai",
+    name: "neeraran (AquaGuard AI)",
+    url: "https://github.com/LakshanyaaJ/neeraran",
+    roleLabel: "ML Audit & Sensor Health (kanish branch)",
+    description: "Water resilience team repo; authored ML audit benchmarking One-Class SVM (0.7451 F1, 3.92ms) & XGBoost (100% leak recall, 2.29ms) plus sensor-health suite.",
     language: "Python / TypeScript",
-    color: "bg-amber-400",
-    tags: ["YOLO", "Shapely", "Socket.IO", "FastAPI"]
+    color: "bg-cyan-400",
+    tags: ["One-Class SVM", "XGBoost", "FastAPI", "Team Repo"]
   },
   {
     id: "repo-webscraper",
     caseStudySlug: "webscraper",
     name: "webscraper (HealScrape AI)",
     url: "https://github.com/KANISH-850/webscraper",
-    description: "Schema-drift detecting scraper pairing Bright Data & Cheerio extraction with automated LLM HTML selector repair.",
+    roleLabel: "Co-Author (Ingestion & Scraper Engine)",
+    description: "Self-healing web extraction engine combining Bright Data & Cheerio with Groq-assisted selector repair and Prisma/SQLite persistence.",
     language: "TypeScript",
-    color: "bg-cyan-400",
-    tags: ["Express 5", "Prisma", "Bright Data", "Cheerio"]
+    color: "bg-sky-400",
+    tags: ["Express 5", "Prisma", "Cheerio", "Bright Data"]
+  },
+  {
+    id: "repo-vikshana",
+    caseStudySlug: "vikshana",
+    name: "Vikshana (Crime Intelligence AI)",
+    url: "https://github.com/KANISH-850/Vikshana",
+    roleLabel: "Supporting Team Project (Datathon)",
+    description: "Collaborative datathon platform on Zoho Catalyst over KSP relational tables; contributed casefile & package setup alongside teammates' UI/ML modules.",
+    language: "JavaScript / Node.js",
+    color: "bg-indigo-400",
+    tags: ["Zoho Catalyst", "Node.js", "Collaboration"]
   }
-];
-
-// Deterministic contribution activity grid matrix (avoiding SSR hydration mismatch from Math.random)
-const deterministicActivity = [
-  [1, 2, 3, 0, 2], [2, 1, 0, 3, 2], [3, 2, 1, 2, 3], [0, 1, 2, 3, 1],
-  [2, 3, 2, 1, 2], [1, 2, 3, 2, 0], [3, 1, 2, 3, 2], [2, 0, 1, 2, 3],
-  [1, 3, 2, 1, 2], [2, 2, 3, 0, 1], [3, 1, 2, 3, 2], [0, 2, 1, 2, 3],
-  [2, 3, 2, 1, 2], [1, 2, 3, 2, 1], [3, 1, 2, 0, 2], [2, 2, 1, 3, 3]
 ];
 
 export function GithubEvidence() {
@@ -150,7 +139,7 @@ export function GithubEvidence() {
                       <span className="truncate">{repo.name}</span>
                     </Link>
                     <Badge variant="outline" className="text-[10px] font-mono bg-background shrink-0">
-                      Verified
+                      {repo.roleLabel}
                     </Badge>
                   </div>
                   <p className="text-muted-foreground text-xs md:text-sm leading-relaxed mb-4 min-h-[40px]">
@@ -194,33 +183,34 @@ export function GithubEvidence() {
             ))}
           </div>
 
-          {/* Top Languages & Contribution Snapshot */}
-          <div className="mt-8 p-6 rounded-2xl bg-card border border-white/5 flex flex-col md:flex-row items-center gap-6 justify-between">
+          {/* Top Languages & Public Profile Bar */}
+          <div className="mt-8 p-6 rounded-2xl bg-card border border-white/5 flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
             <div className="space-y-1.5">
               <h3 className="text-sm font-bold flex items-center gap-2 text-foreground">
-                <Code2 className="text-emerald-400 w-4 h-4" /> Primary Engineering Languages
+                <Code2 className="text-emerald-400 w-4 h-4" /> Core Engineering Stack Across Repositories
               </h3>
               <p className="text-xs text-muted-foreground font-mono">
-                Python (FastAPI, PyTorch, Scikit-learn), TypeScript, React, SQL
+                Python (FastAPI, PyTorch, Scikit-learn, XGBoost), TypeScript, React / Next.js, PostgreSQL
               </p>
             </div>
 
-            {/* Static, deterministic activity matrix representation */}
-            <div className="flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-end gap-2 max-w-full opacity-90" aria-hidden="true">
-              <span className="text-[10px] font-mono text-muted-foreground">Activity (Illustrative)</span>
-              <div className="flex gap-1 overflow-x-hidden max-w-full">
-                {deterministicActivity.map((col, colIdx) => (
-                  <div key={`col-${colIdx}`} className="flex flex-col gap-1">
-                    {col.map((intensity, rowIdx) => {
-                      const bg =
-                        intensity === 3 ? "bg-emerald-500" :
-                        intensity === 2 ? "bg-emerald-700" :
-                        intensity === 1 ? "bg-emerald-900/60" : "bg-muted/40";
-                      return <div key={`cell-${colIdx}-${rowIdx}`} className={`w-2.5 h-2.5 rounded-sm ${bg}`} />;
-                    })}
-                  </div>
-                ))}
-              </div>
+            <div className="flex flex-wrap gap-2">
+              <a
+                href="https://github.com/KANISH-850?tab=repositories"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-xs font-mono text-emerald-300 hover:bg-emerald-500/20 transition-colors"
+              >
+                <GitBranch className="w-3.5 h-3.5" /> Browse All Repositories
+              </a>
+              <a
+                href="https://leetcode.com/u/Kanish_k_2004/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-muted/40 border border-border/50 text-xs font-mono text-foreground hover:border-primary/40 transition-colors"
+              >
+                <ExternalLink className="w-3.5 h-3.5" /> LeetCode Profile
+              </a>
             </div>
           </div>
         </MotionWrap>

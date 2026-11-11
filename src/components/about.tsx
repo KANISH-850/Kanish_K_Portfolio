@@ -1,96 +1,84 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import MotionWrap from "./motion-wrap";
 import {
   BrainCircuit,
   Cpu,
-  Database,
   Code2,
   CheckCircle2,
   Binary,
   Layers,
   Sparkles,
-  Zap,
+  GraduationCap,
 } from "lucide-react";
-
-const About3DTensor = dynamic(
-  () => import("./about-3d-tensor").then((mod) => mod.About3DTensor),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-[320px] md:h-[380px] rounded-2xl glass-panel border border-white/10 animate-pulse bg-slate-950/60" />
-    ),
-  }
-);
 
 export function About() {
   const technicalPillars = [
     {
-      name: "Artificial Intelligence",
-      desc: "Architecting end-to-end intelligent systems that convert raw sensory signals and unstructured datasets into actionable operational intelligence.",
-      icon: BrainCircuit,
-      color: "text-cyan-400",
-    },
-    {
-      name: "Machine Learning",
-      desc: "Developing gradient boosted trees (XGBoost, CatBoost), One-Class SVMs, and supervised/unsupervised statistical learning pipelines.",
+      name: "Applied Machine Learning",
+      desc: "Building anomaly detection and classification models with Scikit-learn (One-Class SVM, Isolation Forest, Random Forest) and XGBoost.",
       icon: Cpu,
       color: "text-primary",
     },
     {
-      name: "Deep Learning",
-      desc: "Training semi-supervised deep autoencoders and neural networks with PyTorch and TensorFlow for high-precision anomaly scoring.",
+      name: "Deep Learning & Computer Vision",
+      desc: "Training MobileNetV3 transfer-learning image classifiers in PyTorch and CNN-LSTM fault models in TensorFlow/Keras with held-out evaluation splits.",
       icon: Layers,
       color: "text-purple-400",
     },
     {
-      name: "Generative AI",
-      desc: "Implementing foundation model integration, prompt architectures, and structured LLM workflows.",
-      icon: Sparkles,
-      color: "text-pink-400",
-    },
-    {
-      name: "Natural Language Processing",
-      desc: "Deploying quantized IndicTrans2 neural translation, BERT classifiers, and 768-dimensional Sentence Transformer embeddings.",
+      name: "Multilingual NLP & Local RAG",
+      desc: "Implementing TF-IDF + LogisticRegression text routing, multilingual translation workflows, and local Ollama (qwen3:4b) + ChromaDB document retrieval.",
       icon: Binary,
       color: "text-emerald-400",
     },
     {
-      name: "Python & Systems Engineering",
-      desc: "Writing high-performance asynchronous Python (FastAPI, NumPy, Pandas) paired with TypeScript, WebSockets, and distributed microservices.",
+      name: "Backend & API Systems",
+      desc: "Engineering modular FastAPI and Node.js/Express REST services with Alembic/Prisma migrations, JWT authentication, and Docker Compose.",
       icon: Code2,
       color: "text-amber-400",
+    },
+    {
+      name: "AI Auditing & Calibration",
+      desc: "Evaluating leakage, F1/recall tradeoffs on imbalanced datasets, confidence threshold routing gates, and human-in-the-loop review queues.",
+      icon: BrainCircuit,
+      color: "text-cyan-400",
+    },
+    {
+      name: "Generative AI Workflows",
+      desc: "Applying structured LLM extraction and retrieval pipelines paired with deterministic fallback logic when external model calls are offline.",
+      icon: Sparkles,
+      color: "text-pink-400",
     },
   ];
 
   const verifiedStats = [
     {
-      value: "50,000+",
-      label: "Synthetic SCADA Records",
-      detail: "Evaluated in EHV Digital Twin",
-    },
-    {
-      value: "~50ms",
-      label: "Target Anomaly Latency",
-      detail: "Internal Benchmark Target",
+      value: "7.73 / 10",
+      label: "B.E. CSE CGPA",
+      detail: "BITSathy • Class of 2028",
     },
     {
       value: "1st Place",
       label: "Smart India Hackathon",
-      detail: "Grand Finale National Winner",
+      detail: "Grand Finale Winner (2025)",
     },
     {
       value: "Runner-up",
-      label: "CDAC Innovation",
-      detail: "National Kiosk Management Challenge",
+      label: "C-DAC Innovation",
+      detail: "SUVIDHA Kiosk Challenge (2024)",
+    },
+    {
+      value: "7 Repos",
+      label: "Verified Codebases",
+      detail: "AI/ML, Full-Stack & Data Systems",
     },
   ];
 
   return (
     <section
       id="about"
-      className="py-24 md:py-32 relative bg-[#030712] border-t border-white/[0.06] overflow-hidden"
+      className="py-20 md:py-28 relative bg-[#030712] border-t border-white/[0.06] overflow-hidden"
       aria-label="About Me - Technical Identity"
     >
       {/* Background ambient lighting */}
@@ -100,60 +88,57 @@ export function About() {
       <div className="container max-w-6xl mx-auto px-4 md:px-6">
         <MotionWrap>
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel text-primary text-xs font-mono font-semibold tracking-wider uppercase border border-primary/20">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              01 // Technical Identity
+              01 // Academic &amp; Technical Identity
             </div>
             <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-              Engineering at the Core of{" "}
+              Applied{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-300 to-accent">
-                Artificial Intelligence
+                AI &amp; Backend Engineering
               </span>
             </h2>
             <p className="text-slate-400 text-base md:text-lg leading-relaxed">
-              Bridging the gap between mathematical model formulation and
-              production-grade full-stack software architectures.
+              3rd-year B.E. Computer Science student connecting machine learning
+              evaluation with FastAPI, Express, and PostgreSQL application engineering.
             </p>
           </div>
 
-          {/* Main Grid: Narrative + 3D Tensor Visualizer */}
-          <div className="grid lg:grid-cols-12 gap-10 items-center">
+          {/* Main Grid: Narrative + Structured Profile Card */}
+          <div className="grid lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Editorial Technical Profile */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-5">
               <div className="prose prose-invert max-w-none space-y-4 text-slate-300 leading-relaxed text-base sm:text-lg">
                 <p>
-                  I am an <strong className="text-white font-semibold">AI Engineer</strong> driven
-                  by building resilient, intelligent systems that solve authentic real-world challenges.
-                  Rather than treating machine learning models as isolated notebooks, I design systems where{" "}
-                  <span className="text-cyan-400 font-medium">mathematical modeling</span>,{" "}
-                  <span className="text-primary font-medium">telemetry pipelines</span>, and{" "}
-                  <span className="text-purple-400 font-medium">real-time interface engineering</span>{" "}
-                  operate as a single cohesive unit.
+                  I am a <strong className="text-white font-semibold">3rd-year B.E. Computer Science student</strong>{" "}
+                  at Bannari Amman Institute of Technology (graduating <strong className="text-white font-semibold">2028</strong>),
+                  focused on building practical AI/ML and full-stack software systems.
+                  Rather than stopping at standalone notebooks, I integrate trained models into{" "}
+                  <span className="text-cyan-400 font-medium">FastAPI services</span>,{" "}
+                  <span className="text-primary font-medium">relational data models</span>, and{" "}
+                  <span className="text-purple-400 font-medium">inspectable web interfaces</span>.
                 </p>
 
                 <p className="text-slate-400 text-sm sm:text-base">
-                  My core technical competencies include{" "}
-                  <strong className="text-white font-medium">Artificial Intelligence</strong>,{" "}
-                  <strong className="text-white font-medium">Machine Learning</strong>,{" "}
-                  <strong className="text-white font-medium">Deep Learning</strong>,{" "}
-                  <strong className="text-white font-medium">Generative AI</strong>,{" "}
-                  <strong className="text-white font-medium">Natural Language Processing</strong>, and{" "}
-                  <strong className="text-white font-medium">Python</strong> alongside rigorous{" "}
-                  <strong className="text-white font-medium">Data Structures and Algorithms</strong>.
+                  My technical focus spans{" "}
+                  <strong className="text-white font-medium">Python, Java, C++, C, JavaScript, and SQL</strong>,
+                  applied across supervised/unsupervised ML, PyTorch computer vision, local Ollama RAG workflows,
+                  and backend APIs while actively strengthening{" "}
+                  <strong className="text-white font-medium">DSA, OOP, DBMS, OS, and Computer Networks</strong>.
                 </p>
               </div>
 
               {/* Technical Identity Focus Badges */}
-              <div className="pt-2 flex flex-wrap gap-2">
+              <div className="pt-1 flex flex-wrap gap-2">
                 {[
-                  "Artificial Intelligence",
-                  "Machine Learning",
-                  "Deep Learning",
-                  "Generative AI",
-                  "Natural Language Processing",
-                  "Python",
-                  "Data Structures & Algorithms",
+                  "Python & FastAPI",
+                  "Scikit-learn & XGBoost",
+                  "PyTorch & TensorFlow",
+                  "Local RAG (Ollama + ChromaDB)",
+                  "PostgreSQL & Prisma",
+                  "React / TypeScript",
+                  "DSA & Core CS",
                 ].map((skill) => (
                   <span
                     key={skill}
@@ -165,20 +150,58 @@ export function About() {
               </div>
             </div>
 
-            {/* Right Column: 3D Interactive Holographic Tensor */}
+            {/* Right Column: Concise Recruiter Identity Snapshot */}
             <div className="lg:col-span-5">
-              <About3DTensor />
+              <div className="glass-panel p-6 sm:p-7 rounded-2xl border border-white/10 space-y-5">
+                <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
+                      <GraduationCap className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-white">Engineering Profile</h3>
+                      <p className="text-xs font-mono text-slate-400">Coimbatore, Tamil Nadu</p>
+                    </div>
+                  </div>
+                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                    Class of 2028
+                  </span>
+                </div>
+
+                <dl className="space-y-3 text-xs sm:text-sm font-mono">
+                  <div className="flex justify-between gap-4 border-b border-white/[0.05] pb-2">
+                    <dt className="text-slate-400">Degree</dt>
+                    <dd className="text-white text-right">B.E. CSE (2024–2028)</dd>
+                  </div>
+                  <div className="flex justify-between gap-4 border-b border-white/[0.05] pb-2">
+                    <dt className="text-slate-400">Institution</dt>
+                    <dd className="text-white text-right">BITSathy, Sathyamangalam</dd>
+                  </div>
+                  <div className="flex justify-between gap-4 border-b border-white/[0.05] pb-2">
+                    <dt className="text-slate-400">CGPA</dt>
+                    <dd className="text-cyan-300 font-bold text-right">7.73 / 10</dd>
+                  </div>
+                  <div className="flex justify-between gap-4 border-b border-white/[0.05] pb-2">
+                    <dt className="text-slate-400">Target Roles</dt>
+                    <dd className="text-slate-200 text-right">AI/ML Intern &bull; SWE Intern</dd>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-slate-400">Hackathons</dt>
+                    <dd className="text-amber-300 text-right">SIH &apos;25 Winner &bull; C-DAC Runner-up</dd>
+                  </div>
+                </dl>
+              </div>
             </div>
           </div>
 
           {/* Core Technical Pillars Grid */}
-          <div className="mt-16 pt-12 border-t border-white/[0.08]">
+          <div className="mt-14 pt-12 border-t border-white/[0.08]">
             <div className="text-center mb-10">
               <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                Architectural Competencies & Foundations
+                Core Engineering Areas
               </h3>
               <p className="text-slate-400 text-sm mt-1">
-                Disciplines applied in competitive hackathons and production telemetry software.
+                Technical domains directly exercised across my open-source repositories.
               </p>
             </div>
 
@@ -188,7 +211,7 @@ export function About() {
                 return (
                   <div
                     key={pillar.name}
-                    className="glass-panel p-6 rounded-2xl border border-white/10 hover:border-primary/40 hover:shadow-[0_0_25px_rgba(0,240,255,0.15)] transition-all duration-300 group flex flex-col justify-between"
+                    className="glass-panel p-6 rounded-2xl border border-white/10 hover:border-primary/40 hover:shadow-[0_0_25px_rgba(0,240,255,0.12)] transition-all duration-300 group flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center gap-3 mb-3">
@@ -205,7 +228,7 @@ export function About() {
                     </div>
 
                     <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-slate-400">
-                      <span>Production Ready</span>
+                      <span>Applied in Projects</span>
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                     </div>
                   </div>
@@ -214,8 +237,8 @@ export function About() {
             </div>
           </div>
 
-          {/* Animated Verified Key Metrics */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* Verified Credentials & Highlights */}
+          <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4">
             {verifiedStats.map((stat) => (
               <div
                 key={stat.label}

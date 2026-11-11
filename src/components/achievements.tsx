@@ -38,11 +38,11 @@ const verifiedAchievements: VerifiedAchievement[] = [
     projectTitle: "Digital Twin of EHV Substation Monitoring",
     projectSlug: "digital-twin-ehv",
     description:
-      "Awarded 1st place in the national grand finale for architecting a predictive digital twin framework that monitors Extra High Voltage (EHV) electrical substations evaluated across ~50,000 synthetic and industry-informed SCADA telemetry records with autoencoder anomaly inference.",
+      "Awarded 1st place in the national grand finale (Team Oceanberg) for building an EHV substation monitoring prototype combining Random Forest, Isolation Forest, and CNN-LSTM fault classifiers with a real-time Streamlit & PDF alerting pipeline.",
     highlights: [
-      "SCADA telemetry ingestion & interactive digital twin asset modeling",
-      "Semi-supervised deep autoencoders detecting transformer anomalies (~50ms internal test target)",
-      "Decoupled rendering architecture targeting smooth 60 FPS under peak telemetry stress",
+      "Per-component ML telemetry diagnostics across transformers, busbars, and circuit breakers",
+      "Evaluated on simulated operational SCADA CSV splits with automated ReportLab PDF alerts",
+      "Paired on this portfolio with an interactive Three.js 3D substation visualization demo",
     ],
     badgeColor: "text-amber-400 border-amber-400/30 bg-amber-400/10",
   },
@@ -50,16 +50,16 @@ const verifiedAchievements: VerifiedAchievement[] = [
     id: "cdac-runnerup",
     badge: "National Runner-up",
     year: "2024",
-    title: "C-DAC Innovation Challenge",
+    title: "C-DAC Innovation Challenge (SUVIDHA)",
     organization: "Centre for Development of Advanced Computing (C-DAC)",
-    projectTitle: "Kiosk Management System",
+    projectTitle: "Kiosk Management System (AAZHI)",
     projectSlug: "kiosk-management-system",
     description:
-      "Recognized as National Runner-up for engineering a secure, centralized device orchestration platform providing automated kiosk configuration, real-time heartbeats, and peripheral diagnostics.",
+      "Recognized as National Runner-up for engineering an accessible citizen service kiosk and fleet orchestration platform pairing React/Next.js interfaces, Express/Prisma backends, and a FastAPI ML routing & duplicate-detection service.",
     highlights: [
-      "Heartbeat protocol design specification with local SQLite buffering for intermittent connectivity",
-      "Proposed outbound-only reverse WebSocket architecture for secure remote administration",
-      "Automated peripheral diagnostics evaluating touch, cameras, and receipt printers",
+      "Multi-service monorepo: React/Next.js portals, Express/Prisma API, and FastAPI AI microservice",
+      "TF-IDF cosine duplicate detection, spam/anomaly screening & RandomForest volume forecasting",
+      "Docker Compose service setup with k6 load-testing scripts and voice assistant integration",
     ],
     badgeColor: "text-purple-400 border-purple-400/30 bg-purple-400/10",
   },
@@ -165,7 +165,7 @@ export function Achievements() {
                     asChild
                     className="w-full justify-between glass-panel text-white font-semibold rounded-xl border-white/20 hover:border-primary/50 hover:bg-primary hover:text-slate-950 group/btn transition-all"
                   >
-                    <Link href={`/projects/${ach.projectSlug}`}>
+                    <Link href={`/projects/${ach.projectSlug}/`}>
                       <span>Explore Verified Case Study</span>
                       <ArrowUpRight className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                     </Link>

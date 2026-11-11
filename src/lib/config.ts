@@ -24,10 +24,12 @@ export const resumeConfig = {
 export const profile = {
   name: "Kanish K",
   role: "AI Engineer",
-  headline: "AI Engineer | Machine Learning | Deep Learning | Generative AI | NLP | Python | DSA",
-  degree: "B.E. Computer Science Engineering",
-  institution: "Bannari Amman Institute of Technology",
+  headline: "AI Engineer | Applied Machine Learning, NLP & Full-Stack Backend Systems",
+  degree: "B.E. Computer Science and Engineering",
+  institution: "Bannari Amman Institute of Technology (BITSathy)",
   graduationYear: "2028",
+  cgpa: "7.73/10",
+  location: "Coimbatore, Tamil Nadu",
   siteUrl: "https://KANISH-850.github.io/Kanish_K_Portfolio/",
 } as const;
 export const whatsappUrl = "https://wa.me/918508509719"; 
