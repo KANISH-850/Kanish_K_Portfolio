@@ -3,16 +3,16 @@ import { KaggleIcon, LeetCodeIcon, WhatsAppIcon } from "@/lib/icons";
 
 export const email = "kanishkgins@gmail.com";
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-// Target URL for physical resume PDF once dropped into /public/KanishK_CV.pdf
-export const cvUrl = `${basePath}/KanishK_CV.pdf`;
-// Controlled availability flag: keep false until public/KanishK_CV.pdf is supplied (prevents 404s)
-export const showResume = false;
+// Target URL for physical resume PDF served from /public/KANISH_K_Resume_CSE.pdf
+export const cvUrl = `${basePath}/KANISH_K_Resume_CSE.pdf`;
+// Resume PDF verified in public/KANISH_K_Resume_CSE.pdf
+export const showResume = true;
 export const resumeRequestMailto = `mailto:${email}?subject=Resume%20Request%20-%20Kanish%20K&body=Hi%20Kanish,%0D%0A%0D%0AI%20reviewed%20your%20portfolio%20and%20would%20like%20to%20request%20a%20copy%20of%20your%20official%20resume.%0D%0A%0D%0AThank%20you!`;
 
 export const resumeConfig = {
   available: showResume,
   href: showResume ? cvUrl : resumeRequestMailto,
-  download: showResume ? "KanishK_CV.pdf" : undefined,
+  download: showResume ? "KANISH_K_Resume_CSE.pdf" : undefined,
   target: showResume ? ("_blank" as const) : undefined,
   shortLabel: showResume ? "Resume PDF" : "Resume",
   fullLabel: showResume ? "Download Resume (PDF)" : "Request Resume / CV",

@@ -51,7 +51,7 @@ jobs:
 
       - name: Verify Static Export Directory
         run: |
-          for file in "out/index.html" "out/404.html" "out/robots.txt" "out/sitemap.xml" "out/og-image.png" "out/projects/digital-twin-ehv/index.html" "out/projects/digital-twin-ehv-substation/index.html" "out/projects/intelligent-grievance-system/index.html" "out/projects/aquaguard-ai/index.html" "out/projects/kiosk-management-system/index.html" "out/projects/vikshana/index.html" "out/projects/techspire/index.html" "out/projects/hackzen/index.html" "out/projects/webscraper/index.html" "out/notes/index.html" "out/recruiter/index.html" "out/judge/index.html"; do
+          for file in "out/index.html" "out/404.html" "out/robots.txt" "out/sitemap.xml" "out/og-image.png" "out/KANISH_K_Resume_CSE.pdf" "out/projects/digital-twin-ehv/index.html" "out/projects/digital-twin-ehv-substation/index.html" "out/projects/intelligent-grievance-system/index.html" "out/projects/aquaguard-ai/index.html" "out/projects/kiosk-management-system/index.html" "out/projects/vikshana/index.html" "out/projects/techspire/index.html" "out/projects/hackzen/index.html" "out/projects/webscraper/index.html" "out/notes/index.html" "out/recruiter/index.html" "out/judge/index.html"; do
             if [ ! -f "$file" ]; then
               echo "Error: Required static export file '$file' not found."
               exit 1
