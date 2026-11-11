@@ -77,11 +77,31 @@ function TiltProjectCard({
 
 export function Projects() {
   const router = useRouter();
+  const [domainFilter, setDomainFilter] = useState<"all" | "ai-ml" | "systems">("all");
   const sihProject = projectsData["digital-twin-ehv"];
   const cdacProject = projectsData["kiosk-management-system"];
 
   const navigateToProject = (slug: string) => {
     router.push(`/projects/${slug}/`);
+  };
+
+  const appliedSystems = [
+    { project: projectsData["intelligent-grievance-system"], domain: "ai-ml" as const },
+    { project: projectsData["aquaguard-ai"], domain: "ai-ml" as const },
+    { project: projectsData["vikshana"], domain: "ai-ml" as const },
+    { project: projectsData["techspire"], domain: "ai-ml" as const },
+    { project: projectsData["hackzen"], domain: "ai-ml" as const },
+    { project: projectsData["webscraper"], domain: "systems" as const },
+  ].filter((item) => Boolean(item.project));
+
+  const filteredApplied = appliedSystems.filter(
+    (item) => domainFilter === "all" || item.domain === domainFilter
+  );
+
+  const showMajor = (id: string) => {
+    if (domainFilter === "all") return true;
+    if (domainFilter === "ai-ml") return id === "digital-twin-ehv";
+    return id === "kiosk-management-system" || id === "digital-twin-ehv";
   };
 
   const majorProjects = [
@@ -138,11 +158,40 @@ export function Projects() {
             <p className="text-slate-400 text-base md:text-lg leading-relaxed">
               Interactive 3D visualizations and verified architectural case studies spanning power-grid digital twins, multilingual NLP, vision safety, healthcare RAG, and self-healing pipelines.
             </p>
+
+            {/* Domain Filter Bar */}
+            <div
+              role="group"
+              aria-label="Filter flagship projects by domain"
+              className="flex flex-wrap items-center justify-center gap-2 pt-2"
+            >
+              {[
+                { key: "all", label: "All Flagship (8)" },
+                { key: "ai-ml", label: "Applied AI & ML" },
+                { key: "systems", label: "Systems, IoT & Automation" },
+              ].map((tab) => (
+                <button
+                  key={tab.key}
+                  type="button"
+                  onClick={() => setDomainFilter(tab.key as "all" | "ai-ml" | "systems")}
+                  aria-pressed={domainFilter === tab.key}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono border transition-colors ${
+                    domainFilter === tab.key
+                      ? "bg-primary text-slate-950 border-primary font-bold"
+                      : "glass-panel text-slate-300 border-white/10 hover:border-cyan-400/40 hover:text-white"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Project Cards (Showcase ONLY 2 Major Projects) */}
+          {/* Project Cards (Top Award-Winning Systems) */}
           <div className="space-y-16">
-            {majorProjects.map(({ data, badgeText, badgeIcon: BadgeIcon, badgeColor, accentBorder, number, previewComponent, summaryDesc }) => {
+            {majorProjects
+              .filter(({ data }) => data && showMajor(data.id))
+              .map(({ data, badgeText, badgeIcon: BadgeIcon, badgeColor, accentBorder, number, previewComponent, summaryDesc }) => {
               if (!data) return null;
 
               return (
@@ -299,16 +348,7 @@ export function Projects() {
             </div>
 
             <div className="space-y-10">
-              {[
-                projectsData["intelligent-grievance-system"],
-                projectsData["aquaguard-ai"],
-                projectsData["vikshana"],
-                projectsData["techspire"],
-                projectsData["hackzen"],
-                projectsData["webscraper"],
-              ]
-                .filter(Boolean)
-                .map((proj, idx) => (
+              {filteredApplied.map(({ project: proj }, idx) => (
                   <div
                     key={proj.id}
                     onClick={(e) => {
