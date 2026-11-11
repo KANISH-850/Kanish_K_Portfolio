@@ -343,10 +343,16 @@ export function HackZen3DScene() {
 
   return (
     <div
+      role="region"
+      aria-label="Interactive 3D CCTV PPE & Hazard Zone Safety Simulation"
       data-interactive-3d="true"
       className="relative w-full h-[420px] md:h-[470px] bg-gradient-to-br from-[#020611] via-[#130b1f] to-[#040914] rounded-2xl overflow-hidden border border-amber-500/30 shadow-2xl"
     >
-      <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y" />
+      <div
+        ref={containerRef}
+        className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y"
+        title="Drag to rotate or click CCTV, worker, danger zone, or risk engine"
+      />
 
       <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between gap-2 pointer-events-none">
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/85 backdrop-blur-md border border-amber-500/30 text-xs font-mono">

@@ -312,10 +312,16 @@ export function TechSpire3DScene() {
 
   return (
     <div
+      role="region"
+      aria-label="Interactive 3D TechSpire Containerized Hospital System & Local Ollama RAG Twin"
       data-interactive-3d="true"
       className="relative w-full h-[420px] md:h-[470px] bg-gradient-to-br from-[#020611] via-[#041d19] to-[#050d1a] rounded-2xl overflow-hidden border border-emerald-500/30 shadow-2xl"
     >
-      <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y" />
+      <div
+        ref={containerRef}
+        className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y"
+        title="Drag to rotate or click hospital containers to inspect"
+      />
 
       <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between gap-2 pointer-events-none">
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/85 backdrop-blur-md border border-emerald-500/30 text-xs font-mono">

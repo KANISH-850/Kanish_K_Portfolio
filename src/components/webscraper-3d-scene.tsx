@@ -338,10 +338,16 @@ export function WebScraper3DScene() {
 
   return (
     <div
+      role="region"
+      aria-label="Interactive 3D Self-Healing Web Scraper Pipeline Simulation"
       data-interactive-3d="true"
       className="relative w-full h-[420px] md:h-[470px] bg-gradient-to-br from-[#020611] via-[#041224] to-[#080d1d] rounded-2xl overflow-hidden border border-cyan-500/30 shadow-2xl"
     >
-      <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y" />
+      <div
+        ref={containerRef}
+        className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y"
+        title="Drag to rotate or click extraction stages to inspect"
+      />
 
       {/* Top Controls */}
       <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between gap-2 pointer-events-none">

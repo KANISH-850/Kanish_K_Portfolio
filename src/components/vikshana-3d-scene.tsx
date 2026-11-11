@@ -324,10 +324,16 @@ export function Vikshana3DScene() {
 
   return (
     <div
+      role="region"
+      aria-label="Interactive 3D Vikshana Crime Investigation & Relationship Graph"
       data-interactive-3d="true"
       className="relative w-full h-[420px] md:h-[470px] bg-gradient-to-br from-[#020611] via-[#120826] to-[#040d1d] rounded-2xl overflow-hidden border border-purple-500/30 shadow-2xl"
     >
-      <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y" />
+      <div
+        ref={containerRef}
+        className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y"
+        title="Drag to rotate or click investigation modules to inspect"
+      />
 
       <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between gap-2 pointer-events-none">
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-950/85 backdrop-blur-md border border-purple-500/30 text-xs font-mono">
