@@ -48,6 +48,18 @@ export default function JudgePage() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Optimized for 3-minute evaluations. Discover problem statements, architectural innovations, security models, and scalability metrics instantly.
           </p>
+
+          <nav aria-label="Jump to evaluated project" className="flex flex-wrap items-center justify-center gap-2 pt-2">
+            {projects.map((p, i) => (
+              <a
+                key={p.id}
+                href={`#judge-${p.id}`}
+                className="px-3 py-1 rounded-full text-xs font-mono bg-card border border-border hover:border-primary/50 hover:text-primary transition-colors"
+              >
+                {`0${i + 1}`} {p.title.split("—")[0].split("(")[0].trim()}
+              </a>
+            ))}
+          </nav>
         </motion.section>
 
         {/* Projects Breakdown */}
@@ -55,6 +67,8 @@ export default function JudgePage() {
           {projects.map((project, idx) => (
             <motion.div
               key={project.id}
+              id={`judge-${project.id}`}
+              className="scroll-mt-20"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
