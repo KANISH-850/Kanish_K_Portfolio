@@ -19,6 +19,13 @@ export const metadata: Metadata = {
     url: "https://KANISH-850.github.io/Kanish_K_Portfolio/notes/",
     images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Engineering Notes | Kanish K",
+    description:
+      "Technical architecture and ML engineering notes grounded in Kanish K's verified projects.",
+    images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
+  },
 };
 
 export default function EngineeringNotesPage() {

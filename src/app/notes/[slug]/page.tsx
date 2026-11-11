@@ -32,6 +32,12 @@ export async function generateMetadata({
       url: `https://KANISH-850.github.io/Kanish_K_Portfolio/notes/${note.slug}/`,
       images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${note.title} | Kanish K`,
+      description: note.summary,
+      images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
+    },
   };
 }
 

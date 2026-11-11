@@ -86,6 +86,12 @@ export async function generateMetadata({
       url: `https://KANISH-850.github.io/Kanish_K_Portfolio/projects/${project.id}/`,
       images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Kanish K`,
+      description: project.tagline,
+      images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
+    },
   };
 }
 

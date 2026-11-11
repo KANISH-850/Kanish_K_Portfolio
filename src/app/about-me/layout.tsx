@@ -14,6 +14,13 @@ export const metadata: Metadata = {
     url: "https://KANISH-850.github.io/Kanish_K_Portfolio/about-me/",
     images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "About & Engineering Philosophy | Kanish K",
+    description:
+      "Engineering philosophy, machine learning principles, and academic background of Kanish K at Bannari Amman Institute of Technology.",
+    images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
+  },
 };
 
 export default function AboutMeLayout({ children }: { children: React.ReactNode }) {

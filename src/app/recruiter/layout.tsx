@@ -14,6 +14,13 @@ export const metadata: Metadata = {
     url: "https://KANISH-850.github.io/Kanish_K_Portfolio/recruiter/",
     images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Recruiter Briefing | Kanish K",
+    description:
+      "30-second technical hiring summary for Kanish K — AI Engineer, SIH Winner, and CDAC Runner-up.",
+    images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
+  },
 };
 
 export default function RecruiterLayout({ children }: { children: React.ReactNode }) {

@@ -14,6 +14,13 @@ export const metadata: Metadata = {
     url: "https://KANISH-850.github.io/Kanish_K_Portfolio/judge/",
     images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Judge Evaluation Mode | Kanish K",
+    description:
+      "Rapid technical assessment view for Kanish K's Smart India Hackathon and C-DAC architectures.",
+    images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
+  },
 };
 
 export default function JudgeLayout({ children }: { children: React.ReactNode }) {
