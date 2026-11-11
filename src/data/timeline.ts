@@ -11,50 +11,59 @@ export interface TimelineEvent {
 
 export const timelineData: TimelineEvent[] = [
   {
+    id: "timeline-2026-techspire",
+    year: "2026",
+    title: "TechSpire AI Hospital Management System",
+    roleOrContext: "Full-Stack Architecture & Local Ollama RAG",
+    technologyLearned: ["FastAPI", "PostgreSQL 16", "Alembic", "Ollama (qwen3:4b)", "ChromaDB", "React 19"],
+    description: "Unified 5 prototype hospital modules behind Nginx + FastAPI + 14 SQLAlchemy models, on-premise Ollama RAG, RandomForest demand/revenue forecasts, and ReportLab/OpenPyXL exports.",
+    category: "project"
+  },
+  {
     id: "timeline-2026-igs",
     year: "2026",
     title: "Intelligent Multilingual Grievance Framework",
-    roleOrContext: "AI Engineering & NLP Architecture",
-    technologyLearned: ["IndicTrans2", "Sentence Transformers", "BERT", "FastAPI", "React 19", "PostgreSQL"],
-    description: "Architected end-to-end automated civic grievance categorization and dispatch using quantized IndicTrans2 and BERT embeddings with human-in-the-loop validation.",
+    roleOrContext: "Applied NLP, Vision & Full-Stack Dispatch",
+    technologyLearned: ["TF-IDF + LogisticRegression", "PyTorch MobileNetV3", "FastAPI", "PostgreSQL", "Prisma", "React"],
+    description: "Built multilingual complaint triage pairing TF-IDF text classification, held-out evaluated MobileNetV3-Small civic vision, MyMemory/LibreTranslate APIs, and human-in-the-loop officer queues.",
     category: "project"
   },
   {
     id: "timeline-2025-sih",
     year: "2025",
     title: "Digital Twin of EHV Substation Monitoring",
-    roleOrContext: "AI Model Development & Real-Time Telemetry",
+    roleOrContext: "AI Modeling & Substation Telemetry",
     achievementBadge: "Smart India Hackathon Winner",
-    technologyLearned: ["Python", "TensorFlow", "Autoencoders", "WebSockets", "InfluxDB", "React"],
-    description: "Won 1st Place at Smart India Hackathon for designing a predictive digital twin evaluated across ~50,000 synthetic and industry-informed SCADA records with autoencoder anomaly scoring.",
-    category: "hackathon"
-  },
-  {
-    id: "timeline-2024-cdac",
-    year: "2024",
-    title: "Kiosk Management System",
-    roleOrContext: "Full-Stack & Systems Architecture",
-    achievementBadge: "CDAC Runner-up",
-    technologyLearned: ["FastAPI", "Python", "React", "Next.js", "PostgreSQL", "Docker"],
-    description: "Recognized as CDAC Runner-up for creating an integrated device telemetry and management platform providing automated configuration, heartbeats, and diagnostics.",
+    technologyLearned: ["Python", "Scikit-learn", "TensorFlow CNN-LSTM", "Isolation Forest", "Streamlit", "ReportLab"],
+    description: "Won 1st Place at Smart India Hackathon (Team Oceanberg) building per-asset fault classification & Isolation Forest anomaly modules over simulated EHV SCADA datasets.",
     category: "hackathon"
   },
   {
     id: "timeline-2024-aquaguard",
-    year: "2024",
-    title: "AquaGuard AI (Neeraran) Water Resilience",
-    roleOrContext: "Machine Learning Engineering",
-    technologyLearned: ["One-Class SVM", "XGBoost", "CatBoost", "FastAPI", "Time-Series Analysis"],
-    description: "Developed multi-model machine learning architecture for campus water leak identification (XGBoost), anomaly detection (One-Class SVM), and 72-hour demand forecasting (CatBoost).",
+    year: "2024–2026",
+    title: "Neeraran (AquaGuard AI) Water Resilience Audit",
+    roleOrContext: "ML Benchmarking & Sensor Health (kanish branch)",
+    technologyLearned: ["One-Class SVM", "XGBoost", "Isolation Forest", "FastAPI", "Scikit-learn"],
+    description: "Contributed the ML evaluation & sensor-health decoupling suite benchmarking One-Class SVM (0.7451 F1, 3.92 ms) and XGBoost leak detection (100% recall, 2.29 ms) on simulated campus telemetry.",
     category: "project"
   },
   {
-    id: "timeline-2023-foundation",
-    year: "2023",
-    title: "Core AI & Systems Engineering Foundation",
-    roleOrContext: "B.E. Computer Science Engineering, Bannari Amman Institute of Technology",
-    technologyLearned: ["Python", "Machine Learning", "Deep Learning", "PyTorch", "TypeScript", "SQL"],
-    description: "Built strong mathematical foundations in machine learning algorithms, deep neural architectures, full-stack web applications, and accessible system design.",
+    id: "timeline-2024-cdac",
+    year: "2024",
+    title: "Kiosk Management System (AAZHI)",
+    roleOrContext: "Systems Architecture & Backend ML Services",
+    achievementBadge: "CDAC Runner-up",
+    technologyLearned: ["FastAPI", "Express", "Prisma", "Next.js", "Docker", "k6"],
+    description: "Recognized as C-DAC Innovation Challenge National Runner-up for an accessible service kiosk and fleet monitoring monorepo with ML duplicate/spam routing and k6 testing.",
+    category: "hackathon"
+  },
+  {
+    id: "timeline-2024-foundation",
+    year: "2024",
+    title: "B.E. CSE Foundation & Core Engineering",
+    roleOrContext: "Bannari Amman Institute of Technology (BITSathy • 2024–2028)",
+    technologyLearned: ["Python", "Java", "C++", "C", "DSA", "OOP", "DBMS", "SQL"],
+    description: "Started B.E. Computer Science and Engineering (current CGPA 7.73/10), building foundations across Data Structures, Databases, Operating Systems, and software architecture.",
     category: "learning"
   }
 ];

@@ -1,4 +1,4 @@
-import type { ArchitectureNode } from "@/components/architecture-diagram";
+﻿import type { ArchitectureNode } from "@/components/architecture-diagram";
 import type { ProjectMediaItem } from "@/components/project-demonstration";
 
 export interface TechChallenge {
@@ -149,818 +149,759 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
   "digital-twin-ehv": {
     id: "digital-twin-ehv",
     title: "Digital Twin of EHV Substation Monitoring",
-    tagline: "Predictive Equipment Monitoring & Anomaly Detection Framework",
-    category: "Industrial IoT & Predictive AI",
-    statusLabel: "SIH Winner (Prototype + Synthetic Evaluation)",
+    tagline: "Predictive Equipment Diagnostics & Anomaly Scoring Prototype",
+    category: "Industrial Telemetry & Applied ML",
+    statusLabel: "SIH '25 Winner (Simulated Telemetry Prototype)",
     achievement: "Smart India Hackathon Winner",
     githubUrl: "https://github.com/KANISH-850/oceanBerg_sih",
     overview:
-      "Developed by Team Oceanberg for the Smart India Hackathon Grand Finale under the Ministry of Power / Power Grid domain, this system models Extra High Voltage (EHV) substation assets as an interactive 3D digital twin driven by semi-supervised autoencoder anomaly scoring on synthetic and industry-informed SCADA telemetry.",
+      "Developed by Team Oceanberg (Smart India Hackathon Grand Finale Winner), this repository models Extra High Voltage (EHV) substation componentsâ€”power transformers, busbars, instrument transformers, isolators, and circuit breakersâ€”using scikit-learn ensemble & Isolation Forest diagnostics, a Keras CNN-LSTM waveform fault trainer, and automated ReportLab PDF / SMTP alerting.",
     problemStatement:
-      "Extra High Voltage (EHV) electrical substations face catastrophic downtime and substantial maintenance costs due to unanticipated equipment degradation and thermal overloading across critical transformers and switchgear.",
+      "Extra High Voltage (EHV) substations face costly equipment stress and unplanned outages when transformer thermal drift, busbar imbalances, or switchgear anomalies go undetected under static single-point alarms.",
     problemSummaryDetail: {
-      problemLabel: "Project problem summary (official SIH PS number & verbatim PS text awaiting confirmation)",
-      whoFacesIt: "Transmission utilities, substation control-room operators, and EHV maintenance engineers.",
-      realWorldProblem: "Unexpected transformer winding thermal stress, SF6 breaker pressure decay, and switchgear faults cause cascading grid downtime when only reactive threshold alarms are used.",
-      whyNeeded: "Moving from scheduled/reactive maintenance to continuous multi-variate anomaly detection gives operators earlier intervention windows.",
-      existingLimitations: "Conventional SCADA panels show tabular single-point alarms without spatial 3D equipment localization or reconstruction-based multivariate scoring.",
-      objective: "Pair multi-variate autoencoder anomaly detection with an interactive 3D substation viewport synchronizing transformer, breaker, CT/PT, and busbar states."
+      problemLabel: "Project problem summary (per oceanBerg_sih hackathon codebase)",
+      whoFacesIt: "Substation operations engineers, grid reliability teams, and EHV maintenance planners.",
+      realWorldProblem: "Substation assets generate multi-sensor readings where single-threshold SCADA triggers miss correlated multi-variable fault patterns.",
+      whyNeeded: "Per-component predictive scoring across transformers, busbars, and circuit breakers helps prioritize preventive inspections before protective relay lockouts.",
+      existingLimitations: "Conventional tabular SCADA views lack asset-level regression/classification fusion or spatial 3D asset mapping.",
+      objective: "Combine component-wise Random Forest and Isolation Forest diagnostics with a Streamlit CNN-LSTM waveform trainer and an interactive 3D bay demonstration."
     },
     proposedSolution:
-      "Combine multi-variate SCADA sensor ingestion, time-series feature extraction, and semi-supervised deep autoencoder reconstruction error scoring to flag thermal or electrical deviations before threshold tripping, synchronized with an interactive Three.js substation viewport.",
+      "Run modular Python predictors (`transformer.py`, `busbar.py`, `inst_transformer.py`, `cirucit_beraker.py`) paired with a TensorFlow/Keras CNN-LSTM fault classification UI (`app.py`) over CSV telemetry snapshots, emitting JSON state and ReportLab PDF summary reports.",
     systemArchitecture:
-      "A distributed telemetry ingestion and digital twin modeling architecture. High-frequency sensor streams (voltage, current, oil temperature, acoustic vibrations) are ingested through an MQTT broker into InfluxDB time-series storage. Real-time autoencoders evaluate telemetry streams to flag anomalies and drive a 3D digital twin dashboard.",
+      "Modular Python diagnostic scripts load simulated substation CSV datasets (`transformer_training_5000.csv`, `transformer_all_output.csv`, `live_all_readings.csv`), execute RandomForestRegressor/RandomForestClassifier and IsolationForest scoring, trigger ReportLab PDF/email alerts, and pair with an interactive Three.js 400kV bay simulation on this portfolio.",
     dataFlow:
-      "Synthetic & Industry-Informed SCADA Telemetry (~50k records) -> MQTT Ingestion Broker (Simulated) -> Python Feature Extraction Worker -> InfluxDB -> TensorFlow Anomaly Engine -> WebSocket Broadcaster -> React 3D Dashboard.",
+      "Simulated SCADA CSV Logs -> StandardScaler Preprocessing -> RandomForest & IsolationForest Per-Asset Scorers (+ CNN-LSTM Trainer) -> JSON State & ReportLab PDF Alerts -> Portfolio Interactive 3D Bay Twin.",
     architectureNodes: [
-      { id: "dt-in-1", title: "SCADA Sensor Stream", subtitle: "~50k synthetic & industry-informed transformer/breaker records", layer: "Ingestion & Input", status: "simulated" },
-      { id: "dt-in-2", title: "MQTT Telemetry Broker", subtitle: "Decoupled sensor message ingestion bus", layer: "Ingestion & Input", status: "proposed" },
-      { id: "dt-proc-1", title: "Feature Extraction Worker", subtitle: "Rolling windows & FFT spectral normalization", layer: "Processing & AI Core", status: "implemented" },
-      { id: "dt-proc-2", title: "Deep Autoencoder Engine", subtitle: "Semi-supervised reconstruction error scoring", layer: "Processing & AI Core", status: "implemented" },
-      { id: "dt-out-1", title: "InfluxDB & WebSocket Feed", subtitle: "Time-series storage and low-latency state broadcast", layer: "Storage & Delivery", status: "implemented" },
-      { id: "dt-out-2", title: "Three.js 3D Substation Twin", subtitle: "Interactive 400kV bay inspection & fault HUD", layer: "Storage & Delivery", status: "simulated" }
+      { id: "dt-in-1", title: "Substation Telemetry CSVs", subtitle: "transformer_training_5000.csv (5k rows) & transformer_all_output.csv (6k rows)", layer: "Ingestion & Input", status: "simulated" },
+      { id: "dt-in-2", title: "Live MQTT / PMU Broker", subtitle: "Utility-grade telemetry ingestion boundary specification", layer: "Ingestion & Input", status: "proposed" },
+      { id: "dt-proc-1", title: "Asset Ensemble Scorers", subtitle: "RandomForest & IsolationForest across transformer, busbar & breaker", layer: "Processing & AI Core", status: "implemented" },
+      { id: "dt-proc-2", title: "CNN-LSTM Waveform Trainer", subtitle: "TensorFlow/Keras Streamlit app training fault classifiers on .npy arrays", layer: "Processing & AI Core", status: "implemented" },
+      { id: "dt-out-1", title: "Alerting & PDF Reports", subtitle: "latest_status.json state updates & ReportLab PDF / SMTP summaries", layer: "Storage & Delivery", status: "implemented" },
+      { id: "dt-out-2", title: "Portfolio 3D Substation Twin", subtitle: "Interactive Three.js 400kV bay simulation for visual asset inspection", layer: "Storage & Delivery", status: "simulated" }
     ],
     technicalChallenges: [
       {
         id: "dt-1",
-        challenge: "Visualizing high-frequency SCADA telemetry streams (100+ data points/sec) without causing UI thread stutter or frame drops.",
-        solution: "Decoupled data parsing from the React UI thread using background Web Workers and offloaded rendering to HTML5 Canvas.",
-        implementation: "Constructed dedicated Web Worker buffers for incoming WebSocket streams and rendered sensor telemetry using double-buffered canvas routines.",
-        result: "Targeted a stable 60 FPS rendering loop by isolating data processing from UI updates."
+        challenge: "Modeling heterogeneous EHV equipment (power transformers, busbars, circuit breakers, instrument transformers) cleanly without monolithic scripts.",
+        solution: "Decomposed diagnostic pipelines into per-asset Python modules aggregating alerts into `common_alerts.py` and `full_sbstation.py`.",
+        implementation: "Implemented separate RandomForestRegressor/Classifier and IsolationForest models tailored per asset channel with StandardScaler preprocessing.",
+        result: "Modular per-asset scoring emitting unified `latest_status.json` alerts and ReportLab PDF summaries."
       },
       {
         id: "dt-2",
-        challenge: "Accurately identifying rare transformer thermal anomalies from 50,000 synthetic and industry-informed operational records.",
-        solution: "Trained semi-supervised deep autoencoders on nominal operational envelopes to detect reconstruction errors.",
-        implementation: "Standardized multi-variate rolling averages and FFT frequency-domain features; flagged deviations exceeding 3.5 standard deviations.",
-        result: "Achieved 94% anomaly detection accuracy with an internal test benchmark latency targeting ~50ms."
+        challenge: "Providing an intuitive spatial visualization over tabular substation readings during competition evaluations.",
+        solution: "Built an interactive Three.js 400kV substation bay demonstration separating canvas rendering from sensor state toggles.",
+        implementation: "Mapped transformer, breaker, CT/PT, and busbar geometries with fault injection controls inside the portfolio showcase.",
+        result: "Enables reviewers to inspect component telemetry cues directly in 3D space (simulated frontend twin)."
       }
     ],
     mlPipeline: [
-      { name: "Telemetry Ingestion", description: "Ingests ~50,000 synthetic and industry-informed operational SCADA telemetry records.", metric: "50k Synthetic Records" },
-      { name: "Feature Transformation", description: "Multi-variate rolling windows, frequency domain FFT analysis, and noise filtering." },
-      { name: "Autoencoder Scoring", description: "Semi-supervised reconstruction error evaluation for thermal anomaly detection." },
-      { name: "Predictive Inference", description: "Scoring incoming streams in real time for early equipment failure warning.", metric: "~50ms target (internal test)" }
+      { name: "Simulated Telemetry Load", description: "Reads transformer and substation CSV splits (including 5,000-row training and 6,000-row output logs).", metric: "5,000 Train Rows" },
+      { name: "Asset Diagnostics", description: "Runs RandomForestClassifier, RandomForestRegressor, and IsolationForest across transformer, busbar, and breaker channels." },
+      { name: "CNN-LSTM Trainer", description: "Streamlit interface trains a TensorFlow/Keras CNN-LSTM fault classifier on sequence waveform inputs." },
+      { name: "Automated Alerting", description: "Generates PDF operational summaries via ReportLab and SMTP dispatch triggers." }
     ],
     securityFeatures: [
-      "Architectural design: Strict network isolation specification for SCADA telemetry gateways",
-      "Proposed architecture: Mutual TLS (mTLS) encrypted WebSocket connections (WSS)",
-      "Access control specification: Role-Based Access Control (RBAC) with operator audit trails"
+      "Proposed utility architecture: strict air-gapped / SCADA gateway network isolation specification",
+      "Credentials separation via `email_config.json` template (production deployments must use vault/env secrets)",
+      "Proposed utility requirement: Mutual TLS (mTLS) and RBAC audit trails before field connection"
     ],
-    devopsPipeline: ["Git Push", "Docker Compose Local Stack", "Automated Integration Tests", "On-Premises Substation Edge Deployment"],
-    technologies: ["Python", "TensorFlow", "React", "Next.js", "WebSockets", "InfluxDB", "Docker"],
+    devopsPipeline: ["Git Push", "Python Module Execution", "Streamlit Model Trainer UI", "Portfolio Static 3D Demo"],
+    technologies: ["Python", "Scikit-learn", "TensorFlow", "Streamlit", "Pandas", "ReportLab", "Three.js"],
     keyFeatures: [
-      "Digital twin 3D visualization of substation transformer and breaker states.",
-      "Intelligent equipment monitoring with dynamic threshold alerts.",
-      "Machine learning-based anomaly analysis on multi-variate sensor streams.",
-      "Predictive monitoring capabilities to minimize scheduled maintenance outages.",
-      "Data-driven operational insights with historical playback tools."
+      "Per-asset diagnostic Python scripts for transformers, busbars, instrument transformers, isolators, and circuit breakers.",
+      "Combines RandomForest regression/classification with unsupervised IsolationForest anomaly detection.",
+      "Streamlit CNN-LSTM waveform fault training interface (`app.py` / `digital_twin.py`).",
+      "Automated ReportLab PDF alert report generation (`transformer.py`).",
+      "Interactive 3D 400kV Substation visualization on this portfolio with simulated fault modes."
     ],
     accessibilityMeasures: [
-      "Color-blind safe palette configurations for critical alarm states.",
-      "High contrast visual cues and audible alert toggle support.",
-      "Keyboard navigable diagnostic panels."
+      "High-contrast warning and critical state color coding across 3D bay indicators.",
+      "Keyboard-accessible scene control buttons and structured diagnostic readouts."
     ],
     performanceMetrics: [
-      "Internal test benchmark: inference latency targeting ~50ms per telemetry burst.",
-      "Targeted smooth 60 FPS rendering loop for time-series telemetry charts.",
-      "Evaluated across 50,000 synthetic and industry-informed substation records."
+      "Evaluated internally on simulated substation CSV datasets (`transformer_training_5000.csv`, `transformer_all_output.csv`, `live_all_readings.csv`).",
+      "No independent utility production SLA benchmark or live grid latency is claimed."
     ],
     lessonsLearned: [
-      "Industrial IoT requires resilient offline buffering at the edge when connectivity degrades.",
-      "Decoupling telemetry ingestion pipelines from visualization layers is critical for responsive operator UIs."
+      "Decomposing physical substation equipment into dedicated component predictors simplifies debugging over a single black-box predictor.",
+      "Competitive prototypes must clearly distinguish simulated CSV datasets and visual twins from live utility grid telemetry."
     ],
     innovation:
-      "Combined semi-supervised deep autoencoder reconstruction scoring with an interactive 3D substation twin and decoupled telemetry parsing.",
+      "Unified component-level ML diagnostics, CNN-LSTM sequence fault training, PDF alert reporting, and an interactive 3D bay twin view.",
     impact:
-      "Smart India Hackathon Grand Finale 1st Place Winner; demonstrated early transformer thermal anomaly detection across ~50,000 synthetic and industry-informed SCADA records.",
-    teamContribution: "AI Modeling, Telemetry Pipeline & 3D Twin Integration",
+      "Smart India Hackathon 2025 Grand Finale 1st Place Winner (Team Oceanberg).",
+    teamContribution: "Team Lead & Core AI Modeling (SIH Grand Finale â€” Team Oceanberg)",
     individualContributions: [
-      "Designed and trained the semi-supervised deep autoencoder reconstruction model on synthetic and industry-informed SCADA envelopes.",
-      "Implemented rolling-window and FFT feature normalization pipelines in Python for multi-variate transformer monitoring.",
-      "Integrated live anomaly status signaling into the interactive Three.js substation viewport and WebSocket HUD."
+      "Co-authored the Python diagnostic modules combining Random Forest and Isolation Forest scoring across transformer and switchgear files.",
+      "Built the CNN-LSTM fault classification training script and Streamlit workflow integration.",
+      "Created the interactive Three.js 400kV EHV substation bay twin simulation for visual architecture walkthroughs."
     ],
     engineeringDecisions: [
       {
-        decision: "Semi-supervised Autoencoder over supervised binary classifiers",
-        rationale: "Real substation failures are severely class-imbalanced; learning nominal operating envelopes generalizes better to unseen thermal fault signatures.",
-        tradeoff: "Requires periodic recalibration when ambient seasonal load baselines shift.",
+        decision: "Modular per-asset Python predictors over one monolithic substation script",
+        rationale: "Transformers, busbars, and breakers expose distinct physical features and fault behaviors.",
+        tradeoff: "Requires orchestrating shared alert state across asset modules (`common_alerts.py`).",
         status: "Implemented"
       },
       {
-        decision: "InfluxDB time-series storage separated from WebSocket broadcast",
-        rationale: "Allows historical fault playback without blocking live telemetry stream updates.",
-        tradeoff: "Adds operational overhead of maintaining dual write paths in prototype deployments.",
-        status: "Implemented"
+        decision: "Interactive Three.js viewport modeled separately as a portfolio visual twin",
+        rationale: "Keeps static web demonstration fast and interactive without requiring a live Python/Streamlit server.",
+        tradeoff: "Portfolio 3D scene runs simulated telemetry presets rather than live hardware substation streams.",
+        status: "Simulated"
       },
       {
-        decision: "mTLS and isolated SCADA gateway network specification",
-        rationale: "Critical utility infrastructure requires strict ingress boundaries before field connection.",
-        tradeoff: "Specified at architecture level for utility rollout rather than active inside hackathon sandbox.",
+        decision: "mTLS and utility SCADA network isolation boundary",
+        rationale: "Critical transmission infrastructure requires strict ingress security before field integration.",
+        tradeoff: "Scoped as an architectural specification for utility pilots rather than implemented in hackathon code.",
         status: "Proposed"
       }
     ],
     scalability:
-      "Designed around decoupled time-series ingestion (InfluxDB), asynchronous feature workers, and WebSocket event broadcasting for multi-bay monitoring.",
+      "Modular Python diagnostic scripts export JSON status snapshots cleanly, enabling future containerization behind FastAPI or MQTT workers.",
     media: [
       {
-        title: "400kV Substation Dashboard & Telemetry Overlay",
-        caption: "Operator dashboard slot for transformer winding temperature, SF6 pressure, and anomaly reconstruction score timelines.",
-        alt: "EHV Substation Digital Twin monitoring dashboard preview",
+        title: "Portfolio 3D 400kV Substation Simulation",
+        caption: "Interactive WebGL viewport demonstrating transformer, breaker, and fault cues (real utility screenshots not applicable to simulated CSV repo).",
+        alt: "EHV Substation Digital Twin monitoring simulation preview",
         type: "dashboard"
       },
       {
-        title: "Autoencoder Anomaly Threshold Analysis",
-        caption: "Evaluation plot slot showing nominal vs. fault reconstruction error spikes across synthetic SCADA records.",
-        alt: "Autoencoder reconstruction error evaluation chart",
+        title: "Component Diagnostic Modules (oceanBerg_sih)",
+        caption: "Source repository implements `transformer.py`, `busbar.py`, `cirucit_beraker.py`, `digital_twin.py`, and `app.py` (inspection via GitHub link).",
+        alt: "Oceanberg SIH module architecture overview",
         type: "architecture"
       }
     ],
     futureImprovements: [
-      "Validate anomaly thresholds against anonymized utility-grade PMU/SCADA historical logs under NDA.",
-      "Add edge quantization (ONNX Runtime / TFLite) for substation gateway inference without cloud dependency.",
-      "Implement automated drift detection to recalibrate baseline reconstruction envelopes seasonally."
+      "Publish standardized holdout cross-validation accuracy and precision/recall tables in `oceanBerg_sih/README.md`.",
+      "Replace hardcoded config templates with `.env` secret management and FastAPI telemetry endpoints.",
+      "Validate models against utility-approved PMU/DGA logs under NDA."
     ],
     workflowSteps: [
       {
         step: "01",
-        title: "SCADA Sensor Simulation & Ingestion",
-        whatHappens: "Transformer oil/winding temperature, SF6 breaker pressure, and electrical measurements stream into the preprocessing queue.",
-        component: "SCADA Sensor Stream / MQTT Spec",
-        input: "Multi-variate time-series telemetry (~50k synthetic & industry-informed records)",
-        output: "Windowed JSON/frame batches queued for feature extraction"
+        title: "Simulated SCADA CSV Ingestion",
+        whatHappens: "Loads multi-channel transformer and breaker measurements from repository CSV datasets.",
+        component: "Python Asset Scripts (transformer.py, busbar.py, full_sbstation.py)",
+        input: "transformer_training_5000.csv & live_all_readings.csv",
+        output: "Scaled multi-variate feature matrices"
       },
       {
         step: "02",
-        title: "Rolling Window & FFT Feature Transformation",
-        whatHappens: "Signals are normalized using rolling statistics and frequency-domain Fast Fourier Transform features.",
-        component: "Python Feature Extraction Worker",
-        input: "Raw sensor burst frames",
-        output: "Standardized feature vectors"
+        title: "Per-Asset ML & Isolation Scoring",
+        whatHappens: "Executes RandomForest regressors/classifiers alongside IsolationForest anomaly scoring per substation component.",
+        component: "Scikit-learn Ensembles + StandardScaler",
+        input: "Preprocessed electrical & thermal readings",
+        output: "Per-asset health classification and outlier score"
       },
       {
         step: "03",
-        title: "Autoencoder Reconstruction Scoring",
-        whatHappens: "Deep autoencoder reconstructs nominal equipment signatures; deviations exceeding 3.5 standard deviations trigger anomaly flags.",
-        component: "TensorFlow Deep Autoencoder Engine",
-        input: "Normalized feature vectors",
-        output: "Reconstruction error score + anomaly status"
+        title: "CNN-LSTM Sequence Fault Training",
+        whatHappens: "Streamlit interface trains a CNN-LSTM network on `.npy` waveform arrays for multi-class fault recognition.",
+        component: "app.py & digital_twin.py (TensorFlow/Keras)",
+        input: "Waveform array tensors (N, T, C)",
+        output: "Saved Keras fault classifier (`cnn_lstm_fault.h5`)"
       },
       {
         step: "04",
-        title: "Time-Series Persistence & Live Dispatch",
-        whatHappens: "Telemetry slices persist to InfluxDB while live state pushes over WebSockets to the 3D substation canvas.",
-        component: "InfluxDB + WebSocket Broadcaster + Three.js Twin",
-        input: "Scored telemetry frames",
-        output: "Interactive 3D equipment highlighting & operator alerts"
+        title: "Status Broadcast & PDF Alert Generation",
+        whatHappens: "Aggregates alert states into `latest_status.json` and builds PDF diagnostic summaries via ReportLab.",
+        component: "common_alerts.py + ReportLab PDF / SMTP",
+        input: "Predicted fault status flags",
+        output: "summary.pdf report & operator alert triggers"
       }
     ],
     groupedTechStack: [
       {
-        category: "Frontend",
-        items: [
-          { name: "React / Next.js", role: "Operator dashboard and interactive route shells", why: "Component modularity and responsive state updates" },
-          { name: "Three.js", role: "Interactive 400kV EHV substation 3D visualization", why: "Enables raycasted asset inspection and visual thermal fault cues" }
-        ]
-      },
-      {
-        category: "Backend",
-        items: [
-          { name: "Python & WebSockets", role: "Feature worker and low-latency telemetry stream server", why: "Seamless integration with TensorFlow scoring loops" }
-        ]
-      },
-      {
-        category: "Database",
-        items: [
-          { name: "InfluxDB", role: "High-frequency time-series telemetry persistence", why: "Optimized storage for timestamped sensor intervals and playback" }
-        ]
-      },
-      {
         category: "AI/ML",
         items: [
-          { name: "TensorFlow", role: "Semi-supervised deep autoencoder training and inference", why: "Captures multivariate nominal envelopes without abundant labeled failures" }
+          { name: "Scikit-learn (RandomForest, IsolationForest)", role: "Transformer, busbar & breaker prediction and anomaly scoring", why: "Strong tabular interpretability and fast iterative evaluation" },
+          { name: "TensorFlow / Keras (CNN-LSTM)", role: "Waveform sequence fault trainer launched from Streamlit", why: "Captures spatial and temporal waveform fault patterns" }
         ]
       },
       {
-        category: "Infrastructure",
+        category: "Frontend",
         items: [
-          { name: "Docker / MQTT (Spec)", role: "Containerized stack and isolated SCADA ingestion design", why: "Reproducible local deployment and decoupled broker boundary" }
+          { name: "Streamlit & ReportLab", role: "Interactive model training UI and automated PDF alert reports", why: "Rapid prototyping for hackathon demonstrations" },
+          { name: "Three.js (Portfolio Demo)", role: "Interactive 400kV EHV substation 3D visualization", why: "Illustrates equipment bay topology and simulated fault states" }
         ]
       }
     ],
     aiMlDetails: [
       {
-        modelName: "Semi-Supervised Deep Autoencoder",
-        problemSolved: "Detecting rare transformer thermal stress and switchgear degradation where labeled failure examples are scarce.",
-        inputs: "Multi-variate SCADA sensor readings (voltage, current, winding/oil temperature, acoustic/vibration channels).",
-        preprocessing: "Rolling-window aggregation, Z-score standardization, and FFT spectral transformations.",
-        approach: "Trained exclusively on nominal operational envelopes; anomalies flagged when reconstruction MSE exceeds 3.5 standard deviations.",
-        output: "Scalar reconstruction error score, severity threshold flag, and affected asset telemetry trace.",
-        evaluation: "Reported 94% anomaly detection accuracy and ~50ms internal test inference target across ~50,000 synthetic and industry-informed records.",
-        limitations: "Evaluated on synthetic and industry-informed records rather than live utility PMU/SCADA logs; requires seasonal baseline recalibration."
+        modelName: "RandomForest + IsolationForest + CNN-LSTM Suite",
+        problemSolved: "Multi-asset EHV component diagnostics and waveform fault classification using simulated substation datasets.",
+        inputs: "CSV electrical/thermal readings (`transformer_training_5000.csv`, etc.) and `.npy` waveform sequences.",
+        preprocessing: "StandardScaler normalization and train/test split evaluation.",
+        approach: "Supervised ensemble classification/regression combined with unsupervised IsolationForest outlier bounds and CNN-LSTM sequence training.",
+        output: "Per-asset health predictions, `latest_status.json` alerts, and PDF reports.",
+        evaluation: "Tested on simulated repository CSVs and waveform trainer splits; exact live utility production accuracy is not claimed until field calibration.",
+        limitations: "Simulated datasets only; lacks automated pytest/metrics markdown table in `README.md` and relies on local CSV inputs rather than live utility PMUs."
       }
     ],
     databaseAndDataFlow: {
-      sources: "Synthetic and industry-informed SCADA telemetry streams (~50,000 records) representing transformer temperatures, SF6 breaker pressure, and busbar load.",
-      storageModel: "InfluxDB time-series buckets paired with in-memory WebSocket state frames.",
-      processing: "Python workers compute rolling-window averages and FFT features before passing vectors to TensorFlow autoencoder scoring.",
-      apiCommunication: "WebSocket stream pushes state deltas to frontend Web Workers / Canvas renderers.",
-      retrieval: "Operators inspect live anomaly alerts or replay historical telemetry intervals.",
-      schemaNote: "Specific InfluxDB measurement/tag schema definitions are stored in the project source repository and not duplicated verbatim inside this portfolio workspace."
+      sources: "Simulated repository CSV datasets (`transformer_training_5000.csv` 5,000 rows, `transformer_all_output.csv` 6,000 rows, `live_all_readings.csv` 1,917 rows).",
+      storageModel: "Flat CSV logs, `.pkl` serialized models (`bus_clf.pkl`), and `latest_status.json` operational output.",
+      processing: "Synchronous scikit-learn fit/predict scripts plus on-demand CNN-LSTM training in Streamlit.",
+      apiCommunication: "File/JSON state updates (`latest_status.json`) and SMTP PDF alert attachments.",
+      retrieval: "Streamlit trainer displays test accuracy inline; scripts output summary tables and `summary.pdf`.",
+      schemaNote: "Repository stores CSV schemas rather than external InfluxDB DDL."
     },
     contributionBreakdown: {
       mine: [
-        "Designed and trained the semi-supervised deep autoencoder reconstruction pipeline.",
-        "Built rolling-window and FFT feature normalization workers in Python.",
-        "Integrated live anomaly status signaling into the Three.js 3D substation scene and portfolio demonstration."
+        "Co-engineered per-component Python diagnostic scripts (RandomForest + IsolationForest) in `oceanBerg_sih`.",
+        "Built the CNN-LSTM fault trainer flow and integrated automated PDF summary alerts.",
+        "Constructed the interactive Three.js 400kV bay simulation showcased on this portfolio."
       ],
       team: [
-        "Team Oceanberg collaborators contributed to full-stack integration, hackathon system wiring, and presentation delivery (exact teammate breakdown not individually enumerated in local portfolio files)."
+        "Team Oceanberg collaborated on hackathon architecture, UI assembly, and National Grand Finale presentation."
       ],
       thirdParty: [
-        "Open-source runtime stack: TensorFlow, InfluxDB, React, Next.js, Three.js, and Docker."
+        "Open-source libraries: Scikit-learn, TensorFlow/Keras, Streamlit, Pandas, ReportLab, Three.js."
       ]
     },
     limitations: [
-      "Trained and evaluated on ~50,000 synthetic and industry-informed records rather than proprietary utility substation feeds.",
-      "MQTT broker isolation, mTLS tunnels, and edge RBAC remain architectural deployment specifications rather than live utility integration.",
-      "No independent utility production SLA benchmark exists yet."
+      "Repository relies on simulated CSV files rather than live utility SCADA feeds; standalone `README.md` currently lacks full benchmark printout logs.",
+      "MQTT isolation and utility PMU integration remain future engineering specifications.",
+      "Portfolio 3D substation scene is a frontend simulation visualizing diagnostic concepts."
     ],
     verificationChecklist: [
-      { claim: "Smart India Hackathon Grand Finale 1st Place Winner (Team Oceanberg)", status: "Verified result" },
-      { claim: "Semi-supervised autoencoder & FFT/rolling feature extraction architecture", status: "Verified implementation" },
-      { claim: "~50,000 synthetic/industry-informed records & 94% test anomaly detection", status: "Simulated demonstration" },
+      { claim: "Smart India Hackathon 2025 Grand Finale 1st Place Winner (Team Oceanberg)", status: "Verified result" },
+      { claim: "RandomForest, IsolationForest, CNN-LSTM (`app.py`), Streamlit & ReportLab codebase in oceanBerg_sih", status: "Verified implementation" },
       { claim: "Interactive 3D 400kV Substation Twin with Fault Simulation on portfolio", status: "Simulated demonstration" },
-      { claim: "MQTT isolation, mTLS WebSockets & edge ONNX deployment", status: "Proposed future improvement" },
-      { claim: "Official SIH Problem Statement number & verbatim wording", status: "Unknown / needs confirmation" }
+      { claim: "MQTT utility SCADA isolation & historical PMU validation", status: "Proposed future improvement" }
     ]
   },
 
   "intelligent-grievance-system": {
     id: "intelligent-grievance-system",
     title: "Intelligent Multilingual Grievance Categorization & Dispatch",
-    tagline: "AI-Powered NLP Framework for Automated Public Service Routing",
-    category: "Multilingual Civic NLP & Workflow Automation",
-    statusLabel: "Implemented NLP & Confidence-Gated Dispatch Pipeline",
+    tagline: "Multilingual Civic NLP, PyTorch Vision Triage & Confidence-Gated Officer Dispatch",
+    category: "Multilingual Civic NLP & Vision Triage",
+    statusLabel: "Full-Stack Prototype + Benchmarked ML & Vision Suite",
     githubUrl: "https://github.com/KANISH-850/intelligent-grievance-system",
     overview:
-      "A multilingual civic NLP and ticketing framework engineered to normalize regional Indian language citizen complaints, categorize departmental ownership, prioritize urgent incidents, and preserve human oversight for low-confidence cases.",
+      "A full-stack multilingual civic grievance triage platform (modeled on CPGRAMS workflows) pairing a React + TypeScript portal, Node.js/Express + PostgreSQL/Prisma API, and Python FastAPI AI service for language detection, translation (12 Indian + 7 international languages), TF-IDF + LogisticRegression routing, and PyTorch MobileNetV3-Small civic image classification.",
     problemStatement:
-      "Public administration departments receive thousands of citizen complaints across multiple regional languages. Manual sorting causes severe dispatch bottlenecks, delayed SLAs, and misallocated department tickets.",
+      "Public administration centers receive citizen complaints across multiple regional languages alongside uploaded issue photos, leading to manual categorization backlogs and misrouted departmental tickets.",
     problemSummaryDetail: {
-      problemLabel: "Project problem summary",
-      whoFacesIt: "Citizens filing grievances in regional Indian languages and municipal department dispatch operators.",
-      realWorldProblem: "Manual multilingual complaint triage creates ticket backlogs, inconsistent severity tagging, and frequent misrouting across public departments.",
-      whyNeeded: "Accessible civic portals require language-agnostic intake alongside deterministic accountability so uncertain cases are never misrouted silently.",
-      existingLimitations: "Monolingual keyword rules fail on regional scripts/transliteration, while unconstrained LLMs risk hallucinated categories without audit confidence gates.",
-      objective: "Translate regional grievances rapidly with quantized IndicTrans2, embed with Sentence Transformers, classify via BERT, and enforce an 85% confidence threshold."
+      problemLabel: "Repository-verified problem summary",
+      whoFacesIt: "Citizens submitting complaints in regional Indian languages and municipal department officers.",
+      realWorldProblem: "Manual multilingual complaint review delays urgent civic repairs (water leaks, drainage blocks, streetlights, potholes) and risks routing errors.",
+      whyNeeded: "Combining explainable NLP keyword/TF-IDF classification with confidence thresholds keeps uncertain or visually ambiguous tickets under human officer review.",
+      existingLimitations: "Small real-world civic image datasets suffer high class confusion when deployed without conservative review flags.",
+      objective: "Build an auditable FastAPI + Express + PostgreSQL platform integrating LRU-cached translation, explainable text classification, and calibrated MobileNetV3-Small vision inspection."
     },
     proposedSolution:
-      "Build an end-to-end NLP routing pipeline pairing quantized IndicTrans2 translation, 768-dimensional Sentence Transformer embeddings, and BERT classification with an explicit confidence gate that routes uncertain tickets to human reviewers.",
+      "Pair FastAPI (`ai-service`) with Express + Prisma (`backend`) and React + Vite (`frontend`): detect language, translate via LibreTranslate / MyMemory with an in-memory LRU cache, score text via `TfidfVectorizer + LogisticRegression`, classify uploaded images via PyTorch `MobileNetV3-Small`, and route uncertain predictions cleanly to officers.",
     systemArchitecture:
-      "A dual-layer microservices architecture combining a React 19 / TypeScript frontend with a FastAPI / Node.js backend. Submitted grievances undergo automatic language identification and translation via IndicTrans2, followed by semantic embedding extraction with Sentence Transformers and BERT for department categorization and priority routing in PostgreSQL.",
+      "Three-tier full-stack platform: React/TypeScript SPA -> Node.js/Express API with PostgreSQL + Prisma -> Python FastAPI AI service running TF-IDF + LogisticRegression text routing (with XAI token weights), `deep_translator` / LibreTranslate translation cache, and PyTorch MobileNetV3-Small vision inference.",
     dataFlow:
-      "Citizen Text/Audio Submission -> API Gateway -> IndicTrans2 Translation -> BERT / Sentence Transformer Classifier -> Department Routing Engine -> PostgreSQL / Prisma -> Admin Review Dashboard.",
+      "Citizen Multilingual Text & Image Upload -> Express Gateway -> FastAPI Language Detection & LRU-Cached Translation -> TF-IDF + LogisticRegression + MobileNetV3-Small Scoring -> Calibrated Review Flag -> PostgreSQL / Prisma Officer Queue.",
     architectureNodes: [
-      { id: "igs-in-1", title: "Multilingual Citizen Portal", subtitle: "React 19 + Senior Citizen high-contrast accessibility mode", layer: "Ingestion & Input", status: "implemented" },
-      { id: "igs-in-2", title: "Language Detection & Normalization", subtitle: "Unicode normalization and PII sanitization pre-filter", layer: "Ingestion & Input", status: "implemented" },
-      { id: "igs-proc-1", title: "IndicTrans2 (INT8 ONNX)", subtitle: "Regional language to English pivot translation", layer: "Processing & AI Core", status: "implemented" },
-      { id: "igs-proc-2", title: "Sentence Transformers + BERT", subtitle: "768-d embeddings, department & urgency scoring + 85% confidence gate", layer: "Processing & AI Core", status: "implemented" },
-      { id: "igs-out-1", title: "PostgreSQL + Prisma Dispatch", subtitle: "Department routing, human review queue & audit timeline", layer: "Storage & Delivery", status: "implemented" },
-      { id: "igs-out-2", title: "Department Webhook & Encryption-at-Rest", subtitle: "External departmental webhook & AES-256 storage specification", layer: "Storage & Delivery", status: "proposed" }
+      { id: "igs-in-1", title: "Citizen & Officer Portals", subtitle: "React + TypeScript SPA with multilingual intake & status cards", layer: "Ingestion & Input", status: "implemented" },
+      { id: "igs-in-2", title: "Language Detect & LRU Translation", subtitle: "langdetect + LibreTranslate / MyMemoryTranslator (12 Indian languages)", layer: "Ingestion & Input", status: "implemented" },
+      { id: "igs-proc-1", title: "TF-IDF + LogisticRegression", subtitle: "n-gram(1,2) 9-department text classifier with XAI token attribution", layer: "Processing & AI Core", status: "implemented" },
+      { id: "igs-proc-2", title: "PyTorch MobileNetV3-Small", subtitle: "9-class civic vision model benchmarked on held-out real test split (36.5ms CPU)", layer: "Processing & AI Core", status: "implemented" },
+      { id: "igs-out-1", title: "PostgreSQL + Prisma Queue", subtitle: "Department routing, confidence metadata & officer audit timeline", layer: "Storage & Delivery", status: "implemented" },
+      { id: "igs-out-2", title: "External Civic Webhooks", subtitle: "Live municipal ERP webhook integration reserved for deployment", layer: "Storage & Delivery", status: "proposed" }
     ],
     technicalChallenges: [
       {
         id: "igs-1",
-        challenge: "Inference latency for regional Indian language translation was initially > 2.5s, impairing real-time feedback during complaint lodging.",
-        solution: "Quantized the IndicTrans2 transformer model and deployed it via ONNX Runtime with Redis caching for repeated civic query patterns.",
-        implementation: "Applied 8-bit dynamic quantization to the transformer weights and deployed asynchronous inference microservices.",
-        result: "Reduced average translation response latency from 2.5s to under 500ms."
+        challenge: "Vision models trained on limited real civic image sets (172 train / 38 val / 38 test across 9 classes) exhibit cross-class confusion under noisy field lighting.",
+        solution: "Executed a formal held-out evaluation script (`rigorous_evaluation.py`) generating normalized confusion matrices, FPR metrics, and calibration metadata rather than shipping unverified predictions.",
+        implementation: "Benchmarked `civic_mobilenet_v3.pth` on CPU: recorded 50.0% held-out test accuracy (0.5789 best val acc), 36.47ms avg latency (59.37ms p95), and 33.33% false positive rate on unrelated negatives, then tuned confidence flags.",
+        result: "Calibrated confidence gating surfaces uncertain predictions for human officer review instead of silent auto-misrouting."
       },
       {
         id: "igs-2",
-        challenge: "Handling low-confidence grievance classifications to prevent wrong departmental routing.",
-        solution: "Engineered a human-in-the-loop review queue for tickets falling below an 85% confidence score.",
-        implementation: "Implemented a confidence-scoring threshold gate in the FastAPI dispatch router directing ambiguous tickets to supervisory queues.",
-        result: "Zero false-positive automated misdispatches on high-priority civic incidents."
+        challenge: "Maintaining multilingual translation availability and explainability when external translation APIs rate-limit or timeout.",
+        solution: "Implemented an OrderedDict in-memory LRU cache ahead of LibreTranslate / MyMemory providers alongside explicit TF-IDF coefficient feature attributions.",
+        implementation: "Preserved untranslated text safely with `requires_review` status on provider failure and surfaced top n-gram weights via `extract_explanation_terms()`.",
+        result: "Prevents silent ticket loss during upstream translation throttling while keeping text routing transparent."
       }
     ],
     mlPipeline: [
-      { name: "Language Detection", description: "Identifies regional language and normalizes Unicode text inputs." },
-      { name: "IndicTrans2 Translation", description: "Quantized neural machine translation into standard English pivot representation." },
-      { name: "Semantic Embedding", description: "Sentence Transformers generate 768-dimensional contextual document vectors." },
-      { name: "BERT Classification", description: "Multi-class department categorization and priority classification.", metric: "92% Accuracy" },
-      { name: "Automated Dispatch", description: "PostgreSQL Prisma persistence and automated department webhook notification." }
+      { name: "Language & Translation", description: "Detects regional text and translates across 12 Indian + 7 international languages via LibreTranslate / MyMemory + LRU cache." },
+      { name: "TF-IDF + LogisticRegression", description: "Evaluated at 1.0 on curated synthetic text validation config (`grievance-classifier/config.json`) with token-level XAI explanations.", metric: "9 Departments" },
+      { name: "MobileNetV3-Small Vision", description: "Benchmarked rigorously on 38 held-out civic images: 50.0% test acc (36.47ms avg CPU inference); flags ambiguous photos.", metric: "36.5 ms CPU" },
+      { name: "Officer Audit Dispatch", description: "Transactional Prisma/PostgreSQL assignment supporting multi-issue complaints." }
     ],
     securityFeatures: [
-      "PII redaction engine sanitizing national IDs, phone numbers, and addresses before NLP scoring",
-      "Architectural design: Role-Based Access Control (RBAC) separating citizen, operator, and departmental supervisor views",
-      "Data protection specification: End-to-end encryption (AES-256) at rest for all database entries",
-      "Rate limiting and CORS policies on public submission endpoints"
+      "JWT/role-scoped Citizen, Officer, and Admin authentication flows in Express backend",
+      "Strict translation provider isolation and safe `requires_review` preservation on API failures",
+      "Pytest integration & provider-boundary tests (`ai-service/tests/`)"
     ],
-    devopsPipeline: ["GitHub Push", "GitHub Actions CI", "Pytest & Jest Suites", "Docker Container Build", "FastAPI Service Deployment"],
+    devopsPipeline: ["GitHub Push", "Pytest AI Service Suite", "Docker Compose Build", "Vercel UI & Render Backend Deploy"],
     technologies: [
-      "React 19",
+      "React",
       "TypeScript",
-      "Tailwind CSS",
       "FastAPI",
-      "Python",
-      "Node.js",
-      "Express",
+      "PyTorch (MobileNetV3)",
+      "Scikit-learn (TF-IDF)",
+      "Node.js / Express",
       "PostgreSQL",
       "Prisma",
-      "Sentence Transformers",
-      "BERT",
-      "IndicTrans2"
+      "Docker"
     ],
     keyFeatures: [
-      "Multilingual grievance processing supporting regional Indian languages.",
-      "Real-time language detection and neural machine translation.",
-      "Intelligent grievance categorization and automated department routing.",
-      "Urgency and priority classification based on civic severity.",
-      "Human-in-the-loop review system for ambiguous or sensitive submissions.",
-      "End-to-end grievance status tracking with transparent audit timelines.",
-      "Chatbot assistance guiding citizens through structured evidence submission."
+      "Multilingual submission supporting 12 Indian languages with LRU-cached translation.",
+      "Multi-issue & multi-department grievance extraction with transactional Prisma routing.",
+      "Explainable TF-IDF + LogisticRegression department classifier with regional keyword weights.",
+      "PyTorch MobileNetV3-Small civic damage vision triage with transparent evaluation charts.",
+      "Citizen progress timeline, Officer department queues, and guided intake chatbot."
     ],
     accessibilityMeasures: [
-      "Senior Citizen Mode with enlarged touch targets and high-contrast typography.",
-      "Full ARIA tab-indexing and screen-reader support.",
-      "Voice-guided grievance recording and review."
+      "Clear multi-step Citizen portal with guided chatbot intake and legible department labels.",
+      "Transparent status pills distinguishing AI suggestions from officer final assignments."
     ],
     performanceMetrics: [
-      "Sub-500ms neural translation latency with quantized ONNX runtime.",
-      "92% automated classification accuracy across civic department categories.",
-      "100/100 Lighthouse Accessibility compliance score."
+      "MobileNetV3-Small CPU latency (`evaluation_report.json`): 36.47 ms average (59.37 ms p95) across 38 held-out test images.",
+      "Honest held-out MobileNetV3 test evaluation: 50.0% overall accuracy (172 train / 38 val / 38 test; 0.5789 best val accuracy) â€” documented with confusion matrix.",
+      "Text classifier (`grievance-classifier`): TF-IDF n-gram (1,2) + LogisticRegression validated on curated 9-category CPGRAMS-inspired dataset."
     ],
     lessonsLearned: [
-      "Production NLP pipelines require strict fallback thresholds when user input is noisy or dialect-heavy.",
-      "Public-sector software requires accessibility to be baked into the data layer, not treated as surface CSS."
+      "Reporting real held-out evaluation errors (50% test accuracy on 38 real civic photos) builds far stronger engineering credibility than hiding behind synthetic scores.",
+      "Small image datasets need conservative confidence thresholds and human officer override flows."
     ],
     innovation:
-      "Unified quantized IndicTrans2 neural translation with 768-dimensional Sentence Transformer embeddings, BERT categorization, and human-in-the-loop fallback routing.",
+      "Pairs multi-issue multilingual triage and token-level TF-IDF explainability with honest MobileNetV3 failure analysis and human-in-the-loop officer queues.",
     impact:
-      "Automates multilingual civic grievance intake and department dispatch while preserving Senior Citizen accessibility mode and transparent citizen tracking.",
-    teamContribution: "NLP Pipeline Architecture & Full-Stack Engineering",
+      "Automates regional grievance translation, multi-department splitting, and transparent audit tracking end-to-end across React, Express, and FastAPI.",
+    teamContribution: "Primary Author â€” Full-Stack Architecture, AI Service & Evaluation Suite",
     individualContributions: [
-      "Architected the quantized IndicTrans2 -> Sentence Transformers -> BERT classification pipeline in FastAPI.",
-      "Implemented the 85% confidence threshold router to isolate ambiguous complaints for human review.",
-      "Designed Senior Citizen accessibility mode and Prisma/PostgreSQL ticket tracking workflows."
+      "Built the FastAPI `ai-service` integrating language detection, LRU-cached translation, TF-IDF + LogisticRegression XAI, and PyTorch MobileNetV3 inference.",
+      "Implemented the `rigorous_evaluation.py` benchmark suite generating normalized confusion matrices and CPU latency percentiles.",
+      "Developed transactional multi-issue department routing in Express/Prisma and Citizen/Officer UI workflows."
     ],
     engineeringDecisions: [
       {
-        decision: "INT8 quantized ONNX IndicTrans2 pivot translation + BERT rather than a large generative LLM",
-        rationale: "Deterministic multi-class categorization with sub-second response and predictable memory footprint without external API billing.",
-        tradeoff: "Requires fine-tuning when new civic department taxonomy categories are introduced.",
+        decision: "TF-IDF + LogisticRegression text router over uncalibrated heavy LLMs",
+        rationale: "Delivers sub-millisecond deterministic department scoring with inspectable token coefficients.",
+        tradeoff: "Relies on upstream translation + keyword fallback for regional scripts.",
         status: "Implemented"
       },
       {
-        decision: "Mandatory 85% confidence gate before automated dispatch",
-        rationale: "Prevents high-urgency civic issues from being misrouted silently by low-confidence predictions.",
-        tradeoff: "Increases operator review volume during initial cold-start rollout.",
+        decision: "Conservative vision calibration after 50% held-out MobileNetV3 test audit",
+        rationale: "Revealed confusion between blocked drainage, water leakage, and garbage classes on small datasets.",
+        tradeoff: "Routes borderline vision uploads to officer review rather than silent auto-dispatch.",
         status: "Implemented"
-      },
-      {
-        decision: "Field-level PII redaction & AES-256 database encryption model",
-        rationale: "Citizen submissions often contain sensitive IDs and addresses that must be protected from model logs.",
-        tradeoff: "Full HSM-backed key rotation is scoped as an operational deployment spec.",
-        status: "Proposed"
       }
     ],
     scalability:
-      "Stateless FastAPI inference workers paired with PostgreSQL/Prisma persistence and confidence-threshold human review queues.",
+      "Stateless FastAPI inference workers deployed independently behind Express + PostgreSQL/Prisma persistence and LRU translation caching.",
     media: [
       {
-        title: "Multilingual Citizen Grievance Intake & Senior Mode",
-        caption: "UI capture slot for regional text input, voice capture, and enlarged accessibility target controls.",
-        alt: "Intelligent Grievance System multilingual citizen form",
-        type: "screenshot"
+        title: "Citizen Multilingual Grievance Submission UI",
+        caption: "Actual captured application screenshot from `docs/presentation/screenshots/01_citizen_submission.png`.",
+        alt: "Intelligent Grievance System Citizen Submission UI screenshot",
+        type: "screenshot",
+        src: "/evidence/igs-citizen-submission.png"
       },
       {
-        title: "Department Routing & Human-in-the-Loop Queue",
-        caption: "Admin dashboard slot showing confidence scores, automated category tags, and manual review escalations.",
-        alt: "Grievance dispatch queue dashboard preview",
-        type: "dashboard"
+        title: "Officer Department Queue & Audit View",
+        caption: "Actual captured Officer Portal UI from `docs/presentation/screenshots/03_officer_queue.png`.",
+        alt: "Intelligent Grievance System Officer Queue UI screenshot",
+        type: "dashboard",
+        src: "/evidence/igs-officer-queue.png"
+      },
+      {
+        title: "MobileNetV3-Small Held-Out Confusion Matrix",
+        caption: "Genuine Matplotlib evaluation plot (`confusion_matrix_normalized.png`) across 38 real test images (50% accuracy, 36.47ms CPU avg).",
+        alt: "MobileNetV3-Small normalized confusion matrix evaluation chart",
+        type: "architecture",
+        src: "/evidence/igs-mobilenet-confusion.png"
       }
     ],
     futureImprovements: [
-      "Add regional dialect speech-to-text evaluation benchmarks across Tamil, Hindi, and Telugu audio inputs.",
-      "Integrate automated duplicate-ticket clustering using pgvector cosine similarity.",
-      "Publish end-to-end containerized load test benchmarks for concurrent FastAPI workers."
+      "Expand labeled real-world civic training dataset beyond 172 samples to address drainage/waterlogging class confusion.",
+      "Add self-hosted CTranslate2/ONNX NMT weights inside Docker to remove dependency on public translation endpoints."
     ],
     workflowSteps: [
       {
         step: "01",
-        title: "Multilingual Citizen Intake & Normalization",
-        whatHappens: "Citizen submits text or voice grievance; Unicode normalization and PII sanitization clean sensitive IDs.",
-        component: "React 19 Citizen Portal + PII Pre-filter",
-        input: "Regional Indian language complaint text / voice transcript",
-        output: "Sanitized UTF-8 complaint payload + detected language tag"
+        title: "Multilingual Citizen Intake",
+        whatHappens: "Citizen submits complaint text (12 Indian languages supported) and optional damage photo via React portal.",
+        component: "React/TypeScript SPA + Express Gateway",
+        input: "Regional language text + image attachment",
+        output: "Validated grievance payload"
       },
       {
         step: "02",
-        title: "Quantized Pivot Translation",
-        whatHappens: "IndicTrans2 INT8 ONNX model translates non-English text into canonical English with Redis caching for repeated queries.",
-        component: "IndicTrans2 ONNX Service",
-        input: "Sanitized regional text",
-        output: "English pivot text + translation latency telemetry (<500ms)"
+        title: "Language Detect & Cached Translation",
+        whatHappens: "Identifies source language and translates to English using LibreTranslate/MyMemory with OrderedDict LRU caching.",
+        component: "ai-service/translator.py + language_detector.py",
+        input: "Raw regional complaint string",
+        output: "English pivot text + cache/provider metadata"
       },
       {
         step: "03",
-        title: "Semantic Embedding & BERT Categorization",
-        whatHappens: "Sentence Transformers extract 768-d vectors and BERT classifies department category + urgency.",
-        component: "Sentence Transformers + BERT Classifier (FastAPI)",
-        input: "Normalized English pivot text",
-        output: "Predicted department, urgency tier, and softmax confidence score"
+        title: "TF-IDF Routing + MobileNetV3 Triage",
+        whatHappens: "TF-IDF + LogisticRegression scores 9 civic categories with token explanations while MobileNetV3 checks uploaded photos.",
+        component: "ml/classifier.py + cv_model.py",
+        input: "Normalized English text + image tensor",
+        output: "Predicted department(s), urgency, and calibrated confidence flags"
       },
       {
         step: "04",
-        title: "Confidence Gate & Dispatch Persistence",
-        whatHappens: "Scores >=85% auto-route to the target department in PostgreSQL/Prisma; scores <85% route to Human Review.",
-        component: "Confidence Router + PostgreSQL/Prisma",
-        input: "Department label + confidence score",
-        output: "Auto-dispatched ticket or queued human review task + audit trail"
+        title: "Transactional Officer Queue Dispatch",
+        whatHappens: "Express/Prisma creates department tickets (splitting multi-issue grievances cleanly) with full timeline logs.",
+        component: "PostgreSQL + Prisma Officer Queue",
+        input: "Routed category & review status",
+        output: "Tracked citizen grievance & officer action queue"
       }
     ],
     groupedTechStack: [
       {
         category: "Frontend",
         items: [
-          { name: "React 19 & TypeScript", role: "Citizen portal & supervisor triage views", why: "Strong type safety and accessible form state management" },
-          { name: "Tailwind CSS", role: "Responsive styling + Senior Citizen high-contrast mode", why: "Consistent enlarged targets and WCAG-focused layout primitives" }
+          { name: "React & TypeScript (Vite)", role: "Citizen portal, Officer queue, Admin controls & chatbot", why: "Strongly typed UI state and rapid deployment via Vercel" }
         ]
       },
       {
         category: "Backend",
         items: [
-          { name: "FastAPI (Python) & Node.js/Express", role: "ML inference endpoints and API gateway orchestration", why: "Async concurrency for transformer scoring paired with clean API routing" }
+          { name: "Node.js / Express + FastAPI", role: "API persistence gateway and dedicated Python AI inference service", why: "Clean separation between transactional ORM and PyTorch/sklearn inference" }
         ]
       },
       {
         category: "Database",
         items: [
-          { name: "PostgreSQL + Prisma", role: "Ticket persistence, department assignment, and status audit logs", why: "Relational integrity with typed Prisma ORM queries" }
+          { name: "PostgreSQL + Prisma", role: "Multi-issue grievance state, user roles & audit history", why: "Relational guarantees across ticket transitions" }
         ]
       },
       {
         category: "AI/ML",
         items: [
-          { name: "IndicTrans2 (INT8 ONNX)", role: "Low-latency regional Indian language translation", why: "Reduces translation latency from >2.5s to <500ms in local runtime tests" },
-          { name: "Sentence Transformers + BERT", role: "768-d semantic embeddings and department/urgency classification", why: "Deterministic supervised routing with inspectable confidence scores" }
-        ]
-      },
-      {
-        category: "Infrastructure",
-        items: [
-          { name: "Docker & GitHub Actions CI", role: "Containerized FastAPI workers and Pytest/Jest CI suites", why: "Portable deployment parity across local and staging environments" }
+          { name: "Scikit-learn (TF-IDF + LogisticRegression)", role: "Explainable 9-department text classification & keyword XAI", why: "Deterministic inference with token contribution visibility" },
+          { name: "PyTorch (MobileNetV3-Small)", role: "Lightweight CPU civic issue image classification (36.5ms avg)", why: "Auditable vision prototype benchmarked with held-out confusion matrices" }
         ]
       }
     ],
     aiMlDetails: [
       {
-        modelName: "IndicTrans2 (8-bit ONNX Quantized)",
-        problemSolved: "Normalizing multi-script regional Indian language complaints before downstream classification.",
-        inputs: "Unicode-normalized, PII-sanitized citizen complaint strings.",
-        preprocessing: "Script/language identification, PII masking of IDs and phone numbers, and Redis cache lookup.",
-        approach: "Dynamic INT8 quantization via ONNX Runtime to cut neural machine translation latency.",
-        output: "English pivot text for downstream semantic encoding.",
-        evaluation: "Reduced average translation latency from >2.5s to <500ms in internal benchmark tests.",
-        limitations: "Code-mixed transliterated slang and noisy dialect ASR transcripts can reduce translation fidelity."
+        modelName: "TF-IDF (1,2-gram) + LogisticRegression Text Classifier",
+        problemSolved: "Multi-department categorization across 9 municipal services with token-level explainability.",
+        inputs: "Translated grievance text strings.",
+        preprocessing: "Lowercasing, n-gram (1,2) TF-IDF vectorization (max 5000 features) + regional keyword dictionaries.",
+        approach: "LogisticRegression(C=2.5) paired with `extract_explanation_terms()` coefficient attribution.",
+        output: "Department prediction, urgency tier, and top contributing keywords.",
+        evaluation: "Achieved 1.00 accuracy on curated synthetic benchmark text split (`config.json`); requires broader noisy production logs for real-world text scoring.",
+        limitations: "Synthetic text validation metrics overstate performance relative to code-mixed slang or ambiguous dialect phrases."
       },
       {
-        modelName: "Sentence Transformers + BERT Classifier",
-        problemSolved: "Multi-class civic department routing and urgency classification with safe abstention.",
-        inputs: "Translated English text + 768-dimensional contextual document embeddings.",
-        preprocessing: "Tokenization and embedding pooling prior to classification head.",
-        approach: "Supervised multi-class BERT classification gated by an explicit 85% confidence threshold.",
-        output: "Department route, urgency label, and confidence score routing uncertain tickets to human review.",
-        evaluation: "92% classification accuracy on evaluation categories and zero false-positive automated misdispatches under 85% threshold gating.",
-        limitations: "Adding new municipal department classes requires labeled retraining; full live civic deployment metrics are not yet published."
+        modelName: "PyTorch MobileNetV3-Small Civic Vision Classifier",
+        problemSolved: "Image-based verification of uploaded civic issues (potholes, drainage, broken streetlights, garbage).",
+        inputs: "224x224 normalized RGB complaint images across 9 classes.",
+        preprocessing: "ImageNet normalization (`eval_transforms`) evaluated strictly on isolated test directory (`splits/test`).",
+        approach: "ImageNet1K_V1 transfer learning fine-tuned for 12 epochs (AdamW) with unrelated-negative rejection checks.",
+        output: "Predicted civic class, confidence score, and calibrated review flag.",
+        evaluation: "Held-out `evaluation_report.json`: 50.0% accuracy across 38 test samples (172 train / 38 val), 36.47ms avg / 59.37ms p95 CPU latency, 33.33% unrelated FPR.",
+        limitations: "Small dataset size causes confusion on drainage vs. garbage and waterlogging classes; strict human officer review remains necessary."
       }
     ],
     databaseAndDataFlow: {
-      sources: "Multilingual citizen text submissions and Senior Citizen voice-assisted grievance transcripts.",
-      storageModel: "PostgreSQL managed via Prisma ORM storing ticket state, confidence metadata, and operator audit timelines.",
-      processing: "PII sanitization -> ONNX IndicTrans2 translation -> Sentence Transformer 768-d embedding -> BERT scoring -> 85% threshold branch.",
-      apiCommunication: "REST endpoints between React 19 UI, Node.js/Express gateway, and Python FastAPI ML workers.",
-      retrieval: "Citizens query ticket audit timelines; supervisors filter human-in-the-loop escalations.",
-      schemaNote: "Full Prisma schema/migration files reside in the source repository and are not mirrored inside this portfolio workspace."
+      sources: "Multilingual Citizen text submissions and optional civic damage photographs.",
+      storageModel: "PostgreSQL managed via Prisma ORM tracking complaints, multi-issue splits, officer remarks, and status history.",
+      processing: "Translation (with LRU cache) -> TF-IDF + LogisticRegression -> MobileNetV3 image pass -> transactional ticket dispatch.",
+      apiCommunication: "REST endpoints between React SPA, Express gateway, and FastAPI AI microservice.",
+      retrieval: "Citizens query real-time progress cards; officers filter queues by department and status.",
+      schemaNote: "Prisma schema and FastAPI models reside directly in `KANISH-850/intelligent-grievance-system`."
     },
     contributionBreakdown: {
       mine: [
-        "Architected the quantized IndicTrans2 -> Sentence Transformers -> BERT routing pipeline in FastAPI.",
-        "Engineered the 85% confidence gate separating automated routing from human supervisory review.",
-        "Built Senior Citizen accessibility mode and Prisma/PostgreSQL ticket tracking flows."
+        "Engineered FastAPI AI pipeline (TF-IDF routing, XAI weights, LRU translation, and MobileNetV3 vision service).",
+        "Created the held-out `rigorous_evaluation.py` vision audit & normalized confusion matrix reports.",
+        "Implemented multi-issue transactional routing and calibrated officer queue UI."
       ],
-      team: [
-        "Collaborators / repository contributors (individual collaborator split not separately itemized in local portfolio metadata — needs confirmation if collaborative credits apply)."
-      ],
+      team: [],
       thirdParty: [
-        "Open-source models & libraries: AI4Bharat IndicTrans2, Hugging Face BERT & Sentence Transformers, ONNX Runtime, FastAPI, React 19, Prisma, PostgreSQL."
+        "Open-source libraries: PyTorch, Torchvision, Scikit-learn, FastAPI, deep-translator, Express, Prisma, React."
       ]
     },
     limitations: [
-      "Evaluated on curated category test splits rather than municipal production complaint traffic.",
-      "External departmental webhooks and HSM-managed AES-256 database encryption remain proposed operational specifications."
+      "Held-out vision accuracy is 50.0% on the 38-sample test split; visual triage requires a larger training corpus before autonomous routing.",
+      "Text classifier validation accuracy (1.0 in `config.json`) reflects curated/synthetic categories rather than messy live municipal logs."
     ],
     verificationChecklist: [
-      { claim: "React 19 + FastAPI + PostgreSQL/Prisma architecture & 85% human review gate", status: "Verified implementation" },
-      { claim: "INT8 ONNX IndicTrans2 (<500ms test latency) & 92% BERT evaluation accuracy", status: "Verified result" },
-      { claim: "100/100 Lighthouse Accessibility score (internal test)", status: "Verified result" },
-      { claim: "Interactive 3D NLP Pipeline Visualizer (Auto-Route vs. Human Review)", status: "Simulated demonstration" },
-      { claim: "External municipal webhook dispatch & AES-256 HSM encryption-at-rest", status: "Proposed future improvement" }
+      { claim: "React + Express + Prisma/PostgreSQL + FastAPI AI service in repo", status: "Verified implementation" },
+      { claim: "MobileNetV3-Small held-out test audit (50.0% acc, 36.47ms CPU) in evaluation_report.json", status: "Verified result" },
+      { claim: "Actual UI screenshots & confusion matrix PNG embedded from repo", status: "Verified result" },
+      { claim: "Interactive 3D NLP & Dispatch Twin on portfolio", status: "Simulated demonstration" }
     ]
   },
 
   "aquaguard-ai": {
     id: "aquaguard-ai",
-    title: "AquaGuard AI (Neeraran)",
-    tagline: "AI-Driven Campus Water Resilience & Demand Forecasting Platform",
+    title: "AquaGuard AI / Neeraran â€” Campus Water Resilience ML Audit",
+    tagline: "Imbalanced Consumption Anomaly Detection & High-Recall Pipe Leak Identification",
     category: "Water Resilience & Time-Series ML",
-    statusLabel: "Benchmarked Multi-Model ML System",
+    statusLabel: "Collaborative Team Repo â€¢ Authored ML Audit & Sensor Health Suite",
     githubUrl: "https://github.com/LakshanyaaJ/neeraran",
     overview:
-      "A specialized multi-model water resilience analytics platform built to monitor institutional flow/pressure networks, detect consumption anomalies, isolate distribution leaks with zero false-negative rupture misses on test splits, and forecast 72-hour campus water demand.",
+      "A collaborative campus water resilience platform (`LakshanyaaJ/neeraran`). While teammates built the hydraulic digital twin simulator, 7-agent orchestrator, and Next.js/Vite control center (`main` branch), I authored the comprehensive ML evaluation & sensor-health decoupling suite on the `kanish` branch benchmarking anomaly and leak models over 46,656 simulated telemetry observations.",
     problemStatement:
-      "Educational and institutional campuses experience substantial unmonitored water loss from hidden distribution pipe leaks, supply-demand mismatches, and delayed maintenance responses during peak operational periods.",
+      "University campuses waste substantial volumes of water through undetected subsurface leaks and faulty flowmeter dropouts, yet naive classifiers optimize accuracy on heavily imbalanced (0.22% anomaly) datasets and trigger false inspection dispatches.",
     problemSummaryDetail: {
-      problemLabel: "Project problem summary",
-      whoFacesIt: "Campus facilities engineers, estate water-supply operators, and sustainability teams.",
-      realWorldProblem: "Subsurface pipe leaks and diurnal demand swings cause hidden water waste, tank depletion, and reactive pump scheduling.",
-      whyNeeded: "Distinguishing a real pipe rupture from ordinary daytime hostel/academic usage peaks requires calibrated pressure-flow ML models.",
-      existingLimitations: "Static threshold alarms either flood operators with false alerts at peak hours or miss gradual distribution leaks.",
-      objective: "Combine unsupervised anomaly detection (One-Class SVM), supervised leak localization (XGBoost), and 72-hour demand forecasting (CatBoost)."
+      problemLabel: "Verified finding from Kanish's ML Audit (`kanish` branch `MODEL_EVALUATION.md`)",
+      whoFacesIt: "Campus water estate teams, ML reliability engineers, and utilities operators.",
+      realWorldProblem: "Isolation Forest achieved 99.55% accuracy on test telemetry yet missed 76.2% of real consumption anomalies (0.1860 F1) due to 0.22% anomaly prevalence.",
+      whyNeeded: "Switching metrics from raw accuracy to Precision/Recall/F1, event detection delay, and sensor health decoupling avoids false alarms while catching leaks immediately.",
+      existingLimitations: "Mixing broken flatline pressure meters into leak classifiers produces phantom rupture dispatches.",
+      objective: "Benchmark RBF One-Class SVM vs. LOF/Isolation Forest and XGBoost vs. RF/ExtraTrees, paired with an upstream Layer-1 sensor health verifier."
     },
     proposedSolution:
-      "Deploy three specialized tabular/time-series models behind FastAPI—One-Class SVM for unsupervised consumption anomaly detection, XGBoost for leak localization, and CatBoost for 72-hour rolling demand forecasting—feeding an actionable facilities dashboard.",
+      "Execute rigorous event-aware chronological evaluation (`run_ml_audit_experiments.py`) comparing anomaly detectors and leak classifiers, deploy One-Class SVM (`32.8 KB`, `3.92 ms`) and XGBoost (`100% leak recall`, `2.29 ms`) behind FastAPI telemetry routes, and isolate sensor faults upstream before leak alerting.",
     systemArchitecture:
-      "A multi-model AI telemetry architecture engineered for water resilience. Sensor telemetry from campus flowmeters, pressure gauges, and storage tanks feeds into a centralized Python analytics pipeline. Three specialized ML models operate concurrently: One-Class SVM for anomaly detection, XGBoost for leak identification, and CatBoost for 72-hour forward demand forecasting.",
+      "Collaborative dual-track architecture in `LakshanyaaJ/neeraran`: `kanish` branch delivers Python FastAPI sensor-health decoupling (Layer-1 sensor verifier), chronological ML training/benchmarking pipelines (One-Class SVM, XGBoost, Isolation Forest, LOF), and SHAP/confusion audit reports; `main` branch connects a deterministic simulator (Holt-Winters 24h/72h forecasting) with a React SCADA/GIS UI.",
     dataFlow:
-      "Flow & Pressure Telemetry -> Data Cleaning & Feature Pipeline -> One-Class SVM (Anomaly Detection) -> XGBoost (Leak Localization) -> CatBoost (72-Hour Demand Forecast) -> Actionable Interventions Engine -> React Dashboard.",
+      "Campus Telemetry (46,656 Test Rows) -> Layer-1 Sensor Fault Check -> Chronological Feature Pipeline -> One-Class SVM (Anomaly) & XGBoost (Leak Classifier) -> Decision Engine -> FastAPI & SCADA Dashboard.",
     architectureNodes: [
-      { id: "ag-in-1", title: "Flow & Pressure Telemetry", subtitle: "Zone flowmeters, tank level sensors & pressure gauges", layer: "Ingestion & Input", status: "simulated" },
-      { id: "ag-in-2", title: "Feature & Lag Pipeline", subtitle: "24h/48h/72h rolling lags, pressure gradients & cyclical time encodings", layer: "Ingestion & Input", status: "implemented" },
-      { id: "ag-proc-1", title: "One-Class SVM + XGBoost", subtitle: "Anomaly boundary detection (3.92ms) & leak classifier (1.14ms)", layer: "Processing & AI Core", status: "implemented" },
-      { id: "ag-proc-2", title: "CatBoost 72h Forecaster", subtitle: "Horizon rollout demand prediction (MAE 70.91 L/h, MAPE 9.59%)", layer: "Processing & AI Core", status: "implemented" },
-      { id: "ag-out-1", title: "FastAPI Analytics & Dashboard", subtitle: "Prioritized leak alerts & reserve status interface", layer: "Storage & Delivery", status: "implemented" },
-      { id: "ag-out-2", title: "Automated Valve Actuation", subtitle: "Hardware valve control interface reserved for facilities staff", layer: "Storage & Delivery", status: "proposed" }
+      { id: "ag-in-1", title: "Simulated Flow & Pressure Telemetry", subtitle: "46,656 untouched test rows across campus zones & meters", layer: "Ingestion & Input", status: "simulated" },
+      { id: "ag-in-2", title: "Layer-1 Sensor Health Service", subtitle: "Decouples meter dropouts/flatlines before leak scoring (kanish branch)", layer: "Ingestion & Input", status: "implemented" },
+      { id: "ag-proc-1", title: "One-Class SVM Anomaly Detector", subtitle: "0.7451 F1 (99.89% Acc, 3.92 ms avg latency, 32.8 KB model)", layer: "Processing & AI Core", status: "implemented" },
+      { id: "ag-proc-2", title: "XGBoost Leak Classifier", subtitle: "100% leak recall, 97.37% precision, 2.29 ms avg (99.79% Acc)", layer: "Processing & AI Core", status: "implemented" },
+      { id: "ag-out-1", title: "Holt-Winters Forecaster (Team main)", subtitle: "24h demand sMAPE 6.2% / 72h sMAPE 8.4% documented in docs/EVAL.md", layer: "Storage & Delivery", status: "implemented" },
+      { id: "ag-out-2", title: "Automated Valve Hardware Actuation", subtitle: "Reserved for physical operator confirmation (safety guardrail)", layer: "Storage & Delivery", status: "proposed" }
     ],
     technicalChallenges: [
       {
         id: "ag-1",
-        challenge: "Detecting sudden pipe ruptures versus ordinary daytime demand surges without false alarm cascades.",
-        solution: "Ensembled localized pressure drop gradients with historical diurnal demand curves.",
-        implementation: "Trained XGBoost on pressure differential slopes and flow ratios, calibrated with One-Class SVM boundary checks.",
-        result: "Achieved 100% leak recall with 99.79% overall accuracy on benchmark evaluation datasets."
+        challenge: "Exposing why 99.55% accuracy on imbalanced water telemetry (0.22% anomalies across 46,656 rows) still caused 76.2% missed anomalies under Isolation Forest.",
+        solution: "Benchmarked Isolation Forest (0.1860 F1), Local Outlier Factor (0.6988 F1), and RBF One-Class SVM (0.7451 F1) using event-level latency and PR-AUC.",
+        implementation: "Tuned RBF One-Class SVM over sinusoidal diurnal occupancy curves, achieving 0.7525 recall, 0.7379 precision, 0.0 min detection delay, and 3.92 ms latency.",
+        result: "Lifted anomaly F1 4x over Isolation Forest (0.1860 -> 0.7451) in a 32.8 KB serialized footprint (`best_model_summary.json`)."
       },
       {
         id: "ag-2",
-        challenge: "Forecasting dynamic 72-hour campus consumption under variable academic schedules and weather conditions.",
-        solution: "Deployed CatBoost gradient boosting with time-aware cyclical encodings and weather regressors.",
-        implementation: "Structured rolling lag features (24h, 48h, 72h) and temperature correlations with CatBoost optimized for L2 loss.",
-        result: "Achieved 72-hour MAE of 70.91 L/h with MAPE of 9.59% and 573.8ms rollout latency."
+        challenge: "Preventing dead pressure sensors from triggering false pipe-leak alarms while catching 100% of simulated ruptures.",
+        solution: "Implemented Layer-1 Sensor Health decoupling + XGBoost tuned for 100% leak recall (`test_sensor_health.py`).",
+        implementation: "Benchmarked XGBoost (2.29 ms avg, 2.90 ms p95, 1.1 MB) vs Random Forest (47.17 ms) and Extra Trees (62.64 ms).",
+        result: "Achieved 100.0% leak recall, 97.37% leak precision, and 0.0% demand-to-leak misclassification on the test partition."
       }
     ],
     modelMetrics: [
       {
-        model: "One-Class SVM",
-        task: "Consumption Anomaly Detection",
-        accuracyOrMetric: "99.89% Accuracy",
-        f1OrDetail: "F1 Score: 0.7451",
-        latency: "3.92 ms",
-        context: "Evaluated on calibrated campus flow test partition; identifies outlier usage patterns."
+        model: "One-Class SVM (RBF)",
+        task: "Abnormal Consumption (46,656 Test Rows)",
+        accuracyOrMetric: "99.89% Acc (F1: 0.7451)",
+        f1OrDetail: "Recall: 75.25% | Size: 32.8 KB",
+        latency: "3.92 ms avg (9.73 ms p95)",
+        context: "Authored benchmark (`best_model_summary.json`): 4x higher F1 than Isolation Forest baseline (0.1860 F1)."
       },
       {
-        model: "XGBoost",
+        model: "XGBoost Classifier",
         task: "Pipe Leak Identification",
-        accuracyOrMetric: "99.79% Accuracy",
-        f1OrDetail: "100% Leak Recall",
-        latency: "1.14 ms",
-        context: "Evaluated on benchmark leak telemetry dataset; prioritized zero false-negative rupture detection."
+        accuracyOrMetric: "99.79% Acc (Macro F1: 0.6254)",
+        f1OrDetail: "100% Leak Recall | 97.37% Prec",
+        latency: "2.29 ms avg (2.90 ms p95)",
+        context: "Zero demand-to-leak false alarms vs. 47.17 ms (Random Forest) and 62.64 ms (Extra Trees)."
       },
       {
-        model: "CatBoost",
-        task: "72-Hour Demand Forecasting",
-        accuracyOrMetric: "MAE: 70.91 L/h",
-        f1OrDetail: "MAPE: 9.59%",
-        latency: "573.8 ms rollout",
-        context: "Evaluated on continuous 72-hour rolling evaluation horizon under varying schedule loads."
+        model: "Holt-Winters + Weather (Team `main`)",
+        task: "Demand & Tank Reserve Forecasting",
+        accuracyOrMetric: "6.2% sMAPE (24h)",
+        f1OrDetail: "8.4% sMAPE (72h Demand)",
+        latency: "14.2 ms pipeline P50",
+        context: "Documented by teammates on `main` (`docs/EVAL.md`) across deterministic digital twin simulations."
       }
     ],
     metricsContextNote:
-      "Evaluation context: Figures reflect verified test benchmark results on calibrated dataset partitions and are presented for technical assessment rather than production SLA guarantees.",
+      "Verified provenance: Anomaly (One-Class SVM) and Leak (XGBoost) metrics come directly from Kanish's audited runs (`kanish:results/best_model_summary.json`) on 46,656 simulated telemetry rows; forecasting & tariff metrics come from `main:docs/EVAL.md`.",
     mlPipeline: [
-      { name: "Telemetry Collection", description: "Ingests sensor data from campus flow meters, pressure sensors, and reservoir levels." },
-      { name: "Anomaly Detection", description: "One-Class SVM flags consumption anomalies.", metric: "99.89% Acc | 3.92ms" },
-      { name: "Leak Identification", description: "XGBoost models identify localized leak signatures.", metric: "99.79% Acc | 1.14ms" },
-      { name: "Demand Forecasting", description: "CatBoost predicts 72-hour ahead water demand.", metric: "9.59% MAPE | 573.8ms" },
-      { name: "Intervention Routing", description: "Generates prioritized maintenance tickets and valve adjustment guidelines." }
+      { name: "Chronological Event Split", description: "Strict zero-leakage temporal train/test partitioning (`3baa4e9`) across campus zones." },
+      { name: "Sensor Health Layer", description: "Detects flatlines and dropouts (`303ca1b`, `test_sensor_health.py`) before ML invocation." },
+      { name: "One-Class SVM Anomaly", description: "RBF kernel flags diurnal deviations.", metric: "0.7451 F1 | 3.92ms" },
+      { name: "XGBoost Leak Localization", description: "4-class hydraulic classifier with SHAP feature importance.", metric: "100% Recall | 2.29ms" }
     ],
     securityFeatures: [
-      "Hardware authentication keys for IoT sensor gateway transmissions",
-      "Encrypted API telemetry payloads over HTTPS/WSS",
-      "Restricted operational valve controls reserved for verified facilities staff"
+      "Layer-1 sensor health integrity checks blocking corrupted telemetry packets before model decisions",
+      "Verifier Agent groundedness enforcement on `main` linking recommendations to `EVID-*` identifiers",
+      "Human approval gate kept mandatory ahead of any simulated distribution valve throttling"
     ],
-    devopsPipeline: ["GitHub Push", "Automated Linting & Test Verification", "Containerized Fast Inference API", "Campus Edge Deployment"],
-    technologies: ["Python", "One-Class SVM", "XGBoost", "CatBoost", "FastAPI", "React", "TypeScript", "Tailwind CSS"],
+    devopsPipeline: ["GitHub Feature Branch (kanish)", "Sensor Health & ML Pytest Suite", "Audit Plot Generation", "FastAPI + React SCADA UI"],
+    technologies: ["Python", "One-Class SVM", "XGBoost", "Scikit-learn", "FastAPI", "SHAP", "React", "TypeScript"],
     keyFeatures: [
-      "Water consumption anomaly detection across institutional zones.",
-      "High-recall leak identification to minimize physical distribution losses.",
-      "72-hour water demand forecasting with diurnal schedule awareness.",
-      "Sensor monitoring dashboard displaying real-time flow rates and pressures.",
-      "Water shortage prediction with automated reserve allocation alerts.",
-      "Repair prioritization matrix ranking leaks by volume loss severity.",
-      "Actionable recommendations for facilities teams to optimize pump runtimes."
+      "ML Audit Suite comparing Isolation Forest, LOF, One-Class SVM, Random Forest, Extra Trees & XGBoost.",
+      "Layer-1 Sensor Health Service decoupling broken/flatline meters from genuine pipe leak alerts.",
+      "SHAP summary and permutation importance explainability artifacts (`results/figures/`).",
+      "Teammates' digital twin simulator, 7-agent orchestrator, and interactive GIS SCADA frontend."
     ],
     accessibilityMeasures: [
-      "Clear visual telemetry status indicators (safe, warning, critical).",
-      "Screen-reader readable metric cards with structured data markup.",
-      "Responsive layout optimized for tablet-equipped campus maintenance technicians."
+      "Clear status state separation (Normal, Sensor Fault, Anomaly, Pipe Leak) across incident cards.",
+      "Responsive monitoring dashboard layouts cleanly separating metric tables from alerts."
     ],
     performanceMetrics: [
-      "One-Class SVM anomaly latency: 3.92 ms.",
-      "XGBoost leak identification latency: 1.14 ms (100% recall on test splits).",
-      "CatBoost 72-hour forecasting rollout latency: 573.8 ms."
+      "One-Class SVM (`best_model_summary.json`): 0.7451 F1, 99.89% acc, 3.92 ms avg latency, 32.8 KB footprint.",
+      "XGBoost (`best_model_summary.json`): 100% leak recall, 97.37% leak precision, 2.29 ms avg latency (2.90 ms p95).",
+      "Team `main` Simulator (`docs/EVAL.md`): 24h demand 6.2% sMAPE, 72h demand 8.4% sMAPE, 15.0 min MTTD vs. 65.0 min baseline."
     ],
     lessonsLearned: [
-      "Specialized small models tailored to specific telemetry tasks dramatically outperform monolithic architectures in speed and explainability.",
-      "Evaluation figures must always be calibrated against test distribution characteristics to ensure robust field reliability."
+      "High classification accuracy on imbalanced telemetry (99.55% Isolation Forest) completely masks poor F1 (0.1860) and high false negative rates (76.2%).",
+      "Decoupling sensor health diagnostics from hydraulic modeling eliminates phantom leak dispatches."
     ],
     innovation:
-      "Orchestrated three specialized, explainable models—One-Class SVM (anomaly), XGBoost (leak detection), and CatBoost (72h forecasting)—instead of a single monolithic black box.",
+      "Exposed accuracy deception via rigorous event-level ML auditing and introduced Layer-1 sensor health decoupling ahead of XGBoost leak detection.",
     impact:
-      "Enables campus facilities teams to detect distribution leaks early and schedule proactive pump operations using calibrated 72-hour demand forecasts.",
-    teamContribution: "Machine Learning Engineering & Evaluation Benchmarking",
+      "Demonstrated 4x F1 improvement over Isolation Forest and 100% leak recall at 2.29 ms inference within a multi-contributor TCS Tech Day build.",
+    teamContribution: "ML Audit Suite, Model Benchmarking & Sensor Health Service (kanish branch)",
     individualContributions: [
-      "Trained and benchmarked One-Class SVM (anomaly), XGBoost (leak detection), and CatBoost (72-hour forecasting) models on calibrated campus water telemetry splits.",
-      "Engineered rolling 24h/48h/72h lag features and pressure gradient ratios to separate sudden pipe leaks from normal peak demand.",
-      "Built FastAPI inference endpoints exposing model evaluation outputs and maintenance prioritization alerts."
+      "Authored the full ML audit & benchmarking pipeline (`run_ml_audit_experiments.py`, `MODEL_EVALUATION.md`, SHAP/confusion plots) on `LakshanyaaJ/neeraran` branch `kanish`.",
+      "Implemented Layer-1 sensor-health decoupling, recovery simulation, FastAPI sensor-health endpoints, and `test_sensor_health.py`.",
+      "Cleanly attributed teammate Bhadri Prabhu K, Amirtha E & Lakshanyaa J's digital twin simulator, 7-agent verifier, and GIS frontend on `main`."
     ],
     engineeringDecisions: [
       {
-        decision: "Three task-specific models (One-Class SVM, XGBoost, CatBoost) over one monolithic neural model",
-        rationale: "Tabular sensor telemetry responds better in accuracy, sub-4ms anomaly/leak latency, and explainability with gradient-boosted trees and one-class boundaries.",
-        tradeoff: "Requires maintaining three separate training and feature pipelines.",
+        decision: "RBF One-Class SVM over Isolation Forest for diurnal anomaly scoring",
+        rationale: "Non-linear RBF boundaries trace cyclical daily campus demand cleanly, lifting F1 from 0.1860 to 0.7451.",
+        tradeoff: "Requires scaling calibration when holiday campus occupancy patterns diverge sharply.",
         status: "Implemented"
       },
       {
-        decision: "Prioritizing 100% leak recall in XGBoost threshold tuning",
-        rationale: "A missed pipe rupture costs substantially more in water loss than an extra maintenance inspection alert.",
-        tradeoff: "Slightly higher sensitivity to sharp pressure transients.",
+        decision: "Layer-1 Sensor Health Service ahead of XGBoost leak detection",
+        rationale: "Flatline or zero-value sensor freezes produce sharp gradients indistinguishable from bursts if unchecked.",
+        tradeoff: "Requires explicit sensor health test thresholds (`test_sensor_health.py`).",
         status: "Implemented"
       },
       {
-        decision: "Automated remote valve actuation",
-        rationale: "Closing distribution valves remotely carries operational safety risks without physical verification.",
-        tradeoff: "Kept as a proposed facilities-approved extension rather than autonomous execution.",
+        decision: "Human-approved valve recommendations instead of autonomous actuation",
+        rationale: "Physical valve closure risks block outages without field verification.",
+        tradeoff: "Retains human confirmation step in incident workflow.",
         status: "Proposed"
       }
     ],
     scalability:
-      "Lightweight specialized inference models (sub-4ms anomaly/leak scoring on test splits) served via FastAPI for multi-zone campus sensor networks.",
+      "Tiny serialized models (32.8 KB One-Class SVM, 1.1 MB XGBoost) score frames in ~2â€“4 ms per zone in FastAPI.",
     media: [
       {
-        title: "Model Comparison & 72-Hour Demand Forecast",
-        caption: "Evaluation plot slot showing CatBoost 72-hour demand rollout vs. ground-truth flow curves.",
-        alt: "AquaGuard AI 72-hour demand forecasting evaluation chart",
-        type: "architecture"
+        title: "XGBoost Leak Classifier Confusion Matrix",
+        caption: "Actual Matplotlib audit plot generated from `kanish` branch (`docs/ml_audit/confusion_matrix_xgboost.png`).",
+        alt: "AquaGuard XGBoost normalized confusion matrix plot",
+        type: "architecture",
+        src: "/evidence/aquaguard-xgboost-cm.png"
       },
       {
-        title: "Zone Leak Detection & Repair Prioritization View",
-        caption: "Dashboard capture slot displaying zone pressure differentials, leak severity ranking, and reserve alerts.",
-        alt: "AquaGuard AI zone monitoring dashboard preview",
-        type: "dashboard"
+        title: "Cross-Model Class Performance Evaluation",
+        caption: "Actual Matplotlib class performance chart authored in `kanish:docs/ml_audit/class_performance.png`.",
+        alt: "AquaGuard ML model class performance chart",
+        type: "architecture",
+        src: "/evidence/aquaguard-class-perf.png"
       }
     ],
     futureImprovements: [
-      "Conduct longitudinal field calibration across live campus flowmeter hardware over full monsoon/summer seasons.",
-      "Add automated SHAP feature-attribution summaries inside operator leak tickets.",
-      "Integrate acoustic hydrophone sensor signals alongside pressure/flow telemetry."
+      "Merge verified `kanish` branch ML audit pipelines and sensor-health FastAPI modules directly into `main`.",
+      "Validate calibrated thresholds against longitudinal hardware flowmeter installations."
     ],
     workflowSteps: [
       {
         step: "01",
-        title: "Zone Flow & Pressure Ingestion",
-        whatHappens: "Flowmeters, overhead reservoir level sensors, and zone pressure gauges feed time-indexed readings into the pipeline.",
-        component: "Flow & Pressure Telemetry Ingestion",
-        input: "Campus zone flow rates (L/min) & line pressure readings",
-        output: "Validated time-series telemetry records"
+        title: "Telemetry Ingestion & Sensor Fault Check",
+        whatHappens: "Layer-1 sensor monitor validates incoming zone flow/pressure ticks for dropouts, noise spikes, or flatlines.",
+        component: "SensorHealthService (FastAPI)",
+        input: "Zone flow rates & line pressures",
+        output: "Verified telemetry + health flag"
       },
       {
         step: "02",
-        title: "Rolling Lag & Pressure Differential Feature Pipeline",
-        whatHappens: "Computes 24h/48h/72h rolling demand lags, cyclical schedule/time features, temperature regressors, and pressure drop slopes.",
-        component: "Python Feature Engineering Worker",
-        input: "Cleaned time-series telemetry",
-        output: "Aligned tabular & horizon feature matrices"
+        title: "Chronological Features & Boundary Scoring",
+        whatHappens: "Diurnal lag/gradient features feed One-Class SVM (`3.92 ms`) to flag consumption anomalies.",
+        component: "One-Class SVM (best_anomaly_model.joblib)",
+        input: "Preprocessed diurnal feature vectors",
+        output: "Outlier score & anomaly state (0.7451 F1)"
       },
       {
         step: "03",
-        title: "Multi-Model Inference Triad",
-        whatHappens: "One-Class SVM detects outlier consumption, XGBoost localizes leaks, and CatBoost rolls out a 72-hour consumption forecast.",
-        component: "One-Class SVM + XGBoost + CatBoost (FastAPI)",
-        input: "Engineered feature vectors",
-        output: "Anomaly flag, leak probability/zone, and 72h L/h demand curve"
+        title: "XGBoost Leak Identification & SHAP Attribution",
+        whatHappens: "XGBoost classifies hydraulic states across normal usage, leak, sensor fault, and transient events in 2.29 ms.",
+        component: "XGBoost (best_leak_model.joblib)",
+        input: "Hydraulic gradient vectors",
+        output: "Leak class (100% recall) + feature importance"
       },
       {
         step: "04",
-        title: "Prioritized Maintenance & Reserve Alerts",
-        whatHappens: "Ranks suspected leaks by estimated water loss severity and recommends pump/valve checks to facilities teams.",
-        component: "Actionable Interventions Engine & React Dashboard",
-        input: "Model predictions & reserve thresholds",
-        output: "Prioritized repair queue & reserve shortage alerts"
+        title: "Incident Decision Engine & SCADA UI",
+        whatHappens: "Prioritizes verified leak alerts cleanly without conflating sensor glitches for operator action.",
+        component: "Evidence-Based Decision Engine & React UI",
+        input: "Health + Anomaly + Leak signals",
+        output: "Actionable repair queue & SCADA incident feed"
       }
     ],
     groupedTechStack: [
       {
-        category: "Frontend",
-        items: [
-          { name: "React / TypeScript / Tailwind CSS", role: "Facilities telemetry dashboard & repair priority queue", why: "Responsive status cards usable on maintenance technicians' tablets" }
-        ]
-      },
-      {
         category: "Backend",
         items: [
-          { name: "Python & FastAPI", role: "Real-time inference serving & feature pipeline execution", why: "Sub-4ms anomaly/leak scoring endpoints cleanly typed with Pydantic" }
+          { name: "Python + FastAPI + Pytest", role: "Telemetry ingestion endpoints, Layer-1 health service & test suite", why: "Fast async typing and reproducible regression checks" }
         ]
       },
       {
         category: "AI/ML",
         items: [
-          { name: "One-Class SVM (Scikit-learn)", role: "Unsupervised consumption anomaly detection", why: "Models nominal operating envelope cleanly (3.92 ms test latency)" },
-          { name: "XGBoost", role: "Supervised distribution pipe leak identification", why: "Captures nonlinear pressure-slope/flow interactions with 100% leak recall on test splits (1.14 ms)" },
-          { name: "CatBoost", role: "72-hour forward campus water demand forecasting", why: "Strong categorical/cyclical schedule handling (MAE 70.91 L/h, MAPE 9.59%)" }
+          { name: "One-Class SVM (Scikit-learn)", role: "Unsupervised consumption anomaly detection", why: "F1 0.7451 vs Isolation Forest 0.1860; 32.8 KB / 3.92 ms" },
+          { name: "XGBoost + SHAP", role: "Supervised pipe leak classification & feature attribution", why: "100% leak recall, 97.37% precision, 2.29 ms avg inference" },
+          { name: "Holt-Winters (Team `main`)", role: "24h & 72h demand forecasting in simulator", why: "Achieved 6.2% / 8.4% sMAPE in team `docs/EVAL.md` benchmarks" }
         ]
       },
       {
-        category: "Infrastructure",
+        category: "Frontend",
         items: [
-          { name: "Docker & Automated Test Suites", role: "Containerized FastAPI inference service and verification checks", why: "Reproducible campus edge deployment packaging" }
+          { name: "React + TypeScript + Tailwind", role: "Sensor health dashboard & GIS digital twin control center", why: "Responsive operator monitoring UI across simulated campus zones" }
         ]
       }
     ],
     aiMlDetails: [
       {
-        modelName: "One-Class SVM",
-        problemSolved: "Unsupervised detection of abnormal zone consumption without requiring exhaustive labeled anomaly classes.",
-        inputs: "Zone flow rates, time-of-day diurnal features, and baseline variance ratios.",
-        preprocessing: "Feature scaling calibrated on normal operating demand intervals.",
-        approach: "One-class boundary separation flagging out-of-distribution demand bursts.",
-        output: "Binary anomaly signal + boundary margin score.",
-        evaluation: "99.89% accuracy, F1 Score 0.7451, 3.92 ms inference latency on calibrated test partition.",
-        limitations: "Extreme holiday/exam campus schedule shifts require updated nominal calibration intervals."
+        modelName: "One-Class SVM (RBF Kernel)",
+        problemSolved: "Detecting abnormal consumption under severe 0.22% class imbalance.",
+        inputs: "17 scaled diurnal, occupancy, and flow features across 46,656 test observations.",
+        preprocessing: "Strict normal-only fit, chronological event splitting, StandardScaler.",
+        approach: "RBF One-Class SVM selected over Isolation Forest & Local Outlier Factor after empirical audit.",
+        output: "Anomaly flag and decision margin.",
+        evaluation: "99.89% acc, 0.7451 F1, 75.25% recall, 73.79% prec, 3.92 ms avg latency (`best_model_summary.json`).",
+        limitations: "Requires re-calibration when seasonal campus schedules diverge sharply from training envelopes."
       },
       {
-        modelName: "XGBoost Leak Classifier",
-        problemSolved: "Separating true subsurface pipe leaks from normal peak student hostel or academic block usage.",
-        inputs: "Pressure differential slopes, flow ratios, and baseline diurnal residuals.",
-        preprocessing: "Pressure gradient extraction and class-imbalance threshold tuning.",
-        approach: "Gradient-boosted decision trees tuned to prioritize zero false-negative rupture misses.",
-        output: "Zone leak probability and severity ranking for repair dispatch.",
-        evaluation: "99.79% accuracy, 100% leak recall, 1.14 ms inference latency on benchmark leak dataset.",
-        limitations: "High recall threshold can trigger extra inspection tickets during sudden transient pressure drops."
-      },
-      {
-        modelName: "CatBoost 72-Hour Demand Forecaster",
-        problemSolved: "Short-horizon reserve planning across shifting academic schedules and ambient conditions.",
-        inputs: "24h/48h/72h rolling consumption lags, cyclical time encodings, and temperature regressors.",
-        preprocessing: "Windowed lag alignment and missing-interval interpolation.",
-        approach: "Symmetric oblivious trees trained with L2 regression loss for recursive 72h rollouts.",
-        output: "Hourly consumption forecast curve (L/h) for the next 72 hours.",
-        evaluation: "MAE 70.91 L/h, MAPE 9.59%, 573.8 ms 72-hour rollout latency.",
-        limitations: "Accuracy across multi-season monsoon vs. summer shifts awaits longitudinal hardware telemetry."
+        modelName: "XGBoost Hydraulic Leak Classifier",
+        problemSolved: "Distinguishing physical leaks from normal peak demand and sensor faults.",
+        inputs: "5-minute flow and pressure gradient features.",
+        preprocessing: "Layer-1 sensor health filtering and temporal window alignment.",
+        approach: "Gradient-boosted 4-class classification benchmarked against Random Forest and Extra Trees.",
+        output: "Leak probability and repair ranking.",
+        evaluation: "99.79% acc, 100% leak recall, 97.37% precision, 2.29 ms avg / 2.90 ms p95 latency (`best_model_summary.json`).",
+        limitations: "Benchmarked on simulated campus hydraulic data rather than live municipal flowmeter logs."
       }
     ],
     databaseAndDataFlow: {
-      sources: "Flowmeters, overhead storage tank levels, and zone pressure sensors (calibrated benchmark splits & live twin simulation).",
-      storageModel: "Python telemetry frames and evaluated dataset partitions; dedicated external production DB schema not embedded in portfolio metadata.",
-      processing: "Feature worker constructs 24h/48h/72h lags and pressure gradients prior to parallel One-Class SVM / XGBoost / CatBoost scoring.",
-      apiCommunication: "FastAPI inference routes return scored anomaly flags, leak rankings, and 72h demand horizons to React frontend.",
-      retrieval: "Facilities teams view per-zone leak priority cards and pump schedule advisories.",
-      schemaNote: "Repository primarily focuses on ML training, evaluation pipelines, and FastAPI analytics; persistent SQL table DDL is not stored in this portfolio repo."
+      sources: "Simulated campus flowmeter and junction pressure telemetry (46,656 untouched test rows).",
+      storageModel: "CSV/JSON experiment outputs on `kanish` branch; SQLite / structured state snapshots in simulator backend.",
+      processing: "Layer-1 sensor fault decoupling -> feature normalization -> parallel One-Class SVM & XGBoost scoring.",
+      apiCommunication: "FastAPI telemetry endpoints serving SCADA sensor-health and leak alert panels.",
+      retrieval: "Operators inspect incident feeds alongside Shapley/confusion audit outputs.",
+      schemaNote: "Full audit metrics and evaluation tables are committed under `kanish:docs/ml_audit/` and `results/`."
     },
     contributionBreakdown: {
       mine: [
-        "Trained and benchmarked One-Class SVM, XGBoost, and CatBoost pipelines on calibrated campus water telemetry partitions.",
-        "Engineered 24h/48h/72h rolling lag features and pressure-slope leak indicators.",
-        "Implemented FastAPI model inference routes and interactive Zone B leak digital twin preview."
+        "Authored the entire ML comparative audit suite, leakage audit, and SHAP/confusion figures (`kanish` branch).",
+        "Built Layer-1 Sensor Health Service, FastAPI telemetry endpoints, SCADA health frontend, and `test_sensor_health.py`."
       ],
       team: [
-        "Built in collaboration under the Neeraran repository (`LakshanyaaJ/neeraran`); exact contributor commit split across teammates is not enumerated locally."
+        "Collaborators Bhadri Prabhu K, Amirtha E & Lakshanyaa J authored the simulator, 7-agent orchestrator, Holt-Winters forecaster, and GIS UI (`main` branch)."
       ],
       thirdParty: [
-        "Open-source libraries: Scikit-learn, XGBoost, CatBoost, FastAPI, React, TypeScript, Tailwind CSS, Three.js."
+        "Open-source libraries: Scikit-learn, XGBoost, SHAP, FastAPI, React, TypeScript, Three.js."
       ]
     },
     limitations: [
-      "Reported metrics reflect calibrated dataset test partitions rather than multi-month physical utility field trials.",
-      "Automated physical valve actuation remains an unimplemented facilities-safety proposal."
+      "Audit benchmarks use simulated hydraulic datasets rather than live physical campus pipes.",
+      "ML audit & sensor-health upgrades sit on branch `kanish` while team simulator orchestration sits on `main`."
     ],
     verificationChecklist: [
-      { claim: "One-Class SVM (99.89% Acc, 0.7451 F1, 3.92ms) on test partition", status: "Verified result" },
-      { claim: "XGBoost leak detection (99.79% Acc, 100% recall, 1.14ms) on test dataset", status: "Verified result" },
-      { claim: "CatBoost 72h forecast (MAE 70.91 L/h, MAPE 9.59%, 573.8ms)", status: "Verified result" },
-      { claim: "FastAPI inference pipeline & React monitoring interface", status: "Verified implementation" },
-      { claim: "Interactive 3D Campus Water Network with Zone B Leak Simulation", status: "Simulated demonstration" },
+      { claim: "One-Class SVM (0.7451 F1, 3.92ms) & XGBoost (100% recall, 2.29ms) in kanish:results/best_model_summary.json", status: "Verified result" },
+      { claim: "Layer-1 Sensor Health Service, FastAPI endpoints & test_sensor_health.py by Kanish", status: "Verified implementation" },
+      { claim: "Confusion Matrix & Class Performance Matplotlib charts embedded from repo", status: "Verified result" },
+      { claim: "Team `main` simulator Holt-Winters forecast benchmarks (6.2% / 8.4% sMAPE)", status: "Simulated demonstration" },
       { claim: "Automated physical valve actuation hardware control", status: "Proposed future improvement" }
     ]
   },
@@ -1161,7 +1102,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     ],
     aiMlDetails: null,
     aiMlSummaryNote:
-      "AAZHI is primarily a distributed systems, human-computer accessibility, and telemetry orchestration platform rather than a predictive ML model project; automated diagnostics rely on deterministic heartbeat timeouts and peripheral threshold rules.",
+      "Beyond core kiosk telemetry and Express/Prisma persistence, `KANISH-850/aazhi` includes a FastAPI `ai-service` implementing Scikit-learn LinearSVC/IsolationForest spam screening, TF-IDF cosine duplicate detection, department routing, sentiment scoring, and RandomForestRegressor 7-day volume forecasting alongside k6 stress-testing scripts.",
     databaseAndDataFlow: {
       sources: "Simulated kiosk heartbeat telemetry (CPU, memory, disk, touch/printer/camera states) and citizen service session interactions.",
       storageModel: "PostgreSQL central fleet state store paired with a local SQLite offline buffer architectural specification at the edge.",
@@ -1199,7 +1140,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
 
   "webscraper": {
     id: "webscraper",
-    title: "HealScrape — AI Self-Healing Web Scraper",
+    title: "HealScrape â€” AI Self-Healing Web Scraper",
     tagline: "Schema-Drift Detecting Extraction Platform with Automated LLM Selector Repair",
     category: "Data Pipelines & Self-Healing AI",
     statusLabel: "Implemented Prototype (Bright Data + LLM Drift Repair)",
@@ -1422,246 +1363,9 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     ]
   },
 
-  "hackzen": {
-    id: "hackzen",
-    title: "HackZen — Real-Time Unsafe Human Activity & Safety Risk Engine",
-    tagline: "Multi-Camera PPE Compliance, Polygon Zone Monitoring & Weighted Risk Scoring",
-    category: "Computer Vision & Workplace Safety",
-    statusLabel: "Dockerized Vision Prototype (Core PPE + Zone Risk Implemented)",
-    githubUrl: "https://github.com/KANISH-850/HackZen",
-    overview:
-      "HackZen is a real-time industrial CCTV safety prototype combining Ultralytics YOLO PPE detection, IOU multi-object tracking, Shapely polygon danger-zone evaluation, weighted risk computation, and Socket.IO live frame streaming to a React operator dashboard.",
-    problemStatement:
-      "Manual monitoring of multi-camera industrial or construction CCTV feeds leads to fatigue and delayed intervention when workers enter restricted hazard zones or omit mandatory PPE (helmets, vests, gloves, safety shoes).",
-    problemSummaryDetail: {
-      problemLabel: "Repository-documented problem summary",
-      whoFacesIt: "Industrial EHS safety supervisors, plant control-room operators, and site engineers.",
-      realWorldProblem: "Delayed detection of PPE non-compliance or restricted hazard-zone entry increases workplace injury severity.",
-      whyNeeded: "Automated frame ingestion paired with configurable polygon zones and throttled incident logging prioritizes live alerts.",
-      existingLimitations: "Rigid vision pipelines often crash or silently output fake 0-risk scores when optional pose or anomaly models are unavailable.",
-      objective: "Build a fault-isolated multi-camera FastAPI + Socket.IO pipeline that scores active detections gracefully and persists zone policies and incidents."
-    },
-    proposedSolution:
-      "Run concurrent RTSP video ingestion feeding an asyncio ~10 FPS processing loop that offloads YOLO/pose inference to worker threads, checks Shapely danger-zone polygons, computes a weight-renormalized risk score, persists throttled database logs, and emits Socket.IO frames.",
-    systemArchitecture:
-      "Docker Compose orchestrates a Python FastAPI + Socket.IO (/ws) backend with async SQLAlchemy (SQLite / PostgreSQL via asyncpg) and a React 18 + TypeScript + Vite dashboard. Ultralytics YOLO (backend/models/best.pt) detects PPE items; optional person/pose/IsolationForest/ONNX models load only if present while risk_engine.py renormalizes active weights dynamically.",
-    dataFlow:
-      "RTSP Feeds -> ingestion.py FrameBuffer -> asyncio.to_thread(YOLO Detector + IOU Tracker + Pose) -> ZoneManager (Shapely) -> compute_risk_score -> Throttled SQLAlchemy DB + Socket.IO live_frame -> React Dashboard.",
-    architectureNodes: [
-      { id: "hz-in-1", title: "RTSP Ingestion & Frame Buffer", subtitle: "Per-camera concurrent ingestion loops isolating stream errors", layer: "Ingestion & Input", status: "implemented" },
-      { id: "hz-proc-1", title: "YOLO PPE & IOU Tracker", subtitle: "Bundled best.pt (Gloves, Vest, Goggles, Helmet, Mask, Shoe)", layer: "Processing & AI Core", status: "implemented" },
-      { id: "hz-proc-2", title: "Shapely Zone & Risk Engine", subtitle: "Polygon intrusion checks + weight renormalization (0.3/0.4/0.2/0.1)", layer: "Processing & AI Core", status: "implemented" },
-      { id: "hz-proc-3", title: "Action Rec, Anomaly & ONNX Trend", subtitle: "training/*.py & optional weights excluded gracefully if absent", layer: "Processing & AI Core", status: "proposed" },
-      { id: "hz-out-1", title: "SQLAlchemy 5-Table DB & REST", subtitle: "workers, cameras, zones, incidents, risk_logs (/api/*)", layer: "Storage & Delivery", status: "implemented" },
-      { id: "hz-out-2", title: "Socket.IO /ws & React Dashboard", subtitle: "Streams live_frame base64 JPEG + AlertPanel & Zone views", layer: "Storage & Delivery", status: "implemented" }
-    ],
-    workflowSteps: [
-      {
-        step: "01",
-        title: "Camera Startup & Zone Restoration",
-        whatHappens: "FastAPI lifespan loads .pt weights from backend/models/, initializes 5 DB tables, restores persisted camera polygon zones, and starts RTSP readers.",
-        component: "main.py + model_manager.py + ZoneManager",
-        input: "RTSP_URLS env list + stored Zone polygons",
-        output: "Initialized camera buffers & loaded YOLO weights"
-      },
-      {
-        step: "02",
-        title: "Non-Blocking Vision Inference Loop (~10 FPS)",
-        whatHappens: "Offloads YOLO detection & pose estimation to background threads via asyncio.to_thread and associates detections across frames using IOU tracking.",
-        component: "detector.py + tracker.py + pose_estimator.py",
-        input: "Latest OpenCV frame from camera buffer",
-        output: "Tracked worker bounding boxes + PPE flags"
-      },
-      {
-        step: "03",
-        title: "Geofence Check & Weighted Risk Scoring",
-        whatHappens: "Checks tracked positions against Shapely Zone polygons and calls compute_risk_score() renormalizing available PPE (0.3), Zone (0.4), Anomaly (0.2), Trend (0.1) weights.",
-        component: "zone_manager.py + risk_engine.py",
-        input: "Tracked PPE flags + Zone risk_level + optional scores",
-        output: "Clamped risk score in [0.0, 1.0]"
-      },
-      {
-        step: "04",
-        title: "Throttled Persistence & Socket.IO Broadcast",
-        whatHappens: "Logs risk_logs to DB at most every 5 seconds per worker, triggers AlertManager incidents, and broadcasts base64 JPEG + detections over /ws.",
-        component: "alert_manager.py + crud.py + socket_manager.py",
-        input: "Scored frame & detections",
-        output: "Socket.IO live_frame event + REST /api/incidents"
-      }
-    ],
-    groupedTechStack: [
-      {
-        category: "Frontend",
-        items: [
-          { name: "React 18 + TypeScript + Vite 5 + Tailwind CSS", role: "Operator dashboard, live camera grid & alert panels", why: "Sub-second WebSocket state rendering across Dashboard, LiveFeedGrid & AlertPanel" },
-          { name: "socket.io-client + Axios", role: "Real-time /ws telemetry subscription and zone/incident REST queries", why: "Persistent duplex frame streaming paired with REST zone updates" }
-        ]
-      },
-      {
-        category: "Backend",
-        items: [
-          { name: "Python FastAPI + Uvicorn + python-socketio", role: "REST API (/api/cameras, /zones, /incidents, /risk_logs) & /ws events", why: "Async concurrency isolating video frames from HTTP/WS event loops" },
-          { name: "OpenCV (headless) + Shapely", role: "Frame capture/JPEG encoding and 2D polygon zone containment tests", why: "Fast CPU geometric intersection checks per tracked person" }
-        ]
-      },
-      {
-        category: "Database",
-        items: [
-          { name: "SQLAlchemy Async + Alembic (aiosqlite / asyncpg)", role: "Persists workers, cameras, JSON zone polygons, incidents & risk_logs", why: "Supports zero-setup SQLite (unsafe_db.db) locally or PostgreSQL in production" }
-        ]
-      },
-      {
-        category: "AI/ML",
-        items: [
-          { name: "Ultralytics YOLO (best.pt)", role: "Detects 6 PPE classes (Gloves, Vest, goggles, helmet, mask, safety_shoe)", why: "Bundled 5.6MB model auto-discovered by filename stem" },
-          { name: "Scikit-learn & ONNX Runtime (Optional Hooks)", role: "Hooks for Isolation Forest anomaly scoring & ONNX risk trajectory", why: "Configured in model_manager & risk_engine without faking missing outputs" }
-        ]
-      },
-      {
-        category: "Infrastructure",
-        items: [
-          { name: "Docker & Docker Compose", role: "Multi-container backend (port 8000) and frontend (port 5173) orchestration", why: "Standardized reproducible OpenCV/YOLO system environment" }
-        ]
-      }
-    ],
-    aiMlDetails: [
-      {
-        modelName: "Ultralytics YOLO PPE Detector (best.pt) + IOU Tracker",
-        problemSolved: "Detecting mandatory protective gear per worker across live camera feeds without frame drops.",
-        inputs: "Latest BGR OpenCV camera frame from asynchronous FrameBuffer.",
-        preprocessing: "Auto-discovered .pt weights on CUDA or CPU; thread-pool execution via asyncio.to_thread.",
-        approach: "YOLO object detection predicting 6 PPE classes combined with IOU bounding-box tracking across frames.",
-        output: "Per-track bounding boxes, track IDs, and PPE boolean compliance flags.",
-        evaluation: "Inference loop verified structurally via RTSP/Socket.IO integration (test_sio.py); no offline mAP benchmark score is stored in the repository.",
-        limitations: "Optional person.pt, pose.pt, anomaly_model.pkl, and risk_predictor.onnx files and training/*.py scripts are omitted/empty in the repo; best.pt is the bundled weight file."
-      },
-      {
-        modelName: "Weight-Renormalized Weighted Risk Engine",
-        problemSolved: "Preventing unloaded optional models from artificially deflating worker risk scores toward 0.",
-        inputs: "PPE violation score (weight 0.3), Shapely zone severity (weight 0.4), optional anomaly (0.2), optional trend (0.1).",
-        preprocessing: "Excludes None scores from total_weight denominator before normalizing.",
-        approach: "Deterministic weighted average normalized across active available detectors and clamped to [0, 1].",
-        output: "Per-worker composite risk score + SAFE / CAUTION / CRITICAL zone escalation.",
-        evaluation: "Implemented and wired directly into main.py per-frame evaluation and 5s throttled DB logging.",
-        limitations: "Training pipelines in training/action_recognition and training/anomaly_model remain empty placeholder files."
-      }
-    ],
-    databaseAndDataFlow: {
-      sources: "Configured RTSP camera URLs producing live video frames (~10 FPS loop cap).",
-      storageModel: "5 SQLAlchemy models in backend/app/db/models.py: workers, cameras, zones (polygon JSON), incidents (severity & JSON details), and risk_logs.",
-      processing: "CV inference runs off the asyncio loop via asyncio.to_thread; RiskLog DB writes throttle to 5 seconds per worker to prevent write saturation.",
-      apiCommunication: "REST endpoints under /api/* manage cameras, zone polygons (hot-reloading ZoneManager), incidents, and risk history; Socket.IO /ws emits live_frame.",
-      retrieval: "React dashboard renders live JPEG streams, active alerts, and camera zones.",
-      schemaNote: "Verified directly from backend/app/db/models.py; SQLite file backend/unsafe_db.db exists alongside Postgres asyncpg support."
-    },
-    contributionBreakdown: {
-      mine: [
-        "Initial repository setup, core FastAPI + SQLAlchemy backend, YOLO ModelManager, ZoneManager, Socket.IO streaming, Docker stack, and README documentation (commits 5d22e88 through fbcf2f6)."
-      ],
-      team: [
-        "Collaborator ajai1422 contributed subsequent integration/refinement commits (7952728, 3620d89)."
-      ],
-      thirdParty: [
-        "Ultralytics YOLO, OpenCV, Shapely, FastAPI, python-socketio, SQLAlchemy, React 18, Vite, Docker."
-      ]
-    },
-    technicalChallenges: [
-      {
-        id: "hz-1",
-        challenge: "Running synchronous CPU/GPU vision inference inside FastAPI without stalling Socket.IO broadcasts and REST APIs.",
-        solution: "Offloaded detector and pose estimation calls to worker threads via asyncio.to_thread and ran cameras concurrently with asyncio.gather(..., return_exceptions=True).",
-        implementation: "Wrapped process_camera() error handling per camera ID and capped the loop at 0.1s intervals (~10 FPS).",
-        result: "Prevents one stalled camera stream or slow model pass from blocking other feeds or WebSocket I/O."
-      },
-      {
-        id: "hz-2",
-        challenge: "Avoiding false 'zero risk' readings when optional anomaly or trajectory ONNX models are not mounted, and avoiding DB flooding.",
-        solution: "Renormalized active risk weights dynamically in compute_risk_score() and throttled DB risk_logs writes to 5s per worker.",
-        implementation: "Excluded None inputs from weight sums and tracked _last_risk_log_time[worker_id] while keeping real-time WS frames unthrottled.",
-        result: "Preserves honest risk sensitivity when only PPE + Zone signals are loaded while protecting SQLite/Postgres write throughput."
-      }
-    ],
-    engineeringDecisions: [
-      {
-        decision: "Exclude missing optional models from weight denominators instead of defaulting to 0",
-        rationale: "Silently scoring unavailable anomaly/trend predictions as 0.0 would under-report genuine PPE/zone violations.",
-        tradeoff: "Composite risk reflects only currently loaded weights until optional ONNX/pkl models are supplied.",
-        status: "Implemented"
-      },
-      {
-        decision: "Auto-discover .pt models by filename stem while keeping training scripts modular",
-        rationale: "Decouples offline model training from FastAPI startup stability.",
-        tradeoff: "training/*.py files and action_recognizer.py remain 0-byte stubs in the inspected commit.",
-        status: "Implemented"
-      }
-    ],
-    securityFeatures: [
-      "Environment-variable configuration via backend/.env.example isolating RTSP URLs and database credentials",
-      "Dynamic Zone polygon updates validated and synchronized safely via ZoneManager"
-    ],
-    devopsPipeline: ["Git Push", "Docker Compose Multi-Container Build", "FastAPI Lifespan DB Migration", "Socket.IO Connectivity Test (test_sio.py)"],
-    technologies: ["Python", "FastAPI", "Ultralytics YOLO", "OpenCV", "Shapely", "Socket.IO", "SQLAlchemy", "React 18", "TypeScript", "Docker"],
-    keyFeatures: [
-      "Multi-camera concurrent RTSP ingestion with per-camera fault isolation.",
-      "Ultralytics YOLO PPE compliance detection (Helmet, Vest, Gloves, Goggles, Mask, Shoe) + IOU tracking.",
-      "Configurable Shapely polygon hazard zones persisted per camera.",
-      "Weight-renormalized risk scoring engine with 5-second throttled DB history.",
-      "Live JPEG + detection streaming over Socket.IO (/ws)."
-    ],
-    accessibilityMeasures: [
-      "Severity-labeled alert states (CRITICAL, CAUTION, SAFE) rather than color-only cues.",
-      "Responsive React grid separating camera stream previews from alert history panels."
-    ],
-    performanceMetrics: [
-      "~10 FPS processing cap with offloaded asyncio.to_thread model inference and 5-second per-worker DB write throttling.",
-      "No formal precision/recall or production FPS benchmark report is stored in the repository."
-    ],
-    lessonsLearned: [
-      "Explicitly auditing optional model state prevents silent zero-risk bias in ensemble safety engines.",
-      "Keeping training stubs cleanly isolated allows core PPE + zone detection to deploy reliably first."
-    ],
-    innovation:
-      "Fault-isolated async vision loop combining bundled YOLO PPE detection, Shapely polygon geofencing, and non-deceptive dynamic risk weight renormalization.",
-    impact:
-      "Demonstrates practical multi-camera industrial hazard monitoring with graceful degradation across hardware configurations.",
-    teamContribution: "Vision Pipeline Architecture, Database Schema & Documentation",
-    scalability:
-      "Async camera gathering and SQLAlchemy support upgrading from SQLite (unsafe_db.db) to PostgreSQL (asyncpg) cleanly.",
-    media: [
-      {
-        title: "HackZen Live CCTV & Zone Monitoring Architecture",
-        caption: "Real-time stream flow across RTSP cameras, FrameBuffer, YOLO best.pt, Shapely zones, and Socket.IO /ws (UI screenshots not stored in repo).",
-        alt: "HackZen industrial safety system architecture slot",
-        type: "architecture"
-      },
-      {
-        title: "Worker Risk Score & Incident Feed Layout",
-        caption: "Dashboard preview slot for LiveFeedGrid, AlertPanel, and Zone configurations.",
-        alt: "HackZen operator safety dashboard slot",
-        type: "dashboard"
-      }
-    ],
-    limitations: [
-      "training/*.py scripts and backend/app/models/action_recognizer.py are empty 0-byte stubs in the repository.",
-      "frontend/src/components/RiskHeatmap.tsx and ZoneEditor.tsx are minimal 12-line components; node_modules were previously committed under frontend/.",
-      "Only backend/models/best.pt is bundled; person.pt, pose.pt, anomaly_model.pkl, and risk_predictor.onnx are optional external weights."
-    ],
-    futureImprovements: [
-      "Implement ST-GCN action recognition, Isolation Forest training, and ONNX export scripts under training/.",
-      "Build full interactive polygon drawing UI inside ZoneEditor.tsx and frame-coordinate overlays in RiskHeatmap.tsx.",
-      "Remove committed frontend/node_modules from Git history/tracking via .gitignore cleanup and publish YOLO validation mAP curves."
-    ],
-    verificationChecklist: [
-      { claim: "FastAPI + Socket.IO /ws + SQLAlchemy 5-table DB + Shapely ZoneManager + risk_engine.py", status: "Verified implementation" },
-      { claim: "Bundled Ultralytics YOLO weights (backend/models/best.pt) & 5s DB write throttling", status: "Verified implementation" },
-      { claim: "Interactive 3D CCTV Danger-Zone & PPE Intrusion Twin on portfolio", status: "Simulated demonstration" },
-      { claim: "Full ST-GCN / IsolationForest training scripts & rich heatmap UI", status: "Proposed future improvement" }
-    ]
-  },
-
   "vikshana": {
     id: "vikshana",
-    title: "Vikshana — AI Crime Investigation Intelligence & Foresight Platform",
+    title: "Vikshana â€” AI Crime Investigation Intelligence & Foresight Platform",
     tagline: "Evidence-Grounded Case Timelines, Entity Networks, DBSCAN Hotspots & XGBoost Decision Support",
     category: "Applied ML, Graph Analytics & Explainable AI",
     statusLabel: "Collaborative Datathon Team Project (Benchmarked Prototype)",
@@ -1892,7 +1596,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
 
   "techspire": {
     id: "techspire",
-    title: "TechSpire — Unified AI Hospital Management System",
+    title: "TechSpire â€” Unified AI Hospital Management System",
     tagline: "Full-Stack Clinical Operations, Air-Gapped Ollama RAG Assistant & Predictive Analytics",
     category: "Enterprise Healthcare Systems & Local RAG AI",
     statusLabel: "Individual Full-Stack Dockerized Prototype (20/20 Pytest)",
@@ -1982,7 +1686,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
         category: "AI/ML",
         items: [
           { name: "Ollama (qwen3:4b) + nomic-embed-text + ChromaDB", role: "100% local RAG pipeline over 500-char hospital SOP document chunks", why: "Zero external cloud API calls so hospital data remains air-gapped on-premise" },
-          { name: "Scikit-Learn RandomForestRegressor + Pandas", role: "Forecasts Financial Revenue (R²=0.82), Admissions (R²=0.74) & Reorder Points", why: "Explains operational trends & stockout risk deterministically on tabular history" }
+          { name: "Scikit-Learn RandomForestRegressor + Pandas", role: "Forecasts Financial Revenue (RÂ²=0.82), Admissions (RÂ²=0.74) & Reorder Points", why: "Explains operational trends & stockout risk deterministically on tabular history" }
         ]
       },
       {
@@ -2015,8 +1719,8 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
         inputs: "Time-indexed clinical, bed, revenue, and pharmacy transaction histories seeded in SQL.",
         preprocessing: "Date lag feature extraction (BaseForecaster.extract_features) + non-negative prediction clipping.",
         approach: "RandomForestRegressor for Revenue & Admissions; bounded linear trends for Bed Occupancy; moving averages + Reorder Point math for Inventory.",
-        output: "Forecast horizons with MAE, RMSE, and R² diagnostics plus stockout risk alerts.",
-        evaluation: "README documents RandomForestRegressor R² = 0.82 (Revenue) and R² = 0.74 (Admissions) alongside passing unit checks in test_predictive_ml.py.",
+        output: "Forecast horizons with MAE, RMSE, and RÂ² diagnostics plus stockout risk alerts.",
+        evaluation: "README documents RandomForestRegressor RÂ² = 0.82 (Revenue) and RÂ² = 0.74 (Admissions) alongside passing unit checks in test_predictive_ml.py.",
         limitations: "Trained and evaluated strictly on synthetic seeded hospital data (app/db/seed.py), not live clinical EHR history."
       }
     ],
@@ -2065,7 +1769,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
       {
         decision: "Synthetic database seeding (seed.py) cleanly decoupled from production EHR integration",
         rationale: "Demonstrates complete forecasting and PDF/Excel report workflows safely without real patient PII.",
-        tradeoff: "R² metrics (0.82 Revenue, 0.74 Admissions) validate synthetic pattern capture rather than real clinical hospital load.",
+        tradeoff: "RÂ² metrics (0.82 Revenue, 0.74 Admissions) validate synthetic pattern capture rather than real clinical hospital load.",
         status: "Implemented"
       }
     ],
@@ -2089,7 +1793,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     ],
     performanceMetrics: [
       "README documents 20/20 Pytest tests passing across API integration, ORM models, negative security tests, and predictive ML checks.",
-      "README documents RandomForestRegressor evaluation R² = 0.82 (Financial Revenue) and R² = 0.74 (Inpatient Admissions) on synthetic seeded data."
+      "README documents RandomForestRegressor evaluation RÂ² = 0.82 (Financial Revenue) and RÂ² = 0.74 (Inpatient Admissions) on synthetic seeded data."
     ],
     lessonsLearned: [
       "A modular monolith with unified Alembic migrations beats maintaining five fragmented microservice demos during rapid iteration.",
@@ -2118,7 +1822,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     ],
     limitations: [
       "Evaluated strictly on synthetic seeded data generated by app/db/seed.py; not cleared for live clinical patient care or PHI storage.",
-      "Pytest (20/20) and RandomForest R² (0.82 / 0.74) figures are taken from the repository README rather than re-executed in this static portfolio sandbox.",
+      "Pytest (20/20) and RandomForest RÂ² (0.82 / 0.74) figures are taken from the repository README rather than re-executed in this static portfolio sandbox.",
       "Localhost Ollama qwen3:4b latency depends on host GPU availability."
     ],
     futureImprovements: [
@@ -2129,7 +1833,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     verificationChecklist: [
       { claim: "14 SQLAlchemy ORM models, Alembic migrations, HS256 JWT + Bcrypt & 4-service Docker Compose", status: "Verified implementation" },
       { claim: "Ollama qwen3:4b + ChromaDB RAG, Scikit-Learn RandomForest & ReportLab/OpenPyXL exports", status: "Verified implementation" },
-      { claim: "20/20 Pytest & RandomForest R²=0.82 / R²=0.74 (per README on synthetic seed data)", status: "Simulated demonstration" },
+      { claim: "20/20 Pytest & RandomForest RÂ²=0.82 / RÂ²=0.74 (per README on synthetic seed data)", status: "Simulated demonstration" },
       { claim: "Interactive 3D Docker & Local RAG Hospital Twin on portfolio", status: "Simulated demonstration" },
       { claim: "HL7 FHIR hospital interoperability & live clinical production deployment", status: "Proposed future improvement" }
     ]
@@ -2139,10 +1843,9 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
 export const featuredProjectsList: ProjectCaseStudy[] = [
   projectsData["digital-twin-ehv"],
   projectsData["kiosk-management-system"],
+  projectsData["techspire"],
   projectsData["intelligent-grievance-system"],
   projectsData["aquaguard-ai"],
-  projectsData["vikshana"],
-  projectsData["techspire"],
-  projectsData["hackzen"],
-  projectsData["webscraper"]
+  projectsData["webscraper"],
+  projectsData["vikshana"]
 ];

@@ -35,15 +35,14 @@ export default function RecruiterPage() {
   const primaryProjects = [
     projectsData["digital-twin-ehv"],
     projectsData["kiosk-management-system"],
+    projectsData["techspire"],
+    projectsData["intelligent-grievance-system"],
+    projectsData["aquaguard-ai"],
   ].filter(Boolean);
 
   const additionalProjects = [
-    projectsData["intelligent-grievance-system"],
-    projectsData["aquaguard-ai"],
-    projectsData["vikshana"],
-    projectsData["techspire"],
-    projectsData["hackzen"],
     projectsData["webscraper"],
+    projectsData["vikshana"],
   ].filter(Boolean);
 
   const linkedinUrl =
@@ -112,7 +111,7 @@ export default function RecruiterPage() {
             {profile.headline}
           </h2>
           <p className="text-sm sm:text-base md:text-lg leading-relaxed text-slate-300 max-w-2xl">
-            B.E. Computer Science Engineering candidate ({profile.graduationYear}) focused on AI/ML modeling, deep autoencoders, multilingual NLP pipelines, and Python/FastAPI backend systems. Smart India Hackathon Grand Finale Winner and C-DAC Innovation Challenge National Runner-up.
+            3rd-year B.E. Computer Science &amp; Engineering student ({profile.graduationYear}, CGPA 7.73/10) building applied ML pipelines, FastAPI/Express backend services, and full-stack software. Smart India Hackathon &apos;25 Winner and C-DAC Innovation Challenge National Runner-up.
           </p>
 
           {/* 7, 8, 9, 10: Resume, Contact, GitHub, LinkedIn */}
@@ -175,9 +174,9 @@ export default function RecruiterPage() {
             <CardContent className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="text-lg font-bold text-white">{profile.degree}</div>
-                <div className="text-sm text-cyan-300 font-mono">{profile.institution}</div>
+                <div className="text-sm text-cyan-300 font-mono">{profile.institution} &bull; CGPA: {profile.cgpa}</div>
                 <div className="text-xs text-slate-400">
-                  Focus: Machine Learning, Deep Learning, NLP, Python Backend Engineering &amp; DSA
+                  Core CS: DSA, OOP, DBMS, Operating Systems, Computer Networks
                 </div>
               </div>
               <div className="flex flex-col sm:items-end gap-1 shrink-0">
@@ -208,14 +207,14 @@ export default function RecruiterPage() {
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              "Python / NumPy / Pandas",
-              "PyTorch / TensorFlow",
-              "Deep Autoencoders & ML",
-              "Generative AI & LLMs",
-              "IndicTrans2 / BERT / NLP",
-              "Data Structures & Algorithms",
-              "FastAPI / WebSockets",
-              "Docker / InfluxDB / PostgreSQL",
+              "Python / Java / C++ / C",
+              "Scikit-learn & XGBoost",
+              "PyTorch & TensorFlow",
+              "Ollama RAG & ChromaDB",
+              "FastAPI / Express / Node",
+              "PostgreSQL / Prisma / SQL",
+              "React / Next.js / TS",
+              "DSA / OOP / DBMS / OS",
             ].map((skill) => (
               <Card key={skill} className="glass-panel border-white/10 text-slate-200">
                 <CardContent className="p-3.5 flex items-center justify-center text-center font-mono text-xs sm:text-sm h-full">
@@ -410,9 +409,9 @@ export default function RecruiterPage() {
             </Card>
             <Card className="glass-panel border-white/10 text-center">
               <CardContent className="p-6 space-y-2">
-                <div className="text-3xl font-black text-emerald-400 font-headline">~50ms</div>
-                <div className="text-xs font-mono text-white font-bold">Target Anomaly Latency</div>
-                <div className="text-[11px] text-slate-400 font-mono">Internal Benchmark Target</div>
+                <div className="text-3xl font-black text-emerald-400 font-headline">7.73 / 10</div>
+                <div className="text-xs font-mono text-white font-bold">B.E. CSE CGPA</div>
+                <div className="text-[11px] text-slate-400 font-mono">BITSathy (2024–2028)</div>
               </CardContent>
             </Card>
           </div>

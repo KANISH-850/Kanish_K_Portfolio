@@ -4,9 +4,9 @@ import MotionWrap from "./motion-wrap";
 
 const flagshipChallenges: TechChallenge[] = [
   projectsData["digital-twin-ehv"].technicalChallenges[0],
+  projectsData["techspire"].technicalChallenges[0],
   projectsData["intelligent-grievance-system"].technicalChallenges[0],
   projectsData["aquaguard-ai"].technicalChallenges[0],
-  projectsData["kiosk-management-system"].technicalChallenges[0]
 ].filter(Boolean);
 
 export function TechnicalChallenges({ challenges }: { challenges?: TechChallenge[] }) {

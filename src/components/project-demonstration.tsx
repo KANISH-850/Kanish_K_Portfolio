@@ -56,16 +56,6 @@ const WebScraper3DScene = dynamic(
   }
 );
 
-const HackZen3DScene = dynamic(
-  () => import("./hackzen-3d-scene").then((mod) => mod.HackZen3DScene),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-[420px] md:h-[470px] rounded-2xl bg-slate-950/60 border border-amber-500/20 animate-pulse" />
-    ),
-  }
-);
-
 const Vikshana3DScene = dynamic(
   () => import("./vikshana-3d-scene").then((mod) => mod.Vikshana3DScene),
   {
@@ -100,7 +90,6 @@ const SUPPORTED_3D_IDS = new Set([
   "intelligent-grievance-system",
   "aquaguard-ai",
   "webscraper",
-  "hackzen",
   "vikshana",
   "techspire",
 ]);
@@ -146,8 +135,6 @@ export function ProjectScenePreview({
         return <AquaGuard3DScene />;
       case "webscraper":
         return <WebScraper3DScene />;
-      case "hackzen":
-        return <HackZen3DScene />;
       case "vikshana":
         return <Vikshana3DScene />;
       case "techspire":
@@ -256,14 +243,14 @@ export function ProjectDemonstration({
                 className="bg-card border border-white/10 rounded-xl overflow-hidden flex flex-col justify-between"
               >
                 {resolvedSrc ? (
-                  <div className="relative aspect-video bg-slate-950 overflow-hidden">
+                  <div className="relative aspect-video bg-slate-950 overflow-hidden p-1">
                     <Image
                       src={resolvedSrc}
                       alt={item.alt}
                       fill
                       unoptimized
                       loading="lazy"
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
                 ) : (

@@ -16,85 +16,84 @@ export interface EngineeringNote {
 export const engineeringNotes: EngineeringNote[] = [
   {
     slug: "building-digital-twin-ehv-substation",
-    title: "Building a Digital Twin for EHV Substation Monitoring",
+    title: "Building Predictive Fault Diagnostics for EHV Substations",
     publishedAt: "2026-10-18",
     readingTime: "4 min read",
     category: "Digital Twins & Telemetry",
     summary:
-      "Architectural notes from designing Team Oceanberg's Smart India Hackathon winning EHV substation monitoring framework: decoupling telemetry ingestion from 3D asset rendering and using semi-supervised autoencoders for anomaly detection.",
+      "Architectural notes from Team Oceanberg's Smart India Hackathon winning EHV substation monitoring framework: combining per-asset ensemble detectors, CNN-LSTM fault training, and interactive 3D telemetry playback.",
     relatedProjectSlug: "digital-twin-ehv",
     relatedProjectTitle: "Digital Twin of EHV Substation Monitoring",
     sections: [
       {
-        heading: "Why Semi-Supervised Autoencoders Fit Substation Telemetry",
+        heading: "Combining Asset-Level Ensembles with Anomaly Bounds",
         paragraphs: [
-          "Extra High Voltage (EHV) transformers and breakers spend almost their entire lifecycle in nominal operating states. Severe thermal or SF6 pressure faults are rare, making balanced supervised datasets difficult to obtain.",
-          "Instead of training a binary classifier on scarce failure labels, we trained a deep autoencoder on nominal operational envelopes (~50,000 synthetic and industry-informed SCADA records). Deviations exceeding 3.5 standard deviations in reconstruction error surface early anomalies before hard protective relay trips."
+          "Extra High Voltage (EHV) substations monitor heterogeneous assets—power transformers, busbars, instrument transformers, isolators, and circuit breakers—where electrical thermal faults differ across components.",
+          "In oceanBerg_sih, component modules pair RandomForest regressors/classifiers with Isolation Forest outlier scoring across simulated SCADA CSV tables (such as 5,000-row training and 6,000-row output logs), alongside a Streamlit trainer for CNN-LSTM waveform fault classification."
         ]
       },
       {
-        heading: "Separating Telemetry Parsing from 3D Rendering",
+        heading: "Separating Telemetry State from Interactive Visualization",
         paragraphs: [
-          "High-frequency telemetry updates can easily stall main-thread UI interactions when parsed inside React component trees. By isolating rolling-window normalization and FFT feature extraction in backend workers and keeping the Three.js render loop decoupled from state updates, the 3D substation viewport stays responsive during fault simulations."
+          "Keeping signal scoring isolated from the interactive Three.js 400kV substation canvas prevents slowdowns while allowing operators and reviewers to inspect fault simulations cleanly per equipment bay."
         ]
       },
       {
-        heading: "Distinguishing Prototype Simulation from Utility Deployment",
+        heading: "Distinguishing Hackathon Prototypes from Utility Deployment",
         paragraphs: [
-          "In hackathon evaluation, synthetic and industry-informed SCADA records let us stress-test anomaly scoring pipelines safely. Moving to live utility substations requires strict network isolation, mutual TLS (mTLS) transport, and baseline recalibration against historical utility PMU data—requirements explicitly documented as architectural specifications rather than claimed field deployments."
+          "Simulated SCADA tables validate classification pipelines safely during competitions. Moving toward live utility environments requires strict network isolation, mutual TLS transport, and historical PMU/SCADA calibration—documented explicitly as proposed future deployment requirements."
         ]
       }
     ]
   },
   {
     slug: "multilingual-nlp-indictrans2-bert",
-    title: "Designing Multilingual NLP Pipelines with IndicTrans2 and BERT",
+    title: "Honest Evaluation in Multilingual Civic Triage & Vision Models",
     publishedAt: "2026-10-24",
     readingTime: "4 min read",
     category: "NLP & GenAI",
     summary:
-      "How combining INT8 quantized IndicTrans2 neural translation, Sentence Transformers, BERT classification, and an 85% confidence fallback gate improves reliability in public-service grievance routing.",
+      "Why pairing lightweight TF-IDF routing and MyMemory/LibreTranslate caching with calibrated confidence thresholds and honest held-out vision test metrics beats overclaimed prototype numbers.",
     relatedProjectSlug: "intelligent-grievance-system",
     relatedProjectTitle: "Intelligent Multilingual Grievance Categorization & Dispatch",
     sections: [
       {
-        heading: "Quantizing Neural Translation for Interactive Intake",
+        heading: "Deterministic Text Routing + LRU-Cached Translation",
         paragraphs: [
-          "Public grievance portals receive submissions across regional Indian languages. Running unquantized neural machine translation synchronously on every request created initial latencies above 2.5 seconds.",
-          "Applying 8-bit dynamic quantization via ONNX Runtime brought translation response time under 500ms in local testing while preserving semantic fidelity for downstream classification."
+          "Citizen portals accepting regional Indian languages need resilient translation fallbacks rather than fragile heavy pipelines. Pairing LibreTranslate / MyMemory translation with an in-memory LRU cache and TF-IDF n-gram LogisticRegression keeps routing fast across 9 civic departments while surfacing explainable top keyword weights."
         ]
       },
       {
-        heading: "Why a Confidence Gate Matters More Than Raw Accuracy",
+        heading: "Reporting Real Held-Out Vision Errors Instead of Hiding Them",
         paragraphs: [
-          "Even a classifier scoring 92% accuracy on test categories will encounter noisy, dialect-heavy, or multi-department complaints. Automatically dispatching uncertain grievances causes silent operational delays.",
-          "Adding an explicit 85% confidence threshold gate in the FastAPI router isolates ambiguous complaints into a human-in-the-loop supervisory queue before departmental dispatch."
+          "In our PyTorch MobileNetV3-Small civic issue vision benchmark (172 train / 38 val / 38 test samples across 9 classes), held-out test accuracy measured 50.0% at 36.47 ms average CPU latency, with clear confusion between visually similar drainage and garbage scenes.",
+          "Exposing calibrated confidence gates and human-in-the-loop officer review protects dispatch accuracy far better than trusting raw uncalibrated image labels."
         ]
       }
     ]
   },
   {
     slug: "comparing-ml-models-water-anomaly-detection",
-    title: "Comparing Specialized ML Models for Water Telemetry Anomaly & Leak Detection",
+    title: "Why Accuracy Misleads on Imbalanced Water Telemetry (Neeraran ML Audit)",
     publishedAt: "2026-11-02",
     readingTime: "5 min read",
     category: "Applied Machine Learning",
     summary:
-      "Why AquaGuard AI splits consumption anomaly detection (One-Class SVM), pipe leak identification (XGBoost), and 72-hour demand forecasting (CatBoost) into three specialized models instead of one monolithic network.",
+      "Key findings from the Neeraran ML audit suite: why 99.55% accuracy on Isolation Forest hides a 0.1860 F1 score, and why One-Class SVM and XGBoost outperformed baselines across 46,656 test observations.",
     relatedProjectSlug: "aquaguard-ai",
     relatedProjectTitle: "AquaGuard AI (Neeraran)",
     sections: [
       {
-        heading: "Matching the Model Family to the Telemetry Task",
+        heading: "Why Raw Accuracy Fails on 0.22% Anomaly Partitions",
         paragraphs: [
-          "Water distribution telemetry blends three distinct mathematical problems: boundary outlier detection, supervised rupture classification, and multi-horizon diurnal demand forecasting.",
-          "In AquaGuard AI's benchmark evaluation splits, One-Class SVM handled anomaly detection in 3.92 ms (99.89% accuracy, F1 0.7451), XGBoost achieved 100% leak recall at 1.14 ms latency (99.79% accuracy), and CatBoost delivered 72-hour rolling demand forecasts with an MAE of 70.91 L/h and 9.59% MAPE."
+          "When abnormal campus water consumption events represent only ~0.22% of 5-minute intervals (101 out of 46,656 test rows), predicting Normal everywhere scores 99.78% accuracy. Evaluating Isolation Forest at a calibrated threshold yielded 99.55% accuracy yet only 0.1860 F1 and a 76.2% false negative rate.",
+          "Switching to RBF-kernel One-Class SVM lifted F1 to 0.7451 (73.8% precision, 75.2% recall) at 3.92 ms average latency, while tuned XGBoost achieved 100% leak recall and 97.4% leak precision at 2.29 ms average latency."
         ]
       },
       {
-        heading: "Calibrating Metrics Against Test Partitions",
+        heading: "Decoupling Sensor Health from Leak Alarms",
         paragraphs: [
-          "High benchmark figures on structured test splits do not automatically guarantee identical field performance across unseen sensor hardware. Separating each model behind explicit evaluation boundaries keeps feature drift transparent and makes per-task recalibration straightforward for campus facilities teams."
+          "Flatline dropouts and noisy pressure meters frequently mimic real ruptures in downstream models. Introducing an upstream Layer-1 sensor health verifier decoupled broken meters from physical leak dispatches cleanly."
         ]
       }
     ]

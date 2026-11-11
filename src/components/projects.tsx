@@ -85,14 +85,18 @@ export function Projects() {
     router.push(`/projects/${slug}/`);
   };
 
-  const appliedSystems = [
-    { project: projectsData["intelligent-grievance-system"], domain: "ai-ml" as const },
-    { project: projectsData["aquaguard-ai"], domain: "ai-ml" as const },
-    { project: projectsData["vikshana"], domain: "ai-ml" as const },
-    { project: projectsData["techspire"], domain: "ai-ml" as const },
-    { project: projectsData["hackzen"], domain: "ai-ml" as const },
-    { project: projectsData["webscraper"], domain: "systems" as const },
+  const primarySystems = [
+    { project: projectsData["techspire"], domain: "ai-ml" as const, roleBadge: "Primary Author & Integrator" },
+    { project: projectsData["intelligent-grievance-system"], domain: "ai-ml" as const, roleBadge: "Primary Author" },
+    { project: projectsData["aquaguard-ai"], domain: "ai-ml" as const, roleBadge: "ML Audit & Sensor Health (Team Repo)" },
   ].filter((item) => Boolean(item.project));
+
+  const supportingSystems = [
+    { project: projectsData["webscraper"], domain: "systems" as const, roleBadge: "Co-Author (Ingestion Engine)" },
+    { project: projectsData["vikshana"], domain: "ai-ml" as const, roleBadge: "Supporting Collaborative Datathon Build" },
+  ].filter((item) => Boolean(item.project));
+
+  const appliedSystems = [...primarySystems, ...supportingSystems];
 
   const filteredApplied = appliedSystems.filter(
     (item) => domainFilter === "all" || item.domain === domainFilter
@@ -107,7 +111,7 @@ export function Projects() {
   const majorProjects = [
     {
       data: sihProject,
-      badgeText: "Smart India Hackathon Winner",
+      badgeText: "Smart India Hackathon Winner (Team Lead / Core AI)",
       badgeIcon: Trophy,
       badgeColor: "text-amber-400 border-amber-400/30 bg-amber-400/10",
       accentGlow: "from-cyan-500/20 via-primary/10 to-transparent",
@@ -115,11 +119,11 @@ export function Projects() {
       number: "01",
       previewComponent: <ProjectScenePreview projectId="digital-twin-ehv" />,
       summaryDesc:
-        "An intelligent digital twin platform for monitoring and analyzing Extra High Voltage electrical substations.",
+        "EHV substation fault diagnostics & predictive monitoring framework combining per-component Random Forest, Isolation Forest, and CNN-LSTM trainers with an interactive 3D twin preview.",
     },
     {
       data: cdacProject,
-      badgeText: "CDAC Project Competition Runner-up",
+      badgeText: "C-DAC Innovation Challenge Runner-up",
       badgeIcon: Award,
       badgeColor: "text-purple-400 border-purple-400/30 bg-purple-400/10",
       accentGlow: "from-purple-500/20 via-accent/10 to-transparent",
@@ -127,7 +131,7 @@ export function Projects() {
       number: "02",
       previewComponent: <ProjectScenePreview projectId="kiosk-management-system" />,
       summaryDesc:
-        "A smart kiosk management solution developed as part of the CDAC project competition.",
+        "Multilingual citizen kiosk & fleet telemetry platform integrating React/Next.js interfaces, Express/Prisma APIs, FastAPI ML duplicate/spam routing, and Docker.",
     },
   ];
 
@@ -335,20 +339,20 @@ export function Projects() {
             })}
           </div>
 
-          {/* Additional AI Engineering Systems */}
+          {/* Additional Verified Systems & Supporting Collaborations */}
           <div className="mt-16 space-y-8">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <h3 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                 <Layers className="w-5 h-5 text-cyan-400" />
-                Applied AI, Data &amp; Full-Stack Systems (Projects 03&ndash;08)
+                Core Applied AI &amp; Supporting Repositories (Projects 03&ndash;07)
               </h3>
               <span className="text-xs font-mono text-slate-400">
-                NLP &bull; Water ML &bull; Investigation AI &bull; Hospital RAG &bull; Vision Safety &bull; Self-Healing Scraper
+                Hospital RAG (03) &bull; Civic NLP &amp; Vision (04) &bull; Water ML Audit (05) &bull; Supporting Builds (06&ndash;07)
               </span>
             </div>
 
             <div className="space-y-10">
-              {filteredApplied.map(({ project: proj }, idx) => (
+              {filteredApplied.map(({ project: proj, roleBadge }, idx) => (
                   <div
                     key={proj.id}
                     onClick={(e) => {
@@ -362,9 +366,14 @@ export function Projects() {
                       <div className="lg:col-span-6 min-w-0 p-6 sm:p-8 flex flex-col justify-between space-y-5">
                         <div className="space-y-3">
                           <div className="flex items-center justify-between gap-2 flex-wrap">
-                            <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider">
-                              {`PROJECT 0${idx + 3} // SYSTEM CASE STUDY`}
-                            </span>
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="text-xs font-mono text-cyan-400 uppercase tracking-wider">
+                                {`PROJECT 0${idx + 3}`}
+                              </span>
+                              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-white/[0.06] text-slate-300 border border-white/10">
+                                {roleBadge}
+                              </span>
+                            </div>
                             {proj.githubUrl && (
                               <a
                                 href={proj.githubUrl}
