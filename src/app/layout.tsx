@@ -103,7 +103,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <ScrollToTopScript id="scroll-to-top" />
         <script
@@ -114,8 +114,7 @@ export default function RootLayout({
       <body className="font-body antialiased bg-background text-foreground selection:bg-accent/30">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem
+          forcedTheme="dark"
           disableTransitionOnChange
         >
           <div className="flex flex-col min-h-dvh">

@@ -30,10 +30,10 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-xs font-mono text-cyan-400">
-              AI Engineer &bull; Machine Learning &bull; Deep Learning &bull; Generative AI
+              AI Engineer &bull; Applied ML &bull; Backend Systems &bull; Python
             </p>
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              Architecting production-grade machine learning pipelines, digital twins, and distributed systems.
+              3rd-year B.E. CSE student (BITSathy &apos;28) building evaluated ML models, FastAPI/Express APIs, and full-stack software.
             </p>
           </div>
 

@@ -8,7 +8,6 @@ import { resumeConfig, email, socialLinks, navItems } from "@/lib/config";
 import { Menu, FileDown, Copy, Check } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { motion } from "framer-motion";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
   const { toast } = useToast();
@@ -17,7 +16,7 @@ export function Header() {
   const [activeSection, setActiveSection] = React.useState<string>("about");
 
   React.useEffect(() => {
-    const sectionIds = ["contact", "experience", "achievements", "projects", "skills", "about"];
+    const sectionIds = ["contact", "experience", "skills", "achievements", "projects", "about"];
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 220;
       for (const id of sectionIds) {
@@ -127,17 +126,10 @@ export function Header() {
                 <span>{resumeConfig.shortLabel}</span>
               </a>
             </Button>
-
-            <div className="pl-1">
-              <ThemeToggle />
-            </div>
           </div>
 
           {/* Mobile/Tablet Hamburger Menu (visible < lg, covering tablet gap 768px-1023px) */}
           <div className="lg:hidden flex items-center gap-2">
-            <div className="md:hidden">
-              <ThemeToggle />
-            </div>
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button

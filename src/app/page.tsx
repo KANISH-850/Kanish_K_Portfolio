@@ -26,31 +26,31 @@ export default function Home() {
         {/* 1. Hero Section */}
         <Hero />
 
-        {/* 2. About Me & Engineering Philosophy */}
+        {/* 2. About Me & Academic Profile */}
         <About />
 
-        {/* 3. Technical Skills (6 Specified Domains) */}
-        <Skills />
-
-        {/* 4. Featured Projects (4 Ordered Systems) */}
+        {/* 3. Featured Engineering Projects (Promoted for Recruiter Scanning) */}
         <Projects />
 
-        {/* 5. Achievements (SIH Winner & CDAC Runner-up) */}
+        {/* 4. Competitive Achievements (SIH Winner & C-DAC Runner-up) */}
         <Achievements />
 
-        {/* 6. Technical Journey & Milestones (Verified, Zero Fake Employment) */}
+        {/* 5. Technical Stack & Tooling */}
+        <Skills />
+
+        {/* 6. Engineering Timeline (Verified Milestones) */}
         <Experience />
 
-        {/* 7. Education & Certifications */}
+        {/* 7. Education & Core CS Foundations */}
         <Certifications />
 
-        {/* 8. Technical Challenges & Engineering Diagnostics */}
+        {/* 8. Technical Challenges & Solutions */}
         <TechnicalChallenges />
 
-        {/* 9. DevOps & Deployment Pipeline */}
+        {/* 9. DevOps & Verification Workflows */}
         <DevopsPipeline />
 
-        {/* 10. Repository & Open Source Evidence */}
+        {/* 10. Verified GitHub Repositories */}
         <GithubEvidence />
 
         {/* 11. Contact */}

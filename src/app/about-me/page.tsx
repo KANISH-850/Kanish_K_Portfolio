@@ -46,7 +46,7 @@ export default function AboutMePage() {
             <Quote className="absolute -bottom-8 -right-8 w-12 h-12 text-primary/20" />
           </div>
           <p className="text-sm font-mono text-cyan-400 uppercase tracking-widest">
-            AI Engineer &bull; Machine Learning &bull; Deep Learning &bull; Generative AI &bull; NLP &bull; Python
+            AI Engineer &bull; Applied Machine Learning &bull; Backend Systems &bull; Python &amp; TypeScript
           </p>
         </motion.section>
 
@@ -60,14 +60,14 @@ export default function AboutMePage() {
         >
           <h2 className="text-2xl sm:text-3xl font-bold flex items-center gap-3 text-white">
             <BookOpen className="w-7 h-7 text-primary" />
-            Professional Journey & Engineering Philosophy
+            Academic Background & Engineering Approach
           </h2>
           <div className="space-y-4 text-slate-300 leading-relaxed text-base sm:text-lg">
             <p>
-              My journey began at the intersection of complex telemetry data and mathematical modeling. Early on, I realized that developing high-accuracy machine learning algorithms in notebooks is only the first step. To generate genuine operational value, algorithms must be integrated into resilient, low-latency production pipelines capable of ingesting high-frequency streams and driving real-time decision support systems.
+              Currently a 3rd-year B.E. Computer Science and Engineering undergraduate at Bannari Amman Institute of Technology (Class of 2028, CGPA 7.73/10), I focus on connecting machine learning modeling and empirical evaluation with maintainable backend software engineering.
             </p>
             <p>
-              This realization drove me to specialize as an <strong className="text-white font-semibold">AI Engineer</strong> with deep competencies in Machine Learning, Deep Neural Networks, Generative AI, and Natural Language Processing. Whether developing semi-supervised autoencoders for substation transformer anomaly detection (<span className="text-cyan-400 font-medium">Smart India Hackathon 1st Place</span>) or fleet orchestration platforms (<span className="text-purple-400 font-medium">CDAC Runner-up</span>), I design systems where mathematical modeling and distributed backend architectures operate as one unified engine.
+              Across national hackathons and collaborative repositories—including Team Oceanberg&apos;s <span className="text-cyan-400 font-medium">Smart India Hackathon 2025 1st Place</span> substation monitoring prototype, the <span className="text-purple-400 font-medium">C-DAC SUVIDHA Runner-up</span> urban kiosk platform, and applied ML/RAG systems—I emphasize honest held-out metrics, clear human review boundaries, and reproducible FastAPI/Express services.
             </p>
           </div>
         </motion.section>
