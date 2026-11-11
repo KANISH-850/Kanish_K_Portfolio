@@ -11,11 +11,11 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 export const metadata: Metadata = {
   metadataBase: new URL("https://KANISH-850.github.io/Kanish_K_Portfolio"),
   title: {
-    default: "Kanish K | AI Engineer & Systems Architect",
+    default: "Kanish K | AI Engineer — Applied ML & Backend Systems",
     template: "%s | Kanish K",
   },
   description:
-    "AI Engineer specializing in Machine Learning, Deep Learning, Generative AI, NLP, Python, and Systems Architecture. Smart India Hackathon Winner and CDAC Runner-up.",
+    "Portfolio of Kanish K (B.E. CSE '28, BITSathy): AI Engineer & Full-Stack Developer building ML pipelines, FastAPI microservices, PyTorch/TensorFlow models, and RAG systems. SIH '25 Winner & C-DAC Runner-up.",
   authors: [{ name: "Kanish K", url: "https://github.com/KANISH-850" }],
   creator: "Kanish K",
   robots: {
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://KANISH-850.github.io/Kanish_K_Portfolio/",
-    title: "Kanish K | AI Engineer & Systems Architect",
+    title: "Kanish K | AI Engineer — Applied ML & Backend Systems",
     description:
-      "AI Engineer specializing in Machine Learning, Deep Learning, Generative AI, NLP, Python, and Systems Architecture.",
+      "AI Engineer & Full-Stack Developer building ML pipelines, FastAPI microservices, PyTorch/TensorFlow models, and RAG systems. SIH '25 Winner & C-DAC Runner-up.",
     siteName: "Kanish K Portfolio",
     images: [
       {
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kanish K | AI Engineer & Systems Architect",
+    title: "Kanish K | AI Engineer — Applied ML & Backend Systems",
     description:
-      "AI Engineer specializing in Machine Learning, Deep Learning, Generative AI, NLP, Python, and Systems Architecture.",
+      "AI Engineer & Full-Stack Developer building ML pipelines, FastAPI microservices, PyTorch/TensorFlow models, and RAG systems.",
     images: ["https://KANISH-850.github.io/Kanish_K_Portfolio/og-image.png"],
   },
   icons: {

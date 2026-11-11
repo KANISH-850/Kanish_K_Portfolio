@@ -13,9 +13,9 @@ import { GithubEvidence } from '@/components/github-evidence';
 import { Contact } from '@/components/contact';
 
 export const metadata: Metadata = {
-  title: 'Kanish K | AI Engineer & Systems Architect',
+  title: 'Kanish K | AI Engineer — Applied ML & Backend Systems',
   description:
-    'Portfolio of Kanish K, AI Engineer specializing in Machine Learning, Deep Learning, Generative AI, NLP, and Full-Stack Systems.',
+    'Portfolio of Kanish K (B.E. CSE 2028, BITSathy): Applied Machine Learning, NLP/RAG pipelines, FastAPI & Express backends, SIH 2025 Winner and C-DAC Runner-up.',
 };
 
 export default function Home() {
