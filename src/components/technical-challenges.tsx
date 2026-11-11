@@ -1,4 +1,4 @@
-﻿import { TechChallenge, projectsData } from "@/data/projects";
+import { TechChallenge, projectsData } from "@/data/projects";
 import { Wrench, CheckCircle2, Code2, LineChart, Cpu } from "lucide-react";
 import MotionWrap from "./motion-wrap";
 

@@ -1,4 +1,4 @@
-﻿import type { ArchitectureNode } from "@/components/architecture-diagram";
+import type { ArchitectureNode } from "@/components/architecture-diagram";
 import type { ProjectMediaItem } from "@/components/project-demonstration";
 
 export interface TechChallenge {
@@ -155,7 +155,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     achievement: "Smart India Hackathon Winner",
     githubUrl: "https://github.com/KANISH-850/oceanBerg_sih",
     overview:
-      "Developed by Team Oceanberg (Smart India Hackathon Grand Finale Winner), this repository models Extra High Voltage (EHV) substation componentsâ€”power transformers, busbars, instrument transformers, isolators, and circuit breakersâ€”using scikit-learn ensemble & Isolation Forest diagnostics, a Keras CNN-LSTM waveform fault trainer, and automated ReportLab PDF / SMTP alerting.",
+      "Developed by Team Oceanberg (Smart India Hackathon Grand Finale Winner), this repository models Extra High Voltage (EHV) substation components—power transformers, busbars, instrument transformers, isolators, and circuit breakers—using scikit-learn ensemble & Isolation Forest diagnostics, a Keras CNN-LSTM waveform fault trainer, and automated ReportLab PDF / SMTP alerting.",
     problemStatement:
       "Extra High Voltage (EHV) substations face costly equipment stress and unplanned outages when transformer thermal drift, busbar imbalances, or switchgear anomalies go undetected under static single-point alarms.",
     problemSummaryDetail: {
@@ -232,7 +232,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
       "Unified component-level ML diagnostics, CNN-LSTM sequence fault training, PDF alert reporting, and an interactive 3D bay twin view.",
     impact:
       "Smart India Hackathon 2025 Grand Finale 1st Place Winner (Team Oceanberg).",
-    teamContribution: "Team Lead & Core AI Modeling (SIH Grand Finale â€” Team Oceanberg)",
+    teamContribution: "Team Lead & Core AI Modeling (SIH Grand Finale — Team Oceanberg)",
     individualContributions: [
       "Co-authored the Python diagnostic modules combining Random Forest and Isolation Forest scoring across transformer and switchgear files.",
       "Built the CNN-LSTM fault classification training script and Streamlit workflow integration.",
@@ -460,7 +460,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     ],
     performanceMetrics: [
       "MobileNetV3-Small CPU latency (`evaluation_report.json`): 36.47 ms average (59.37 ms p95) across 38 held-out test images.",
-      "Honest held-out MobileNetV3 test evaluation: 50.0% overall accuracy (172 train / 38 val / 38 test; 0.5789 best val accuracy) â€” documented with confusion matrix.",
+      "Honest held-out MobileNetV3 test evaluation: 50.0% overall accuracy (172 train / 38 val / 38 test; 0.5789 best val accuracy) — documented with confusion matrix.",
       "Text classifier (`grievance-classifier`): TF-IDF n-gram (1,2) + LogisticRegression validated on curated 9-category CPGRAMS-inspired dataset."
     ],
     lessonsLearned: [
@@ -471,7 +471,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
       "Pairs multi-issue multilingual triage and token-level TF-IDF explainability with honest MobileNetV3 failure analysis and human-in-the-loop officer queues.",
     impact:
       "Automates regional grievance translation, multi-department splitting, and transparent audit tracking end-to-end across React, Express, and FastAPI.",
-    teamContribution: "Primary Author â€” Full-Stack Architecture, AI Service & Evaluation Suite",
+    teamContribution: "Primary Author — Full-Stack Architecture, AI Service & Evaluation Suite",
     individualContributions: [
       "Built the FastAPI `ai-service` integrating language detection, LRU-cached translation, TF-IDF + LogisticRegression XAI, and PyTorch MobileNetV3 inference.",
       "Implemented the `rigorous_evaluation.py` benchmark suite generating normalized confusion matrices and CPU latency percentiles.",
@@ -636,10 +636,10 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
 
   "aquaguard-ai": {
     id: "aquaguard-ai",
-    title: "AquaGuard AI / Neeraran â€” Campus Water Resilience ML Audit",
+    title: "AquaGuard AI / Neeraran — Campus Water Resilience ML Audit",
     tagline: "Imbalanced Consumption Anomaly Detection & High-Recall Pipe Leak Identification",
     category: "Water Resilience & Time-Series ML",
-    statusLabel: "Collaborative Team Repo â€¢ Authored ML Audit & Sensor Health Suite",
+    statusLabel: "Collaborative Team Repo • Authored ML Audit & Sensor Health Suite",
     githubUrl: "https://github.com/LakshanyaaJ/neeraran",
     overview:
       "A collaborative campus water resilience platform (`LakshanyaaJ/neeraran`). While teammates built the hydraulic digital twin simulator, 7-agent orchestrator, and Next.js/Vite control center (`main` branch), I authored the comprehensive ML evaluation & sensor-health decoupling suite on the `kanish` branch benchmarking anomaly and leak models over 46,656 simulated telemetry observations.",
@@ -774,7 +774,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
       }
     ],
     scalability:
-      "Tiny serialized models (32.8 KB One-Class SVM, 1.1 MB XGBoost) score frames in ~2â€“4 ms per zone in FastAPI.",
+      "Tiny serialized models (32.8 KB One-Class SVM, 1.1 MB XGBoost) score frames in ~2–4 ms per zone in FastAPI.",
     media: [
       {
         title: "XGBoost Leak Classifier Confusion Matrix",
@@ -1140,7 +1140,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
 
   "webscraper": {
     id: "webscraper",
-    title: "HealScrape â€” AI Self-Healing Web Scraper",
+    title: "HealScrape — AI Self-Healing Web Scraper",
     tagline: "Schema-Drift Detecting Extraction Platform with Automated LLM Selector Repair",
     category: "Data Pipelines & Self-Healing AI",
     statusLabel: "Implemented Prototype (Bright Data + LLM Drift Repair)",
@@ -1365,7 +1365,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
 
   "vikshana": {
     id: "vikshana",
-    title: "Vikshana â€” AI Crime Investigation Intelligence & Foresight Platform",
+    title: "Vikshana — AI Crime Investigation Intelligence & Foresight Platform",
     tagline: "Evidence-Grounded Case Timelines, Entity Networks, DBSCAN Hotspots & XGBoost Decision Support",
     category: "Applied ML, Graph Analytics & Explainable AI",
     statusLabel: "Collaborative Datathon Team Project (Benchmarked Prototype)",
@@ -1596,7 +1596,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
 
   "techspire": {
     id: "techspire",
-    title: "TechSpire â€” Unified AI Hospital Management System",
+    title: "TechSpire — Unified AI Hospital Management System",
     tagline: "Full-Stack Clinical Operations, Air-Gapped Ollama RAG Assistant & Predictive Analytics",
     category: "Enterprise Healthcare Systems & Local RAG AI",
     statusLabel: "Individual Full-Stack Dockerized Prototype (20/20 Pytest)",
@@ -1686,7 +1686,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
         category: "AI/ML",
         items: [
           { name: "Ollama (qwen3:4b) + nomic-embed-text + ChromaDB", role: "100% local RAG pipeline over 500-char hospital SOP document chunks", why: "Zero external cloud API calls so hospital data remains air-gapped on-premise" },
-          { name: "Scikit-Learn RandomForestRegressor + Pandas", role: "Forecasts Financial Revenue (RÂ²=0.82), Admissions (RÂ²=0.74) & Reorder Points", why: "Explains operational trends & stockout risk deterministically on tabular history" }
+          { name: "Scikit-Learn RandomForestRegressor + Pandas", role: "Forecasts Financial Revenue (R²=0.82), Admissions (R²=0.74) & Reorder Points", why: "Explains operational trends & stockout risk deterministically on tabular history" }
         ]
       },
       {
@@ -1719,8 +1719,8 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
         inputs: "Time-indexed clinical, bed, revenue, and pharmacy transaction histories seeded in SQL.",
         preprocessing: "Date lag feature extraction (BaseForecaster.extract_features) + non-negative prediction clipping.",
         approach: "RandomForestRegressor for Revenue & Admissions; bounded linear trends for Bed Occupancy; moving averages + Reorder Point math for Inventory.",
-        output: "Forecast horizons with MAE, RMSE, and RÂ² diagnostics plus stockout risk alerts.",
-        evaluation: "README documents RandomForestRegressor RÂ² = 0.82 (Revenue) and RÂ² = 0.74 (Admissions) alongside passing unit checks in test_predictive_ml.py.",
+        output: "Forecast horizons with MAE, RMSE, and R² diagnostics plus stockout risk alerts.",
+        evaluation: "README documents RandomForestRegressor R² = 0.82 (Revenue) and R² = 0.74 (Admissions) alongside passing unit checks in test_predictive_ml.py.",
         limitations: "Trained and evaluated strictly on synthetic seeded hospital data (app/db/seed.py), not live clinical EHR history."
       }
     ],
@@ -1769,7 +1769,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
       {
         decision: "Synthetic database seeding (seed.py) cleanly decoupled from production EHR integration",
         rationale: "Demonstrates complete forecasting and PDF/Excel report workflows safely without real patient PII.",
-        tradeoff: "RÂ² metrics (0.82 Revenue, 0.74 Admissions) validate synthetic pattern capture rather than real clinical hospital load.",
+        tradeoff: "R² metrics (0.82 Revenue, 0.74 Admissions) validate synthetic pattern capture rather than real clinical hospital load.",
         status: "Implemented"
       }
     ],
@@ -1793,7 +1793,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     ],
     performanceMetrics: [
       "README documents 20/20 Pytest tests passing across API integration, ORM models, negative security tests, and predictive ML checks.",
-      "README documents RandomForestRegressor evaluation RÂ² = 0.82 (Financial Revenue) and RÂ² = 0.74 (Inpatient Admissions) on synthetic seeded data."
+      "README documents RandomForestRegressor evaluation R² = 0.82 (Financial Revenue) and R² = 0.74 (Inpatient Admissions) on synthetic seeded data."
     ],
     lessonsLearned: [
       "A modular monolith with unified Alembic migrations beats maintaining five fragmented microservice demos during rapid iteration.",
@@ -1822,7 +1822,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     ],
     limitations: [
       "Evaluated strictly on synthetic seeded data generated by app/db/seed.py; not cleared for live clinical patient care or PHI storage.",
-      "Pytest (20/20) and RandomForest RÂ² (0.82 / 0.74) figures are taken from the repository README rather than re-executed in this static portfolio sandbox.",
+      "Pytest (20/20) and RandomForest R² (0.82 / 0.74) figures are taken from the repository README rather than re-executed in this static portfolio sandbox.",
       "Localhost Ollama qwen3:4b latency depends on host GPU availability."
     ],
     futureImprovements: [
@@ -1833,7 +1833,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     verificationChecklist: [
       { claim: "14 SQLAlchemy ORM models, Alembic migrations, HS256 JWT + Bcrypt & 4-service Docker Compose", status: "Verified implementation" },
       { claim: "Ollama qwen3:4b + ChromaDB RAG, Scikit-Learn RandomForest & ReportLab/OpenPyXL exports", status: "Verified implementation" },
-      { claim: "20/20 Pytest & RandomForest RÂ²=0.82 / RÂ²=0.74 (per README on synthetic seed data)", status: "Simulated demonstration" },
+      { claim: "20/20 Pytest & RandomForest R²=0.82 / R²=0.74 (per README on synthetic seed data)", status: "Simulated demonstration" },
       { claim: "Interactive 3D Docker & Local RAG Hospital Twin on portfolio", status: "Simulated demonstration" },
       { claim: "HL7 FHIR hospital interoperability & live clinical production deployment", status: "Proposed future improvement" }
     ]
