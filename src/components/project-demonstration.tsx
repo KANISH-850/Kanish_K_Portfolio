@@ -249,7 +249,7 @@ export function ProjectDemonstration({
                       alt={item.alt}
                       fill
                       unoptimized
-                      loading="eager"
+                      loading="lazy"
                       className="object-contain"
                     />
                   </div>

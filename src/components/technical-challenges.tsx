@@ -32,54 +32,48 @@ export function TechnicalChallenges({ challenges }: { challenges?: TechChallenge
         </div>
       )}
 
-      {!isStandalone && (
-        <h2 className="text-3xl font-bold mb-6 border-b border-border/50 pb-2">
-          Technical Challenges & Solutions
-        </h2>
-      )}
-
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid md:grid-cols-2 gap-6 min-w-0">
         {displayChallenges.map((challenge, idx) => (
           <article
             key={challenge.id || `challenge-${idx}`}
-            className="bg-card border border-white/10 shadow-md p-6 sm:p-7 rounded-2xl flex flex-col gap-4 hover:border-primary/40 transition-colors"
+            className="min-w-0 bg-card border border-white/10 shadow-md p-5 sm:p-7 rounded-2xl flex flex-col gap-4 hover:border-primary/40 transition-colors"
           >
             {/* Challenge */}
-            <div className="space-y-1.5">
+            <div className="space-y-1.5 min-w-0">
               <div className="flex items-center gap-2 text-destructive font-semibold text-sm font-mono uppercase tracking-wider">
-                <Wrench className="w-4 h-4" /> Engineering Challenge
+                <Wrench className="w-4 h-4 shrink-0" /> Engineering Challenge
               </div>
-              <p className="text-foreground/90 font-medium text-sm leading-relaxed">
+              <p className="text-foreground/90 font-medium text-sm leading-relaxed break-words">
                 {challenge.challenge}
               </p>
             </div>
 
             {/* Solution */}
-            <div className="space-y-1.5 border-t border-border/40 pt-3">
+            <div className="space-y-1.5 border-t border-border/40 pt-3 min-w-0">
               <div className="flex items-center gap-2 text-primary font-semibold text-sm font-mono uppercase tracking-wider">
-                <CheckCircle2 className="w-4 h-4" /> Architectural Solution
+                <CheckCircle2 className="w-4 h-4 shrink-0" /> Architectural Solution
               </div>
-              <p className="text-foreground/80 text-xs md:text-sm leading-relaxed">
+              <p className="text-foreground/80 text-xs md:text-sm leading-relaxed break-words">
                 {challenge.solution}
               </p>
             </div>
 
             {/* Implementation */}
-            <div className="space-y-1.5 border-t border-border/40 pt-3">
+            <div className="space-y-1.5 border-t border-border/40 pt-3 min-w-0">
               <div className="flex items-center gap-2 text-accent font-semibold text-sm font-mono uppercase tracking-wider">
-                <Code2 className="w-4 h-4" /> Implementation Details
+                <Code2 className="w-4 h-4 shrink-0" /> Implementation Details
               </div>
-              <p className="text-foreground/80 font-mono text-xs bg-muted/30 p-2.5 rounded-lg border border-white/5 leading-relaxed">
+              <p className="text-foreground/80 font-mono text-xs bg-muted/30 p-2.5 rounded-lg border border-white/5 leading-relaxed break-words">
                 {challenge.implementation}
               </p>
             </div>
 
             {/* Result */}
-            <div className="mt-auto space-y-1 border-t border-border/40 pt-3">
+            <div className="mt-auto space-y-1 border-t border-border/40 pt-3 min-w-0">
               <div className="flex items-center gap-2 text-emerald-400 font-semibold text-xs font-mono uppercase tracking-wider">
-                <LineChart className="w-4 h-4" /> Quantified Outcome
+                <LineChart className="w-4 h-4 shrink-0" /> Quantified Outcome
               </div>
-              <p className="text-foreground font-bold text-sm">
+              <p className="text-foreground font-bold text-sm break-words">
                 {challenge.result}
               </p>
             </div>
@@ -91,7 +85,7 @@ export function TechnicalChallenges({ challenges }: { challenges?: TechChallenge
 
   if (isStandalone) {
     return (
-      <section id="challenges" className="py-20 md:py-28" aria-label="Technical Challenges">
+      <section id="challenges" className="py-20 md:py-28 overflow-hidden" aria-label="Technical Challenges">
         <div className="container max-w-6xl mx-auto px-4 md:px-6">
           <MotionWrap>{content}</MotionWrap>
         </div>

@@ -93,8 +93,8 @@ const skillCategories: SkillCategory[] = [
     color: "text-pink-400",
     level: "Project Experience",
     description:
-      "Relational schema design, migrations, local SQLite prototyping, and local vector storage for retrieval workflows.",
-    skills: ["PostgreSQL", "Prisma", "SQLAlchemy", "Alembic", "SQLite", "ChromaDB"],
+      "Relational schema design, migrations, Redis caching/queues, local SQLite prototyping, and local vector storage for retrieval workflows.",
+    skills: ["PostgreSQL", "Redis", "Prisma", "SQLAlchemy", "Alembic", "SQLite", "ChromaDB"],
   },
   {
     id: "core-cs",

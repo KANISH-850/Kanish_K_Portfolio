@@ -583,44 +583,6 @@ export default async function ProjectCaseStudyPage({
               10. Engineering Challenges &amp; Solutions
             </h2>
 
-            {project.technicalChallenges && project.technicalChallenges.length > 0 && (
-              <>
-                <div className="md:hidden space-y-3">
-                  {project.technicalChallenges.map((c) => (
-                    <div key={`mob-${c.id}`} className="p-4 rounded-2xl border border-white/10 bg-card space-y-2 text-xs">
-                      <div className="font-semibold text-white">{c.challenge}</div>
-                      <p className="text-foreground/85">{c.solution}</p>
-                      <p className="text-muted-foreground">{c.implementation}</p>
-                      <p className="text-emerald-300 font-medium">{c.result}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="hidden md:block overflow-x-auto rounded-2xl border border-white/10 bg-card">
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="border-b border-white/10 bg-slate-950/70 text-[11px] font-mono uppercase tracking-wider text-slate-400">
-                        <th className="p-4">Challenge</th>
-                        <th className="p-4">Solution &amp; Implementation</th>
-                        <th className="p-4">Measured Outcome</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-white/10 text-xs md:text-sm">
-                      {project.technicalChallenges.map((c) => (
-                        <tr key={c.id} className="align-top">
-                          <td className="p-4 font-medium text-white">{c.challenge}</td>
-                          <td className="p-4 text-foreground/85 space-y-1">
-                            <p>{c.solution}</p>
-                            <p className="text-xs text-muted-foreground">{c.implementation}</p>
-                          </td>
-                          <td className="p-4 text-emerald-300 font-medium">{c.result}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </>
-            )}
-
             <TechnicalChallenges challenges={project.technicalChallenges} />
 
             {project.engineeringDecisions && project.engineeringDecisions.length > 0 && (
