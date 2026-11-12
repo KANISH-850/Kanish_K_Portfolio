@@ -1,0 +1,79 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[top=0.45in, bottom=0.45in, left=0.55in, right=0.55in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage[T1]{fontenc}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\titleformat{\section}{\bfseries\normalsize\uppercase}{}{0em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{7pt}{4pt}
+\setlist[itemize]{leftmargin=1.3em, itemsep=1pt, parsep=0pt, topsep=2pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE \textbf{KANISH K}}\\[3pt]
+  \small Coimbatore, Tamil Nadu \textemdash{} +91 8508509719 \textemdash{} \href{mailto:kanishkgins@gmail.com}{kanishkgins@gmail.com}\\
+  \href{https://linkedin.com/in/kanish-k850}{LinkedIn} \textemdash{} \href{https://github.com/KANISH-850}{GitHub} \textemdash{} \href{https://KANISH-850.github.io/Kanish_K_Portfolio/}{Portfolio}
+\end{center}
+
+\section*{Summary}
+B.E. Computer Science and Engineering student at Bannari Amman Institute of Technology (graduating 2028, CGPA 7.73/10) focused on Applied Machine Learning, NLP/RAG pipelines, and Full-Stack Backend Systems. Experienced building FastAPI and Express REST APIs, PostgreSQL data models, and evaluated Scikit-learn/PyTorch/XGBoost pipelines. Smart India Hackathon 2025 Winner and C-DAC Innovation Challenge Runner-up seeking SWE and AI/ML internships.
+
+\section*{Education}
+\textbf{B.E. Computer Science and Engineering}, Bannari Amman Institute of Technology \hfill 2024 -- 2028\\
+CGPA: 7.73/10
+
+\section*{Technical Skills}
+\textbf{Languages:} Python, JavaScript, TypeScript, SQL, Java, C++, C\\
+\textbf{Core CS:} Data Structures and Algorithms, OOP, DBMS, Operating Systems, Computer Networks\\
+\textbf{AI \& ML:} Scikit-learn, XGBoost, PyTorch, TensorFlow, TF-IDF \& NLP, Ollama, ChromaDB, NumPy, Pandas\\
+\textbf{Backend \& APIs:} FastAPI, Node.js, Express.js, REST APIs, JWT/Bcrypt, Socket.IO, Pytest\\
+\textbf{Frontend:} React.js, Next.js, TypeScript, Tailwind CSS, Vite, HTML5/CSS3\\
+\textbf{Databases \& Tools:} PostgreSQL, Redis, Prisma, SQLAlchemy, Alembic, SQLite, Git, GitHub, Docker, Nginx
+
+\section*{Projects}
+\textbf{Digital Twin of EHV Substation Monitoring} \hfill 2025\\
+\textit{Smart India Hackathon 2025 -- National Winner (Team Oceanberg) $|$ Python, Scikit-learn, TensorFlow, Streamlit, ReportLab}
+\begin{itemize}
+  \item Co-authored per-component Python diagnostics (Random Forest, Isolation Forest) across transformer, busbar, and breaker modules over simulated SCADA CSV datasets (5,000 training / 6,000 output rows).
+  \item Built the Streamlit CNN-LSTM waveform fault trainer workflow and automated ReportLab PDF / SMTP alerting.
+\end{itemize}
+
+\textbf{Kiosk Management System (AAZHI)} \hfill 2024\\
+\textit{C-DAC SUVIDHA Innovation Challenge -- Runner-up (Team Fork) $|$ React, Express, PostgreSQL, Redis, FastAPI, Scikit-learn}
+\begin{itemize}
+  \item Contributed multilingual citizen kiosk UI, Aria voice routing (11+ Indian languages), Gas billing/admin/SLA views, and QR mobile tracking fixes across 78 commits on \texttt{KANISH-850/aazhi}.
+  \item Integrated with team Express (\texttt{pg}, Redis/BullMQ, Socket.IO, Razorpay) and FastAPI ML triage services (LinearSVC spam, TF-IDF duplicates, Random Forest forecasting).
+\end{itemize}
+
+\textbf{TechSpire -- Unified AI Hospital Management System} \hfill 2026\\
+\textit{Sole Author $|$ FastAPI, PostgreSQL 16, SQLAlchemy, Alembic, Ollama (qwen3:4b), ChromaDB, React, Docker}
+\begin{itemize}
+  \item Consolidated clinical, ward bed, inventory, and reporting modules in a 4-container Docker Compose stack behind Nginx with 14 SQLAlchemy ORM models, Alembic migrations, and HS256 JWT/Bcrypt auth.
+  \item Built on-premise Ollama RAG chat via ChromaDB (SSE streaming) and RandomForestRegressor forecasts on synthetic seeded data (20/20 Pytest tests documented in repository).
+\end{itemize}
+
+\textbf{Intelligent Multilingual Grievance System} \hfill 2026\\
+\textit{Primary Author $|$ React, TypeScript, Express, Prisma, PostgreSQL, FastAPI, PyTorch, Scikit-learn}
+\begin{itemize}
+  \item Built a 3-tier civic triage platform supporting 12 Indian languages (LRU-cached translation), explainable TF-IDF + LogisticRegression routing, and multi-issue transactional Prisma dispatch.
+  \item Benchmarked PyTorch MobileNetV3-Small vision triage on 38 held-out real civic images (50.0\% test accuracy), pairing confidence flags with human officer review queues.
+\end{itemize}
+
+\textbf{AquaGuard AI (Neeraran) -- Water Resilience ML Audit} \hfill 2026\\
+\textit{ML Audit \& Sensor Health Contributor (\texttt{kanish} branch) $|$ Python, One-Class SVM, XGBoost, SHAP, FastAPI, Pytest}
+\begin{itemize}
+  \item Authored comparative ML audit across 46,656 simulated telemetry rows (One-Class SVM 0.7451 F1; XGBoost 100\% leak recall, 97.37\% precision) and built Layer-1 sensor health decoupling endpoints.
+\end{itemize}
+
+\section*{Achievements}
+\begin{itemize}
+  \item \textbf{Smart India Hackathon 2025:} 1st Place National Grand Finale Winner (Team Oceanberg) -- Digital Twin of EHV Substation Monitoring.
+  \item \textbf{C-DAC SUVIDHA Innovation Challenge:} National Runner-up (Team Oceanberg) -- AAZHI Civic Self-Service Kiosk Platform.
+\end{itemize}
+
+\end{document}
+

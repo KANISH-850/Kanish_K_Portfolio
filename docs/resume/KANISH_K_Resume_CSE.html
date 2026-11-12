@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>KANISH K - Resume</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 0.42in 0.52in;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Computer Modern Serif", "Latin Modern Roman", "Georgia", "Times New Roman", serif;
+      font-size: 9.6pt;
+      line-height: 1.28;
+      color: #111111;
+      background: #ffffff;
+    }
+    a {
+      color: #1a4b8c;
+      text-decoration: none;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 7pt;
+    }
+    header h1 {
+      font-size: 18pt;
+      font-weight: 700;
+      letter-spacing: 0.5pt;
+      margin-bottom: 2pt;
+    }
+    .contact-line {
+      font-size: 9pt;
+      color: #222222;
+      line-height: 1.35;
+    }
+    section {
+      margin-top: 6.5pt;
+    }
+    h2 {
+      font-size: 10pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4pt;
+      border-bottom: 0.8pt solid #222222;
+      padding-bottom: 1.5pt;
+      margin-bottom: 4pt;
+    }
+    p {
+      text-align: justify;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8pt;
+    }
+    .skills-list p {
+      text-align: left;
+      margin-bottom: 1.5pt;
+    }
+    .project {
+      margin-bottom: 5pt;
+    }
+    .project:last-child {
+      margin-bottom: 0;
+    }
+    .project-title {
+      font-weight: 700;
+    }
+    .project-sub {
+      font-style: italic;
+      font-size: 9pt;
+      color: #222222;
+      margin-bottom: 1.5pt;
+    }
+    ul {
+      padding-left: 14pt;
+      margin-top: 1pt;
+    }
+    li {
+      margin-bottom: 1.5pt;
+      text-align: left;
+    }
+    code {
+      font-family: "Consolas", "Courier New", monospace;
+      font-size: 8.6pt;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>KANISH K</h1>
+    <div class="contact-line">
+      Coimbatore, Tamil Nadu &mdash; +91 8508509719 &mdash;
+      <a href="mailto:kanishkgins@gmail.com">kanishkgins@gmail.com</a>
+    </div>
+    <div class="contact-line">
+      <a href="https://linkedin.com/in/kanish-k850">LinkedIn</a> &mdash;
+      <a href="https://github.com/KANISH-850">GitHub</a> &mdash;
+      <a href="https://KANISH-850.github.io/Kanish_K_Portfolio/">Portfolio</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p>
+      B.E. Computer Science and Engineering student at Bannari Amman Institute of Technology (graduating 2028, CGPA 7.73/10) focused on Applied Machine Learning, NLP/RAG pipelines, and Full-Stack Backend Systems. Experienced building FastAPI and Express REST APIs, PostgreSQL data models, and evaluated Scikit-learn, PyTorch, and XGBoost pipelines. Smart India Hackathon 2025 Winner and C-DAC Innovation Challenge Runner-up seeking SWE and AI/ML internships.
+    </p>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="row">
+      <span><strong>B.E. Computer Science and Engineering</strong>, Bannari Amman Institute of Technology</span>
+      <span>2024 &ndash; 2028</span>
+    </div>
+    <div>CGPA: 7.73/10</div>
+  </section>
+
+  <section>
+    <h2>Technical Skills</h2>
+    <div class="skills-list">
+      <p><strong>Languages:</strong> Python, JavaScript, TypeScript, SQL, Java, C++, C</p>
+      <p><strong>Core CS:</strong> Data Structures and Algorithms, OOP, DBMS, Operating Systems, Computer Networks</p>
+      <p><strong>AI &amp; ML:</strong> Scikit-learn, XGBoost, PyTorch, TensorFlow, TF-IDF &amp; NLP, Ollama, ChromaDB, NumPy, Pandas</p>
+      <p><strong>Backend &amp; APIs:</strong> FastAPI, Node.js, Express.js, REST APIs, JWT/Bcrypt, Socket.IO, Pytest</p>
+      <p><strong>Frontend:</strong> React.js, Next.js, TypeScript, Tailwind CSS, Vite, HTML5/CSS3</p>
+      <p><strong>Databases &amp; Tools:</strong> PostgreSQL, Redis, Prisma, SQLAlchemy, Alembic, SQLite, Git, GitHub, Docker, Nginx</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+
+    <div class="project">
+      <div class="row">
+        <span class="project-title">Digital Twin of EHV Substation Monitoring</span>
+        <span>2025</span>
+      </div>
+      <div class="project-sub">Smart India Hackathon 2025 &ndash; National Winner (Team Oceanberg) | Python, Scikit-learn, TensorFlow, Streamlit, ReportLab</div>
+      <ul>
+        <li>Co-authored per-component Python diagnostics (Random Forest, Isolation Forest) across transformer, busbar, and breaker modules over simulated SCADA CSV datasets (5,000 training / 6,000 output rows).</li>
+        <li>Built the Streamlit CNN-LSTM waveform fault trainer workflow and automated ReportLab PDF / SMTP alerting.</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="row">
+        <span class="project-title">Kiosk Management System (AAZHI)</span>
+        <span>2024</span>
+      </div>
+      <div class="project-sub">C-DAC SUVIDHA Innovation Challenge &ndash; Runner-up (Team Fork) | React, Express, PostgreSQL, Redis, FastAPI, Scikit-learn</div>
+      <ul>
+        <li>Contributed multilingual citizen kiosk UI, Aria voice routing (11+ Indian languages), Gas billing/admin/SLA views, and QR mobile tracking fixes across 78 commits on <code>KANISH-850/aazhi</code>.</li>
+        <li>Integrated with team Express (<code>pg</code>, Redis/BullMQ, Socket.IO, Razorpay) and FastAPI ML triage services (LinearSVC spam, TF-IDF duplicates, Random Forest forecasting).</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="row">
+        <span class="project-title">TechSpire &ndash; Unified AI Hospital Management System</span>
+        <span>2026</span>
+      </div>
+      <div class="project-sub">Sole Author | FastAPI, PostgreSQL 16, SQLAlchemy, Alembic, Ollama (qwen3:4b), ChromaDB, React, Docker</div>
+      <ul>
+        <li>Consolidated clinical, ward bed, inventory, and reporting modules in a 4-container Docker Compose stack behind Nginx with 14 SQLAlchemy ORM models, Alembic migrations, and HS256 JWT/Bcrypt auth.</li>
+        <li>Built on-premise Ollama RAG chat via ChromaDB (SSE streaming) and RandomForestRegressor forecasts on synthetic seeded data (20/20 Pytest tests documented in repository).</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="row">
+        <span class="project-title">Intelligent Multilingual Grievance System</span>
+        <span>2026</span>
+      </div>
+      <div class="project-sub">Primary Author | React, TypeScript, Express, Prisma, PostgreSQL, FastAPI, PyTorch, Scikit-learn</div>
+      <ul>
+        <li>Built a 3-tier civic triage platform supporting 12 Indian languages (LRU-cached translation), explainable TF-IDF + LogisticRegression routing, and multi-issue transactional Prisma dispatch.</li>
+        <li>Benchmarked PyTorch MobileNetV3-Small vision triage on 38 held-out real civic images (50.0% test accuracy), pairing confidence flags with human officer review queues.</li>
+      </ul>
+    </div>
+
+    <div class="project">
+      <div class="row">
+        <span class="project-title">AquaGuard AI (Neeraran) &ndash; Water Resilience ML Audit</span>
+        <span>2026</span>
+      </div>
+      <div class="project-sub">ML Audit &amp; Sensor Health Contributor (<code>kanish</code> branch) | Python, One-Class SVM, XGBoost, SHAP, FastAPI, Pytest</div>
+      <ul>
+        <li>Authored comparative ML audit across 46,656 simulated telemetry rows (One-Class SVM 0.7451 F1; XGBoost 100% leak recall, 97.37% precision) and built Layer-1 sensor health decoupling endpoints.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Achievements</h2>
+    <ul>
+      <li><strong>Smart India Hackathon 2025:</strong> 1st Place National Grand Finale Winner (Team Oceanberg) &mdash; Digital Twin of EHV Substation Monitoring.</li>
+      <li><strong>C-DAC SUVIDHA Innovation Challenge:</strong> National Runner-up (Team Oceanberg) &mdash; AAZHI Civic Self-Service Kiosk Platform.</li>
+    </ul>
+  </section>
+</body>
+</html>
+
