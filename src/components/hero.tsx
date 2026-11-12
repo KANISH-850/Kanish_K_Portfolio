@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -26,6 +27,24 @@ const Hero3DScene = dynamic(
 
 export function Hero() {
   const { toast } = useToast();
+  const [mount3D, setMount3D] = useState(false);
+
+  useEffect(() => {
+    const isDesktop = window.innerWidth >= 768;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!isDesktop || reduced) return;
+
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    if (idleWindow.requestIdleCallback) {
+      const id = idleWindow.requestIdleCallback(() => setMount3D(true), { timeout: 600 });
+      return () => idleWindow.cancelIdleCallback?.(id);
+    }
+    const timer = window.setTimeout(() => setMount3D(true), 300);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const handleResumeDownload = () => {
     if (resumeConfig.available) {
@@ -86,8 +105,8 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 sm:pt-24 pb-12 sm:pb-16 overflow-hidden bg-[#030712] text-foreground">
-      {/* 3D Interactive Three.js Neural Network Canvas */}
-      <Hero3DScene />
+      {/* 3D Interactive Three.js Neural Network Canvas (Desktop + idle-deferred) */}
+      {mount3D && <Hero3DScene />}
 
       {/* Cyber Grid & Ambient Gradient Overlays */}
       <div className="absolute inset-0 cyber-grid pointer-events-none opacity-20 -z-10" />
@@ -100,7 +119,7 @@ export function Hero() {
       <div className="container max-w-6xl mx-auto px-4 md:px-6 relative z-10">
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           animate="visible"
           className="max-w-4xl mx-auto text-center space-y-4 sm:space-y-7"
         >
