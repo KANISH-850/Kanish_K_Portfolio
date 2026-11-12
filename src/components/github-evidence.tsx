@@ -24,11 +24,11 @@ const verifiedRepos = [
     caseStudySlug: "kiosk-management-system",
     name: "aazhi (Kiosk Management System)",
     url: "https://github.com/KANISH-850/aazhi",
-    roleLabel: "Systems & Backend Contributor (C-DAC)",
-    description: "C-DAC SUVIDHA Runner-up civic kiosk platform combining React/Next.js portals, Express/Prisma APIs, FastAPI ML routing/forecasting, and Docker.",
-    language: "Python / TypeScript",
+    roleLabel: "Voice, Kiosk UI & Integration (C-DAC Fork)",
+    description: "C-DAC SUVIDHA Runner-up civic utility & grievance kiosk platform combining React/Vite portals, Aria voice navigation, Express (pg + Redis), FastAPI ML routing, and k6.",
+    language: "TypeScript / Python",
     color: "bg-purple-400",
-    tags: ["FastAPI", "Scikit-learn", "Prisma", "Docker"]
+    tags: ["Express / pg", "Redis", "FastAPI", "React"]
   },
   {
     id: "repo-techspire",

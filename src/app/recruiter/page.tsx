@@ -225,7 +225,7 @@ export default function RecruiterPage() {
           </div>
         </motion.section>
 
-        {/* 4. Featured Projects (All 4 Flagship Systems) */}
+        {/* 4. Featured Projects (All 7 Flagship Systems) */}
         <motion.section
           id="projects"
           initial="hidden"
@@ -404,7 +404,7 @@ export default function RecruiterPage() {
               <CardContent className="p-6 space-y-2">
                 <div className="text-3xl font-black text-cyan-400 font-headline">Runner-up</div>
                 <div className="text-xs font-mono text-white font-bold">CDAC Innovation Challenge</div>
-                <div className="text-[11px] text-slate-400 font-mono">Kiosk Fleet Telemetry Platform</div>
+                <div className="text-[11px] text-slate-400 font-mono">Civic Utility &amp; Grievance Kiosk (AAZHI)</div>
               </CardContent>
             </Card>
             <Card className="glass-panel border-white/10 text-center">

@@ -63,13 +63,13 @@ const SUBSTATION_COMPONENTS: SubstationComponent[] = [
   },
   {
     id: "sensor",
-    name: "CT/PT Sensors & Digital Twin Rack",
-    subsystem: "Edge Autoencoder Inference",
-    role: "Samples multi-variate telemetry to compute reconstruction error in the digital twin.",
-    nominal: "MSE < 0.045",
-    simulatedNormal: "MSE 0.0142",
-    simulatedWarning: "MSE 0.0784 (Anomaly)",
-    unit: "Autoencoder Score",
+    name: "CT/PT Sensors & ML Diagnostic Rack",
+    subsystem: "Random Forest & Isolation Forest",
+    role: "Samples multi-variate telemetry across bays for ensemble fault and outlier scoring.",
+    nominal: "Inlier (+1)",
+    simulatedNormal: "Score +0.18 (Nominal)",
+    simulatedWarning: "Score -0.14 (Anomaly)",
+    unit: "Isolation Forest",
     focusPos: [2.2, 1.0, 0.7],
   },
 ];
@@ -616,7 +616,7 @@ export function DigitalTwin3DScene() {
           <Zap className="w-10 h-10 text-cyan-400" />
           <h4 className="text-base font-bold text-white">EHV Substation Digital Twin (Simulated)</h4>
           <p className="text-xs text-slate-300 max-w-sm">
-            WebGL is unavailable on this device. Architecture models 400kV transformer, SF6 breakers, isolators, busbars, and autoencoder monitoring.
+            WebGL is unavailable on this device. Architecture models 400kV transformer, SF6 breakers, isolators, busbars, and Random Forest / Isolation Forest diagnostics.
           </p>
         </div>
       )}

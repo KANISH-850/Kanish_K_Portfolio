@@ -105,7 +105,7 @@ export function Projects() {
   const showMajor = (id: string) => {
     if (domainFilter === "all") return true;
     if (domainFilter === "ai-ml") return id === "digital-twin-ehv";
-    return id === "kiosk-management-system" || id === "digital-twin-ehv";
+    return id === "kiosk-management-system";
   };
 
   const majorProjects = [
@@ -131,7 +131,7 @@ export function Projects() {
       number: "02",
       previewComponent: <ProjectScenePreview projectId="kiosk-management-system" />,
       summaryDesc:
-        "Multilingual citizen kiosk & fleet telemetry platform integrating React/Next.js interfaces, Express/Prisma APIs, FastAPI ML duplicate/spam routing, and Docker.",
+        "Multilingual civic utility billing & grievance self-service kiosk platform integrating React portals, Aria voice navigation, Express/PostgreSQL/Redis APIs, and FastAPI ML triage.",
     },
   ];
 
@@ -154,7 +154,7 @@ export function Projects() {
               02 // Featured 3D Showcase
             </div>
             <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
-              Eight Flagship{" "}
+              Seven Flagship{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-cyan-300 to-accent">
                 AI &amp; Systems Projects
               </span>
@@ -170,9 +170,9 @@ export function Projects() {
               className="flex flex-wrap items-center justify-center gap-2 pt-2"
             >
               {[
-                { key: "all", label: "All Flagship (8)" },
-                { key: "ai-ml", label: "Applied AI & ML" },
-                { key: "systems", label: "Systems, IoT & Automation" },
+                { key: "all", label: "All Flagship (7)" },
+                { key: "ai-ml", label: "Applied AI & ML (5)" },
+                { key: "systems", label: "Systems & Civic Platforms (2)" },
               ].map((tab) => (
                 <button
                   key={tab.key}

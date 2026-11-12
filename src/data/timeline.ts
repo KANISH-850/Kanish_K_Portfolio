@@ -51,10 +51,10 @@ export const timelineData: TimelineEvent[] = [
     id: "timeline-2024-cdac",
     year: "2024",
     title: "Kiosk Management System (AAZHI)",
-    roleOrContext: "Systems Architecture & Backend ML Services",
+    roleOrContext: "Kiosk UI, Aria Voice & Platform Integration (Team Fork)",
     achievementBadge: "CDAC Runner-up",
-    technologyLearned: ["FastAPI", "Express", "Prisma", "Next.js", "Docker", "k6"],
-    description: "Recognized as C-DAC Innovation Challenge National Runner-up for an accessible service kiosk and fleet monitoring monorepo with ML duplicate/spam routing and k6 testing.",
+    technologyLearned: ["React", "Express", "PostgreSQL", "Redis", "FastAPI", "k6"],
+    description: "Recognized as C-DAC Innovation Challenge National Runner-up for a multilingual civic utility billing & grievance kiosk platform with Aria voice navigation, FastAPI ML routing, and k6 stress-testing.",
     category: "hackathon"
   },
   {

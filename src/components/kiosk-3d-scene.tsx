@@ -15,39 +15,39 @@ const KIOSK_STEPS: {
 }[] = [
   {
     step: 0,
-    title: "1. Service Selection",
+    title: "1. Language & Aria Voice",
     screenHeading: "AAZHI HELP DESK",
     screenLines: [
-      "[EN] [TA] [HI] Select Language",
-      "> 1. Civic Utility Service",
-      "  2. Document Print / Status",
-      "  3. Accessible Voice Guide",
+      "[EN] [TA] [HI] 11+ Languages",
+      "> 1. Pay Utility Bills",
+      "  2. Lodge Civic Grievance",
+      "  3. Aria Voice Assistant",
     ],
-    detail: "Touchscreen renders multilingual options & high-contrast elderly accessibility mode.",
+    detail: "Touchscreen and Unicode-safe VoiceCommandRouter support 11+ regional Indian languages.",
   },
   {
     step: 1,
-    title: "2. Verification & Sync",
-    screenHeading: "FASTAPI TELEMETRY",
+    title: "2. Bill Pay & ML Triage",
+    screenHeading: "EXPRESS + FASTAPI AI",
     screenLines: [
-      "Scanning Reference QR...",
-      "Checking Peripheral Status:",
-      "Touch: OK | Cam: OK | Net: Sync",
-      "Dispatching Heartbeat...",
+      "Razorpay Utility Checkout",
+      "LinearSVC Spam: PASS",
+      "TF-IDF Duplicate: UNIQUE",
+      "SHA-256 Audit Chain Logged",
     ],
-    detail: "Kiosk daemon verifies peripheral readiness and syncs session over FastAPI telemetry.",
+    detail: "Express (pg + Redis) executes Razorpay billing while FastAPI routes grievances cleanly.",
   },
   {
     step: 2,
-    title: "3. Receipt Output",
-    screenHeading: "SERVICE TOKEN READY",
+    title: "3. QR & Receipt Output",
+    screenHeading: "QR TRACKING READY",
     screenLines: [
-      "Token: #AZ-204 Generated",
-      "Printing Thermal Receipt...",
-      "Collect Slip Below Chute",
-      "Session Telemetry Logged",
+      "Receipt: #AZ-204 PDF Ready",
+      "Socket.IO Mobile QR Sync",
+      "Collect Confirmation Slip",
+      "Admin SLA Queue Updated",
     ],
-    detail: "Thermal printer outputs token slip while fleet portal records transaction uptime.",
+    detail: "Outputs confirmation receipt and Socket.IO QR tracking URL for real-time citizen status.",
   },
 ];
 
@@ -511,7 +511,7 @@ export function Kiosk3DScene() {
           <Server className="w-10 h-10 text-purple-400" />
           <h4 className="text-base font-bold text-white">AAZHI Kiosk Management System (Simulated)</h4>
           <p className="text-xs text-slate-300 max-w-sm">
-            WebGL is unavailable on this device. Workflow demonstrates citizen touchscreen selection, FastAPI telemetry verification, and thermal receipt output.
+            WebGL is unavailable on this device. Workflow demonstrates multilingual citizen intake, Razorpay/FastAPI ML triage, and QR receipt output.
           </p>
         </div>
       )}

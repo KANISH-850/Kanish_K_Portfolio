@@ -116,9 +116,9 @@ export const engineeringNotes: EngineeringNote[] = [
         ]
       },
       {
-        heading: "Design for Intermittent Networks and Zero-Trust Edges",
+        heading: "Design for Graceful Degradation and Auditability",
         paragraphs: [
-          "Public kiosks and industrial substations rarely enjoy uninterrupted data-center connectivity. Architecting local checkpoint buffering and outbound-only reverse telemetry channels early forces clear separation between edge resilience specifications and cloud control planes."
+          "Public kiosks and industrial substations must fail safely when dependencies drop out. In AAZHI, Redis rate-limiting/queues fall back gracefully if unavailable while SHA-256 HMAC log chaining preserves audit integrity; in oceanBerg_sih, modular per-component scorers isolate fault states cleanly ahead of ReportLab alert generation."
         ]
       }
     ]

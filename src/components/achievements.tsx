@@ -55,11 +55,11 @@ const verifiedAchievements: VerifiedAchievement[] = [
     projectTitle: "Kiosk Management System (AAZHI)",
     projectSlug: "kiosk-management-system",
     description:
-      "Recognized as National Runner-up for engineering an accessible citizen service kiosk and fleet orchestration platform pairing React/Next.js interfaces, Express/Prisma backends, and a FastAPI ML routing & duplicate-detection service.",
+      "Recognized as National Runner-up for engineering a multilingual civic utility billing & grievance self-service kiosk platform pairing React citizen/admin portals, Aria voice navigation, Express/PostgreSQL/Redis APIs, and a FastAPI ML routing & duplicate-detection service.",
     highlights: [
-      "Multi-service monorepo: React/Next.js portals, Express/Prisma API, and FastAPI AI microservice",
-      "TF-IDF cosine duplicate detection, spam/anomaly screening & RandomForest volume forecasting",
-      "Docker Compose service setup with k6 load-testing scripts and voice assistant integration",
+      "React 19 kiosk & React 18 admin portals, Express (pg + Redis/BullMQ) API, and FastAPI AI microservice",
+      "TF-IDF cosine duplicate detection, LinearSVC/IsolationForest spam screening & RandomForest volume forecasting",
+      "11+ regional languages with Aria voice routing, Razorpay utility billing, SHA-256 audit chain & k6 load suite",
     ],
     badgeColor: "text-purple-400 border-purple-400/30 bg-purple-400/10",
   },
@@ -97,11 +97,11 @@ export function Achievements() {
           </div>
 
           {/* Achievements Grid with 3D Depth */}
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 min-w-0">
             {verifiedAchievements.map((ach) => (
               <div
                 key={ach.id}
-                className="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 hover:border-primary/50 hover:shadow-[0_0_35px_rgba(0,240,255,0.15)] transition-all duration-300 flex flex-col justify-between group"
+                className="min-w-0 glass-panel p-5 sm:p-8 rounded-3xl border border-white/10 hover:border-primary/50 hover:shadow-[0_0_35px_rgba(0,240,255,0.15)] transition-all duration-300 flex flex-col justify-between group"
               >
                 <div className="space-y-5">
                   {/* Badge & Year */}

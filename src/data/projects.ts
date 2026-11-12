@@ -412,8 +412,8 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
       {
         id: "igs-1",
         challenge: "Vision models trained on limited real civic image sets (172 train / 38 val / 38 test across 9 classes) exhibit cross-class confusion under noisy field lighting.",
-        solution: "Executed a formal held-out evaluation script (`rigorous_evaluation.py`) generating normalized confusion matrices, FPR metrics, and calibration metadata rather than shipping unverified predictions.",
-        implementation: "Benchmarked `civic_mobilenet_v3.pth` on CPU: recorded 50.0% held-out test accuracy (0.5789 best val acc), 36.47ms avg latency (59.37ms p95), and 33.33% false positive rate on unrelated negatives, then tuned confidence flags.",
+        solution: "Executed held-out evaluation scripts (`rigorous_evaluation.py` and `evaluate_cv_model.py`) generating normalized confusion matrices, FPR metrics, and `evaluation_summary.json` rather than shipping unverified predictions.",
+        implementation: "Benchmarked `civic_mobilenet_v3_best.pth` on CPU: recorded 50.0% held-out test accuracy (0.5789 best val acc), 93.08ms median / 146.62ms mean CPU latency in `evaluation_summary.json` (36.47ms warm avg in `REAL_WORLD_CV_MODEL_TRAINING_REPORT.md`), and 33.33% FPR on unrelated negatives, then tuned confidence flags.",
         result: "Calibrated confidence gating surfaces uncertain predictions for human officer review instead of silent auto-misrouting."
       },
       {
@@ -426,8 +426,8 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     ],
     mlPipeline: [
       { name: "Language & Translation", description: "Detects regional text and translates across 12 Indian + 7 international languages via LibreTranslate / MyMemory + LRU cache." },
-      { name: "TF-IDF + LogisticRegression", description: "Evaluated at 1.0 on curated synthetic text validation config (`grievance-classifier/config.json`) with token-level XAI explanations.", metric: "9 Departments" },
-      { name: "MobileNetV3-Small Vision", description: "Benchmarked rigorously on 38 held-out civic images: 50.0% test acc (36.47ms avg CPU inference); flags ambiguous photos.", metric: "36.5 ms CPU" },
+      { name: "TF-IDF + LogisticRegression", description: "Evaluated at 1.00 on 102 curated synthetic test samples (`docs/model-evaluation.md`) with token-level XAI explanations.", metric: "9 Departments" },
+      { name: "MobileNetV3-Small Vision", description: "Benchmarked on 38 held-out real civic images: 50.0% test acc (`evaluation_summary.json`: 93.1ms median CPU; `REAL_WORLD_CV_MODEL_TRAINING_REPORT.md`: 36.5ms avg); flags ambiguous photos.", metric: "50.0% Held-Out" },
       { name: "Officer Audit Dispatch", description: "Transactional Prisma/PostgreSQL assignment supporting multi-issue complaints." }
     ],
     securityFeatures: [
@@ -459,9 +459,9 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
       "Transparent status pills distinguishing AI suggestions from officer final assignments."
     ],
     performanceMetrics: [
-      "MobileNetV3-Small CPU latency (`evaluation_report.json`): 36.47 ms average (59.37 ms p95) across 38 held-out test images.",
-      "Honest held-out MobileNetV3 test evaluation: 50.0% overall accuracy (172 train / 38 val / 38 test; 0.5789 best val accuracy) — documented with confusion matrix.",
-      "Text classifier (`grievance-classifier`): TF-IDF n-gram (1,2) + LogisticRegression validated on curated 9-category CPGRAMS-inspired dataset."
+      "MobileNetV3-Small CPU evaluation (`ai-service/reports/mobilenetv3_evaluation/evaluation_summary.json`): 50.0% accuracy across 38 held-out test images (93.08 ms median / 146.62 ms mean CPU; `docs/REAL_WORLD_CV_MODEL_TRAINING_REPORT.md` reports 36.47 ms warm avg).",
+      "Held-out MobileNetV3 dataset split: 172 train / 38 val / 38 test images (0.5789 best val accuracy) — documented with normalized confusion matrix (`confusion_matrix_normalized.png`).",
+      "Text classifier (`docs/model-evaluation.md`): TF-IDF n-gram (1,2) + calibrated LogisticRegression validated on 102 curated CPGRAMS-inspired test samples."
     ],
     lessonsLearned: [
       "Reporting real held-out evaluation errors (50% test accuracy on 38 real civic photos) builds far stronger engineering credibility than hiding behind synthetic scores.",
@@ -577,7 +577,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
         category: "AI/ML",
         items: [
           { name: "Scikit-learn (TF-IDF + LogisticRegression)", role: "Explainable 9-department text classification & keyword XAI", why: "Deterministic inference with token contribution visibility" },
-          { name: "PyTorch (MobileNetV3-Small)", role: "Lightweight CPU civic issue image classification (36.5ms avg)", why: "Auditable vision prototype benchmarked with held-out confusion matrices" }
+          { name: "PyTorch (MobileNetV3-Small)", role: "Lightweight CPU civic issue image classification (50.0% held-out acc; 93.1ms median CPU)", why: "Auditable vision prototype benchmarked with held-out confusion matrices" }
         ]
       }
     ],
@@ -589,7 +589,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
         preprocessing: "Lowercasing, n-gram (1,2) TF-IDF vectorization (max 5000 features) + regional keyword dictionaries.",
         approach: "LogisticRegression(C=2.5) paired with `extract_explanation_terms()` coefficient attribution.",
         output: "Department prediction, urgency tier, and top contributing keywords.",
-        evaluation: "Achieved 1.00 accuracy on curated synthetic benchmark text split (`config.json`); requires broader noisy production logs for real-world text scoring.",
+        evaluation: "Achieved 1.00 accuracy on 102 curated synthetic benchmark test samples (`docs/model-evaluation.md`); requires broader noisy production logs for real-world text scoring.",
         limitations: "Synthetic text validation metrics overstate performance relative to code-mixed slang or ambiguous dialect phrases."
       },
       {
@@ -597,9 +597,9 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
         problemSolved: "Image-based verification of uploaded civic issues (potholes, drainage, broken streetlights, garbage).",
         inputs: "224x224 normalized RGB complaint images across 9 classes.",
         preprocessing: "ImageNet normalization (`eval_transforms`) evaluated strictly on isolated test directory (`splits/test`).",
-        approach: "ImageNet1K_V1 transfer learning fine-tuned for 12 epochs (AdamW) with unrelated-negative rejection checks.",
+        approach: "ImageNet1K_V1 transfer learning fine-tuned with AdamW and unrelated-negative rejection checks (`civic_mobilenet_v3_best.pth`).",
         output: "Predicted civic class, confidence score, and calibrated review flag.",
-        evaluation: "Held-out `evaluation_report.json`: 50.0% accuracy across 38 test samples (172 train / 38 val), 36.47ms avg / 59.37ms p95 CPU latency, 33.33% unrelated FPR.",
+        evaluation: "Held-out `ai-service/reports/mobilenetv3_evaluation/evaluation_summary.json`: 50.0% accuracy across 38 test samples (172 train / 38 val), 93.08ms median / 146.62ms mean CPU latency (36.47ms warm avg in `REAL_WORLD_CV_MODEL_TRAINING_REPORT.md`), 33.33% unrelated FPR.",
         limitations: "Small dataset size causes confusion on drainage vs. garbage and waterlogging classes; strict human officer review remains necessary."
       }
     ],
@@ -614,7 +614,7 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     contributionBreakdown: {
       mine: [
         "Engineered FastAPI AI pipeline (TF-IDF routing, XAI weights, LRU translation, and MobileNetV3 vision service).",
-        "Created the held-out `rigorous_evaluation.py` vision audit & normalized confusion matrix reports.",
+        "Created the held-out `rigorous_evaluation.py` & `evaluate_cv_model.py` vision audits and normalized confusion matrix reports.",
         "Implemented multi-issue transactional routing and calibrated officer queue UI."
       ],
       team: [],
@@ -624,11 +624,11 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
     },
     limitations: [
       "Held-out vision accuracy is 50.0% on the 38-sample test split; visual triage requires a larger training corpus before autonomous routing.",
-      "Text classifier validation accuracy (1.0 in `config.json`) reflects curated/synthetic categories rather than messy live municipal logs."
+      "Text classifier validation accuracy (1.00 in `docs/model-evaluation.md`) reflects curated/synthetic categories rather than messy live municipal logs."
     ],
     verificationChecklist: [
       { claim: "React + Express + Prisma/PostgreSQL + FastAPI AI service in repo", status: "Verified implementation" },
-      { claim: "MobileNetV3-Small held-out test audit (50.0% acc, 36.47ms CPU) in evaluation_report.json", status: "Verified result" },
+      { claim: "MobileNetV3-Small held-out test audit (50.0% acc) in ai-service/reports/mobilenetv3_evaluation/evaluation_summary.json", status: "Verified result" },
       { claim: "Actual UI screenshots & confusion matrix PNG embedded from repo", status: "Verified result" },
       { claim: "Interactive 3D NLP & Dispatch Twin on portfolio", status: "Simulated demonstration" }
     ]
@@ -908,233 +908,241 @@ export const projectsData: Record<string, ProjectCaseStudy> = {
 
   "kiosk-management-system": {
     id: "kiosk-management-system",
-    title: "Kiosk Management System",
-    tagline: "Integrated Fleet Management & Device Telemetry Platform",
-    category: "Civic Hardware & Fleet Telemetry",
-    statusLabel: "CDAC Runner-up (Core Fleet Platform + Architectural Specs)",
+    title: "Kiosk Management System (AAZHI)",
+    tagline: "Multilingual Civic Utility Billing, Grievance & Voice Self-Service Kiosk Platform",
+    category: "Civic Self-Service Kiosk & Full-Stack AI",
+    statusLabel: "C-DAC Runner-up (Team Fork • Verified Frontend/Voice & Platform Integration)",
     achievement: "CDAC Runner-up",
     githubUrl: "https://github.com/KANISH-850/aazhi",
     overview:
-      "Built for the C-DAC SUVIDHA Innovation Challenge (National Runner-up, Team Oceanberg), AAZHI combines a multilingual citizen-facing service kiosk interface with a centralized fleet management and peripheral telemetry orchestration platform.",
+      "Built for the C-DAC SUVIDHA Innovation Challenge (National Runner-up, Team Oceanberg), AAZHI (`KANISH-850/aazhi`, forked from `ajaiselvaraj/aazhi`) is a unified civic self-service kiosk platform enabling citizens to pay utility bills (electricity, water, gas, property tax via Razorpay) and lodge multilingual grievances across 11+ Indian languages using voice-guided workflows, real-time QR tracking, and a FastAPI ML triage backend.",
     problemStatement:
-      "Public-facing service kiosks distributed across multiple government centers frequently suffer from unmonitored hardware lockups, fragmented update processes, and delayed technician dispatch due to lack of centralized telemetry.",
+      "Citizens in public municipal centers face long service queues, fragmented department counters, and regional language barriers when paying utility bills or filing civic complaints on standard web portals.",
     problemSummaryDetail: {
-      problemLabel: "Project problem summary (official C-DAC SUVIDHA problem text awaiting confirmation)",
-      whoFacesIt: "Public municipal kiosk citizens, regional field technicians, and civic IT fleet administrators.",
-      realWorldProblem: "Distributed public-service kiosks silently go offline due to thermal printer paper jams, camera/touch freezes, or intermittent cellular dropouts.",
-      whyNeeded: "Without centralized heartbeat health telemetry and accessible UI fallbacks, citizens cannot complete essential services and technicians lack fault visibility.",
-      existingLimitations: "Opening inbound SSH/VPN ports on unattended kiosks exposes public infrastructure to security threats, while connectivity outages drop diagnostic logs.",
-      objective: "Combine an elderly-friendly multilingual citizen interface with a FastAPI/PostgreSQL fleet portal and edge-resilient telemetry specs."
+      problemLabel: "Repository-verified problem summary (AAZHI PROJECT_DOCUMENTATION.md)",
+      whoFacesIt: "Citizens at municipal helpdesks (including elderly and regional-language users), utility providers, and civic administrators.",
+      realWorldProblem: "Public utility billing and complaint lodging rely on disconnected portals without multilingual voice guidance, accessible kiosk UI modes, or automated complaint triage.",
+      whyNeeded: "Combining a touch- and voice-accessible multilingual kiosk UI with unified billing, SLA escalation, tamper-evident audit logging, and offline ML routing streamlines citizen service delivery.",
+      existingLimitations: "Standard web forms exclude non-English speakers and lack unified QR tracking, spam screening, and duplicate complaint detection.",
+      objective: "Deliver a dual React kiosk/admin platform backed by Express (`pg` + Redis/BullMQ + Socket.IO) and a FastAPI Scikit-learn AI microservice."
     },
     proposedSolution:
-      "Deliver a centralized FastAPI/PostgreSQL fleet orchestration portal paired with lightweight edge kiosk telemetry agents that report CPU/memory/peripheral states, buffer intermittent outages via SQLite specs, and expose safe outbound diagnostic channels.",
+      "Pair React 19/TypeScript citizen kiosk UI (with i18next 11-language support and Aria Web Speech voice navigation) and React 18 admin analytics portal with an Express REST/Socket.IO backend (`pg`, Redis/BullMQ, Razorpay, PDFKit) and a local FastAPI Scikit-learn service for spam, duplicate, routing, sentiment, and forecasting inference.",
     systemArchitecture:
-      "A centralized device orchestration platform built with Python, FastAPI, React, and PostgreSQL. Client-side kiosk daemons communicate with an administrative control server via authenticated heartbeats, reporting hardware resource consumption, peripheral health (touch, printers, cameras), and application uptime.",
+      "Dual React/Vite frontends (`Frontend/user` React 19 kiosk app + `Frontend/admin` React 18 Leaflet/Recharts console) communicate with an Express Node.js backend (monolith + microservice gateway option) using PostgreSQL (`pg` / Supabase), Redis (`ioredis` + `BullMQ`), Socket.IO QR tracking, Razorpay billing, SHA-256 HMAC audit chaining, and a FastAPI Python `ai-service`.",
     dataFlow:
-      "Kiosk Daemon Telemetry (Simulated) -> Secure API Gateway -> Ingestion Worker -> PostgreSQL / Timescale -> Alert Evaluator -> Administrative Fleet Dashboard.",
+      "Citizen Touch / Aria Voice Input (11+ Languages) -> React Kiosk SPA -> Express SecurityEngine & WAF Gateway -> PostgreSQL (`pg`) + Redis/BullMQ + FastAPI ML Triage -> Socket.IO QR Tracking & Admin SLA Console.",
     architectureNodes: [
-      { id: "kms-in-1", title: "Kiosk Citizen UI & Accessibility", subtitle: "Voice-guided multilingual interface with elderly-friendly touch mode", layer: "Ingestion & Input", status: "implemented" },
-      { id: "kms-in-2", title: "Edge Daemon & SQLite Buffer", subtitle: "Peripheral polling (touch, printer, camera) + offline buffering spec", layer: "Ingestion & Input", status: "proposed" },
-      { id: "kms-proc-1", title: "FastAPI Telemetry Gateway", subtitle: "Heartbeat ingestion, crash aggregation & threshold evaluation", layer: "Processing & AI Core", status: "implemented" },
-      { id: "kms-proc-2", title: "Outbound Reverse WSS Broker", subtitle: "Zero-open-port remote diagnostics tunnel specification", layer: "Processing & AI Core", status: "proposed" },
-      { id: "kms-out-1", title: "PostgreSQL Fleet State Store", subtitle: "Device inventory, uptime history & alert routing", layer: "Storage & Delivery", status: "implemented" },
-      { id: "kms-out-2", title: "Admin Fleet & 3D Hardware Twin", subtitle: "Operator portal and interactive 3D peripheral simulation", layer: "Storage & Delivery", status: "simulated" }
+      { id: "kms-in-1", title: "Citizen Kiosk SPA & Aria Voice", subtitle: "React 19 + i18next (11+ Indian languages) + Unicode-safe VoiceCommandRouter", layer: "Ingestion & Input", status: "implemented" },
+      { id: "kms-in-2", title: "Express API & SecurityEngine WAF", subtitle: "Helmet, HPP, Joi validation, leaky-bucket rate limiting & JWT/OTP auth", layer: "Ingestion & Input", status: "implemented" },
+      { id: "kms-proc-1", title: "FastAPI Civic AI Engine", subtitle: "LinearSVC/IsolationForest spam check, TF-IDF cosine duplicates & department router", layer: "Processing & AI Core", status: "implemented" },
+      { id: "kms-proc-2", title: "Billing, SLA & Queue Workers", subtitle: "Razorpay billing, PDFKit receipts, BullMQ/Redis notifications & SLA cron", layer: "Processing & AI Core", status: "implemented" },
+      { id: "kms-out-1", title: "PostgreSQL + SHA-256 Audit Chain", subtitle: "Relational utility/complaint store with HMAC-chained tamper-evident logs", layer: "Storage & Delivery", status: "implemented" },
+      { id: "kms-out-2", title: "Admin GIS Console & k6 Stress Suite", subtitle: "React 18 Leaflet/Recharts admin portal, Socket.IO QR tracking & k6/Grafana suite", layer: "Storage & Delivery", status: "implemented" }
     ],
     technicalChallenges: [
       {
         id: "kms-1",
-        challenge: "Maintaining reliable device heartbeat tracking across kiosks operating on intermittent or slow cellular connections.",
-        solution: "Designed an adaptive heartbeat protocol with local SQLite offline caching and exponential backoff synchronization as an edge resilience specification.",
-        implementation: "Architected the kiosk agent to buffer status checkpoints locally during network outages and flush chronologically upon link recovery.",
-        result: "Demonstrated zero diagnostic log loss across simulated 4-hour connectivity disconnects."
+        challenge: "Supporting reliable voice command routing across 11+ Indian regional scripts without stripping non-ASCII Unicode characters.",
+        solution: "Built a Unicode-safe `VoiceCommandRouter` sorting command phrases by length descending and checking active tab context before global routes.",
+        implementation: "Preserved regional scripts (Hindi, Tamil, Bengali, Assamese, etc.) while stripping only ASCII punctuation inside `Frontend/user` voice modules (`Voice Module` commits).",
+        result: "Prevents short generic words (e.g., 'bill') from hijacking specific voice commands like 'electricity bill' across multilingual tabs."
       },
       {
         id: "kms-2",
-        challenge: "Enabling remote troubleshooting without exposing kiosks to public internet attack surfaces.",
-        solution: "Proposed reverse WebSocket tunnels initiated exclusively outbound from authorized kiosk agents.",
-        implementation: "Engineered secure tunnel broker specifications with timed single-use authentication tokens.",
-        result: "Demonstrated remote administration architecture eliminating the need for open inbound firewall ports on edge kiosk hardware."
+        challenge: "Ensuring mobile QR status tracking and kiosk keypad flows work consistently across local network demos and cloud SPA hosting.",
+        solution: "Parameterized QR tracking URLs via `VITE_APP_URL`, added SPA rewrite routing (`vercel.json`), and constrained keypad length validation.",
+        implementation: "Updated QR code URL generation, fixed keypad bounds (`Keypad Length Fix`), and integrated Socket.IO real-time status updates with admin SLA alerts.",
+        result: "Clean QR mobile handoff and verified UI state sync across kiosk citizen and admin dashboards."
       }
     ],
     mlPipeline: [
-      { name: "Device Heartbeat", description: "Collects CPU, memory, storage, and peripheral health reports." },
-      { name: "Uptime Telemetry", description: "Aggregates application operational metrics and crash dumps." },
-      { name: "Threshold Analysis", description: "Automated flagging of memory leaks and peripheral disconnects." },
-      { name: "Fleet Overview", description: "Presents live geographic and operational status to operators." }
+      { name: "Spam & Anomaly Screen", description: "FastAPI `/api/ai/analyze` runs Scikit-learn LinearSVC (`custom_spam_classifier.pkl`) + IsolationForest (`fraud_detector.py`)." },
+      { name: "Smart Department Router", description: "Classifies complaints across civic departments with word-level explanations and deterministic keyword fallback." },
+      { name: "TF-IDF Duplicate Check", description: "Computes TF-IDF cosine similarity against historical ward complaints to flag duplicate submissions." },
+      { name: "Sentiment & Volume Forecast", description: "Evaluates urgency/sentiment and forecasts complaint volume, hotspots, and SLA breach risk." }
     ],
     securityFeatures: [
-      "Proposed architecture: Outbound-only reverse WebSocket design eliminating open ingress ports",
-      "Architectural specification: Hardware token and mutual TLS authorization model for edge agents",
-      "Access control design: Granular role-based permissions separating fleet admins from regional technicians",
-      "Telemetry design: Tamper detection telemetry reporting unauthorized physical enclosure access"
+      "Express SecurityEngine middleware: Helmet headers, HPP parameter guard, XSS-clean, CORS & leaky-bucket rate limiter",
+      "Cryptographic SHA-256 HMAC tamper-evident audit chain (`AuditLogger.ts`) linking sequential transaction logs",
+      "JWT/OTP authentication flows (`jwt.service.js`, `otp.service.js`) and Joi schema validation",
+      "WAF secret header guard (`x-waf-secret`) and Winston structured audit logging"
     ],
-    devopsPipeline: ["Git Push", "Docker Fleet Daemon Builds", "Unit & Integration Tests", "Remote OTA Agent Rollouts"],
-    technologies: ["Python", "FastAPI", "React", "Next.js", "TypeScript", "PostgreSQL", "Docker"],
+    devopsPipeline: ["GitHub Fork (aazhi)", "Docker Compose Microservices / Monolith", "Capacitor Android Kiosk Build", "k6 + Prometheus/Grafana Stress Suite"],
+    technologies: ["React", "TypeScript", "Node.js / Express", "PostgreSQL", "Redis", "FastAPI", "Scikit-learn", "Socket.IO", "Razorpay", "Docker"],
     keyFeatures: [
-      "Centralized fleet management portal for distributed physical kiosks.",
-      "Real-time heartbeat monitoring and device health telemetry.",
-      "Automated peripheral diagnostics (touch panel, camera, document scanner, printer).",
-      "Remote service configuration and automated OTA application updates.",
-      "Incident alert dispatching to assigned regional maintenance technicians."
+      "Multilingual citizen kiosk UI (11+ Indian languages) with Aria Voice Assistant speech-to-text & TTS navigation.",
+      "Integrated utility bill payments (electricity, water, gas, property tax) via Razorpay with PDFKit downloadable receipts.",
+      "Dynamic civic grievance & service request portals with SLA countdown timers, escalation cron, and QR mobile tracking.",
+      "Local FastAPI Scikit-learn engine for spam screening, department routing, TF-IDF duplicate detection, and forecasting.",
+      "Tamper-evident SHA-256 HMAC audit chain, Redis/BullMQ notification queues, and Capacitor Android kiosk packaging."
     ],
     accessibilityMeasures: [
-      "Accessible high-contrast admin dashboard interface for control room operators.",
-      "Keyboard navigable device filter lists and action menus."
+      "Voice-guided navigation and text-to-speech prompts (`VoiceAssistantContext`, `speak.ts`) for low-literacy and elderly users.",
+      "Portrait kiosk orientation support (`OrientationContext`) and multilingual `i18next` localization across 11+ languages."
     ],
     performanceMetrics: [
-      "Telemetry ingestion handling concurrent heartbeats from distributed kiosk fleet.",
-      "Sub-second alert propagation upon peripheral failure or heartbeat timeout."
+      "Includes a dedicated `stress-testing/` k6 load-testing suite (10 concurrent user/DB/AI scenarios) wired to Prometheus and Grafana dashboards.",
+      "Redis (`ioredis`) rate-limiting/BullMQ job queues with automatic graceful fallback if Redis is unreachable (`redisClient.js`)."
     ],
     lessonsLearned: [
-      "In distributed hardware management, edge self-healing and local crash recovery are as vital as cloud dashboards.",
-      "Zero-trust communication protocols are essential for hardware placed in public spaces."
+      "In multilingual voice UIs, naive punctuation regexes break Indic scripts; Unicode-safe normalization and longest-phrase-first matching are essential.",
+      "Clearly attributing team-authored backend/ML infrastructure alongside personal frontend/voice/integration commits keeps collaborative repositories transparent."
     ],
     innovation:
-      "Designed an edge-resilient fleet orchestration architecture combining peripheral diagnostics, offline SQLite checkpointing, and outbound-only reverse WebSocket tunnel specs.",
+      "Unifies multilingual voice-guided utility billing (Razorpay + PDF receipts) and civic grievance routing with a SHA-256 tamper-evident audit chain and offline-capable FastAPI ML triage.",
     impact:
-      "CDAC National Runner-up; centralizes kiosk health monitoring, remote diagnostics, and technician alerting across distributed public service centers.",
-    teamContribution: "Systems Architecture, Telemetry API & Fleet Dashboard",
+      "C-DAC SUVIDHA Innovation Challenge National Runner-up (Team Oceanberg); bridges regional language and accessibility gaps in public civic service delivery.",
+    teamContribution: "Team Fork Contributor — Kiosk UI, Voice Modules, Billing/Admin Fixes & Integration",
     individualContributions: [
-      "Built the FastAPI telemetry ingestion service and PostgreSQL fleet status models for device heartbeats and peripheral monitoring.",
-      "Implemented the React/Next.js administrative dashboard and accessible kiosk UI components.",
-      "Designed the offline SQLite buffering and outbound-only reverse WebSocket specification for field-resilient kiosk operations."
+      "Contributed 78 commits on `KANISH-850/aazhi` (forked from `ajaiselvaraj/aazhi`), implementing and integrating `Voice Module` / Aria voice navigation, keypad validation fixes, and `Print Form` / `Admin Page` views.",
+      "Built and fixed Gas utility billing flows, SLA countdown & Admin alert sections, History services, and ML/Emergency UI module wiring.",
+      "Fixed QR mobile tracking URLs (`VITE_APP_URL`) and Vercel SPA routing for live kiosk handoffs."
     ],
     engineeringDecisions: [
       {
-        decision: "Outbound-only reverse WebSocket tunnel model instead of SSH/inbound VPN ports",
-        rationale: "Public kiosks sit behind NAT and municipal firewalls; outbound agent initiation eliminates public port exposure.",
-        tradeoff: "Requires stateful broker connection tracking on the control plane (scoped as proposed production spec).",
-        status: "Proposed"
-      },
-      {
-        decision: "FastAPI + PostgreSQL core with Dockerized daemon packaging",
-        rationale: "Provides strong schema typing, async heartbeat concurrency, and consistent environment parity.",
-        tradeoff: "High-frequency metric rollups require Timescale or retention compaction over multi-year runs.",
+        decision: "Dual-mode Express monolith + optional containerized microservices gateway",
+        rationale: "Allows rapid hackathon single-process demos while preserving clean domain boundaries (auth, gas, electricity, municipal services) in Docker.",
+        tradeoff: "Maintaining both monolith routes and microservice proxies increases structural duplication across the repo.",
         status: "Implemented"
       },
       {
-        decision: "Dedicated elderly-friendly & multilingual kiosk accessibility modes",
-        rationale: "Public civic kiosks serve citizens with diverse literacy and visual abilities.",
-        tradeoff: "Increases UI state matrix testing across voice and high-contrast modes.",
+        decision: "Local Scikit-learn FastAPI microservice (`ai-service`) with keyword fallback",
+        rationale: "Keeps spam screening, duplicate detection, and department routing fast and offline-capable without blocking on external LLM APIs.",
+        tradeoff: "Custom-trained `.pkl` classifiers rely on hackathon-curated training datasets rather than municipal historical archives.",
+        status: "Implemented"
+      },
+      {
+        decision: "Graceful Redis / BullMQ fallback in `redisClient.js`",
+        rationale: "Prevents local/demo kiosk servers from crashing after 3 failed Redis connection attempts when Redis is disabled or offline.",
+        tradeoff: "Disables distributed BullMQ queues and Socket.IO Redis adapter scaling in fallback mode.",
         status: "Implemented"
       }
     ],
     scalability:
-      "Event-driven FastAPI ingestion with PostgreSQL/Timescale telemetry storage and regional role-based operator dashboards.",
+      "Supports PostgreSQL (`pg` / Supabase), `ioredis` + `BullMQ` background queues, `@socket.io/redis-adapter`, Docker Compose microservices, and k6 stress-test scenarios.",
     media: [
       {
-        title: "AAZHI Smart Urban Kiosk Citizen Interface",
-        caption: "UI capture slot for multilingual touch workflows and voice-assisted elderly accessibility mode.",
+        title: "AAZHI Multilingual Citizen Kiosk & Voice Interface",
+        caption: "UI slot for 11-language utility billing, grievance intake, and Aria voice command routing (`Frontend/user`).",
         alt: "AAZHI Kiosk citizen interface screenshot",
         type: "screenshot"
       },
       {
-        title: "Fleet Health & Peripheral Telemetry Console",
-        caption: "Admin dashboard slot displaying kiosk heartbeat timelines, printer paper alerts, and camera status.",
-        alt: "Kiosk Management System fleet dashboard preview",
+        title: "Admin Analytics, SLA Alerts & AI Triage Console",
+        caption: "Admin portal slot (`Frontend/admin`) displaying Recharts analytics, Leaflet complaint maps, and SLA alerts (screenshots not committed in repo).",
+        alt: "AAZHI Admin analytics dashboard preview",
         type: "dashboard"
       }
     ],
     futureImprovements: [
-      "Implement signed cryptographic OTA bundle verification (Ed25519) inside the edge daemon.",
-      "Benchmark 1,000+ concurrent simulated kiosk heartbeats against TimescaleDB hypertables.",
-      "Add hardware watchdog integration for automated USB peripheral power-cycling."
+      "Consolidate monolith and `microservices/` folders under one unified workspace test pipeline in GitHub Actions.",
+      "Publish executed k6 HTML/JSON benchmark reports and held-out `ai-service` precision/recall tables in `README.md`.",
+      "Replace debug/mock login helpers (`aazhi` demo endpoints) strictly behind explicit development-only environment flags."
     ],
     workflowSteps: [
       {
         step: "01",
-        title: "Citizen Service Selection & Accessibility Mode",
-        whatHappens: "Citizen chooses utility billing, grievance intake, or certificate services using multilingual touch or elderly high-contrast controls.",
-        component: "AAZHI Kiosk Citizen Interface",
-        input: "Touch / voice-assisted citizen selection",
-        output: "Active service workflow payload & UI telemetry state"
+        title: "Multilingual & Aria Voice Kiosk Intake",
+        whatHappens: "Citizen picks one of 11+ Indian languages and navigates utility bill payment or grievance filing via touch or Aria speech commands.",
+        component: "Frontend/user (React 19 + i18next + VoiceCommandRouter)",
+        input: "Touch selection or spoken regional/English command",
+        output: "Routed billing or grievance workflow form"
       },
       {
         step: "02",
-        title: "Heartbeat & Peripheral Health Polling",
-        whatHappens: "Kiosk telemetry agent collects CPU/memory metrics alongside thermal printer, touch panel, and scanner status (with SQLite buffering spec on link drops).",
-        component: "FastAPI Telemetry Gateway + Edge Daemon Spec",
-        input: "Device health JSON heartbeats",
-        output: "Validated fleet status update or queued offline checkpoint"
+        title: "WAF Screening & FastAPI ML Triage",
+        whatHappens: "Express SecurityEngine validates payloads and forwards grievance text to FastAPI (`ai-service`) for LinearSVC spam checks, TF-IDF duplicate detection, and department routing.",
+        component: "Express Gateway + FastAPI AI Microservice",
+        input: "Validated complaint payload",
+        output: "Spam flag, duplicate score, department & priority"
       },
       {
         step: "03",
-        title: "Threshold Evaluation & Fleet Storage",
-        whatHappens: "Control server evaluates missed heartbeats, paper-out warnings, and crash dumps before persisting device inventory states.",
-        component: "PostgreSQL Fleet Store + Alert Evaluator",
-        input: "Normalized telemetry payload",
-        output: "Updated kiosk health record & regional technician alert"
+        title: "Billing, PostgreSQL Persistence & Audit Chain",
+        whatHappens: "Processes Razorpay utility transactions or stores complaints in PostgreSQL (`pg`) while appending SHA-256 HMAC-linked rows to the tamper-evident audit log and BullMQ queues.",
+        component: "PostgreSQL (`pg`) + Redis/BullMQ + AuditLogger",
+        input: "Payment or routed service request",
+        output: "ACID record + cryptographic audit hash + PDF receipt"
       },
       {
         step: "04",
-        title: "Receipt Output & Admin Fleet Console",
-        whatHappens: "Kiosk issues physical confirmation receipt to the citizen while admins monitor distributed status on the portal.",
-        component: "Thermal Receipt Workflow + Admin Dashboard",
-        input: "Completed service transaction & fleet state",
-        output: "Printed token receipt + live fleet control plane UI"
+        title: "QR Tracking & Admin SLA Console",
+        whatHappens: "Citizens scan a generated QR receipt URL (`VITE_APP_URL`) synced via Socket.IO while municipal admins monitor Leaflet maps, SLA countdowns, and alerts.",
+        component: "Socket.IO + Frontend/admin (React 18 + Leaflet)",
+        input: "Tracked ticket ID & SLA state",
+        output: "Real-time citizen status & admin escalation view"
       }
     ],
     groupedTechStack: [
       {
         category: "Frontend",
         items: [
-          { name: "React / Next.js / TypeScript", role: "Citizen kiosk UI and fleet administration portal", why: "Shared typed components supporting high-contrast accessibility and control room tables" }
+          { name: "React 19 / React 18 + TypeScript + Vite", role: "Citizen kiosk SPA (`Frontend/user`), Aria Voice UI, and Admin GIS/Recharts portal (`Frontend/admin`)", why: "Responsive touch kiosk states with i18next localization across 11+ languages" }
         ]
       },
       {
         category: "Backend",
         items: [
-          { name: "Python & FastAPI", role: "Asynchronous heartbeat ingestion and peripheral alert evaluation API", why: "High-concurrency async route handling and automatic OpenAPI validation" }
+          { name: "Node.js + Express + Socket.IO + Razorpay + PDFKit", role: "API monolith/gateway, WAF security middleware, utility billing, PDF receipts & QR live sync", why: "Unifies transactional civic services, payment webhooks, and real-time tracking" },
+          { name: "Python + FastAPI + Scikit-learn", role: "Local ML service for spam/anomaly screening, TF-IDF duplicate matching, routing & forecasting", why: "Keeps NLP triage fast and functional offline without external LLM dependencies" }
         ]
       },
       {
         category: "Database",
         items: [
-          { name: "PostgreSQL (+ SQLite edge buffer spec)", role: "Centralized fleet inventory/uptime state and offline edge checkpoint design", why: "Relational durability centrally paired with lightweight zero-config edge queueing" }
+          { name: "PostgreSQL (`pg` / Supabase) + Redis (`ioredis` / `BullMQ`)", role: "Relational civic records, SHA-256 HMAC audit chain, notification queues & rate-limit cache", why: "Durable relational auditability paired with asynchronous queue processing" }
         ]
       },
       {
         category: "Infrastructure",
         items: [
-          { name: "Docker & Outbound WSS Spec", role: "Containerized services and NAT-safe reverse diagnostic tunnel design", why: "Standardized fleet runtime without exposing inbound kiosk firewall ports" }
+          { name: "Docker + Capacitor + k6 / Prometheus / Grafana", role: "Microservice containers, Android kiosk packaging, and 10-scenario stress-testing suite", why: "Supports both standalone kiosk deployment and load-verified microservice scaling" }
         ]
       }
     ],
-    aiMlDetails: null,
-    aiMlSummaryNote:
-      "Beyond core kiosk telemetry and Express/Prisma persistence, `KANISH-850/aazhi` includes a FastAPI `ai-service` implementing Scikit-learn LinearSVC/IsolationForest spam screening, TF-IDF cosine duplicate detection, department routing, sentiment scoring, and RandomForestRegressor 7-day volume forecasting alongside k6 stress-testing scripts.",
+    aiMlDetails: [
+      {
+        modelName: "FastAPI Civic Intelligence Suite (LinearSVC, IsolationForest, TF-IDF, RandomForest)",
+        problemSolved: "Automated spam/fraud filtering, duplicate complaint clustering, department routing, and workload forecasting.",
+        inputs: "Cleaned complaint text descriptions, extracted keywords, and ward metadata.",
+        preprocessing: "Text cleaning (`clean_text`), keyword extraction, and TF-IDF vectorization.",
+        approach: "Local serialized Scikit-learn models (`custom_spam_classifier.pkl`, `department_router.pkl`) with deterministic keyword fallbacks.",
+        output: "Spam boolean, cosine duplicate percentage, routed department, urgency/sentiment, and SLA forecast.",
+        evaluation: "Documented in `PROJECT_AI_AUDIT_REPORT.md` and `ai-service/README.md`; trained on project-curated civic text datasets rather than live municipal archives.",
+        limitations: "Static `.pkl` models require retraining on real municipal ticket distributions; committed stress-test reports are not pre-populated in `README.md`."
+      }
+    ],
     databaseAndDataFlow: {
-      sources: "Simulated kiosk heartbeat telemetry (CPU, memory, disk, touch/printer/camera states) and citizen service session interactions.",
-      storageModel: "PostgreSQL central fleet state store paired with a local SQLite offline buffer architectural specification at the edge.",
-      processing: "FastAPI ingestion worker validates heartbeat intervals, detects missed pings or peripheral faults, and triggers technician alerts.",
-      apiCommunication: "REST heartbeat endpoints centrally plus proposed outbound-only reverse WebSocket diagnostic tunnel specification.",
-      retrieval: "Fleet administrators inspect regional device status, uptime timelines, and peripheral alert queues.",
-      schemaNote: "Full SQL table migrations reside inside the source repository (`KANISH-850/aazhi`) and are not duplicated verbatim in this portfolio site."
+      sources: "Citizen utility account lookups, Razorpay payment callbacks, multilingual complaints, and Aria voice transcripts.",
+      storageModel: "PostgreSQL (`pg` pool / Supabase) storing citizens, utility accounts, complaints, service requests, workflows, and SHA-256 HMAC-chained audit logs, plus Redis (`ioredis`) queues.",
+      processing: "SecurityEngine WAF -> FastAPI ML triage -> transactional PostgreSQL persistence -> BullMQ/Twilio/SendGrid notification sweep.",
+      apiCommunication: "REST `/api/*` endpoints + Socket.IO real-time events for QR mobile tracking.",
+      retrieval: "Citizens track requests via QR/receipt IDs; admins inspect Leaflet heatmaps, SLA countdowns, and alerts.",
+      schemaNote: "Verified directly from `KANISH-850/aazhi` `PROJECT_DOCUMENTATION.md`, `backend/schema.js`, `backend/config/redisClient.js`, and `backend/package.json` (uses `pg`, not Prisma)."
     },
     contributionBreakdown: {
       mine: [
-        "Built the FastAPI telemetry ingestion service and PostgreSQL fleet status tracking core.",
-        "Implemented React/Next.js fleet monitoring views and accessible kiosk UI components.",
-        "Designed the SQLite offline buffering and outbound reverse WebSocket resilience specification."
+        "78 commits on `KANISH-850/aazhi` (forked from `ajaiselvaraj/aazhi`): built/integrated Aria Voice Assistant (`Voice Module`, `Voice--Modules`), keypad validation, print forms, and admin/alert views.",
+        "Implemented Gas utility consumer fixes, SLA countdown UI, history services, ML/Emergency UI wiring, and QR/Vercel SPA routing fixes (`VITE_APP_URL`)."
       ],
       team: [
-        "Team Oceanberg collaborators contributed to challenge ideation, citizen UI modules, and hardware demo presentation for the C-DAC SUVIDHA Innovation Challenge."
+        "Collaborators `ajaiselvaraj` (223 commits), `LakshanyaaJ` (15), and `Prem-333` (13) authored the upstream Express monolith/microservices gateway, PostgreSQL/Supabase schemas, SHA-256 audit chain, Redis/BullMQ queue infrastructure, FastAPI ML models, and k6 stress-test suite."
       ],
       thirdParty: [
-        "Open-source stack: FastAPI, PostgreSQL, React, Next.js, TypeScript, Docker, Three.js."
+        "Open-source & SDK stack: React, Vite, i18next, Express, pg, ioredis, BullMQ, Socket.IO, FastAPI, Scikit-learn, Razorpay, PDFKit, Capacitor, k6."
       ]
     },
     limitations: [
-      "4-hour connectivity dropout recovery and reverse WSS tunneling were validated in simulated/architectural prototypes rather than municipal field kiosks.",
-      "TimescaleDB 1,000+ device concurrency benchmarking and Ed25519 signed OTA verification remain future engineering tasks."
+      "Forked collaborative team repository (`ajaiselvaraj/aazhi` upstream); backend microservice infrastructure, `pg` schemas, and ML model training were primarily authored by teammates while Kanish led kiosk frontend, voice, billing/admin, and integration modules.",
+      "Pre-executed k6 stress-test HTML/JSON summaries and live municipal deployment metrics are not committed to the public repo."
     ],
     verificationChecklist: [
       { claim: "C-DAC SUVIDHA Innovation Challenge National Runner-up (Team Oceanberg)", status: "Verified result" },
-      { claim: "FastAPI telemetry backend, PostgreSQL fleet state & accessible kiosk UI", status: "Verified implementation" },
+      { claim: "React 19/18 kiosk & admin portals, Express (pg + ioredis/BullMQ + Socket.IO), Razorpay & FastAPI ML service in KANISH-850/aazhi", status: "Verified implementation" },
+      { claim: "Kanish's 78 fork commits: Voice Module, Gas/Print/Admin/Alert/SLA UI & QR tracking fixes", status: "Verified implementation" },
       { claim: "Interactive 3D Smart Kiosk Workflow + Receipt Animation on portfolio", status: "Simulated demonstration" },
-      { claim: "Simulated 4-hour offline buffering test scenario", status: "Simulated demonstration" },
-      { claim: "Outbound reverse WSS broker, mTLS hardware tokens & TimescaleDB scale", status: "Proposed future improvement" },
-      { claim: "Official C-DAC SUVIDHA PS wording / competition score breakdown", status: "Unknown / needs confirmation" }
+      { claim: "Unified CI pipeline & executed k6 benchmark report artifacts", status: "Proposed future improvement" }
     ]
   },
 

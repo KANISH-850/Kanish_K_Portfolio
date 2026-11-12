@@ -20,7 +20,7 @@ export default function AboutMePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030712] text-foreground py-16 px-4 md:px-8 lg:px-24">
+    <div className="min-h-screen bg-[#030712] text-foreground py-16 px-4 md:px-8 lg:px-24 overflow-x-hidden">
       <div className="max-w-4xl mx-auto space-y-20">
         
         {/* Back Link */}
@@ -38,12 +38,12 @@ export default function AboutMePage() {
           transition={{ duration: 0.6 }}
           className="text-center space-y-6"
         >
-          <div className="relative inline-block">
-            <Quote className="absolute -top-6 -left-8 w-12 h-12 text-primary/20 rotate-180" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-cyan-300 to-accent font-headline">
+          <div className="relative inline-block max-w-full">
+            <Quote className="hidden sm:block absolute -top-6 -left-8 w-12 h-12 text-primary/20 rotate-180" />
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight bg-clip-text text-transparent bg-gradient-to-r from-primary via-cyan-300 to-accent font-headline">
               Building intelligent systems that solve real-world problems through AI and machine learning.
             </h1>
-            <Quote className="absolute -bottom-8 -right-8 w-12 h-12 text-primary/20" />
+            <Quote className="hidden sm:block absolute -bottom-8 -right-8 w-12 h-12 text-primary/20" />
           </div>
           <p className="text-sm font-mono text-cyan-400 uppercase tracking-widest">
             AI Engineer &bull; Applied Machine Learning &bull; Backend Systems &bull; Python &amp; TypeScript
@@ -96,7 +96,7 @@ export default function AboutMePage() {
             </div>
             <h3 className="text-xl font-bold text-white">Machine Learning Philosophy</h3>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Models must solve genuine physical constraints. I prioritize specialized, calibrated models (such as INT8 quantized transformers and domain-trained autoencoders) targeting low-latency (~50ms) inference over opaque monolithic black boxes.
+              Models must be grounded in empirical validation rather than opaque promises. I focus on calibrated, inspectable models (such as Random Forest, One-Class SVM, XGBoost, TF-IDF routers, and lightweight MobileNetV3-Small) paired with held-out error analysis and human review gates.
             </p>
           </motion.div>
 
